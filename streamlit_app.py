@@ -11,7 +11,11 @@ with st.expander('Данные для загрузки'):
 
   if df:
     df = pd.read_excel(df)
-    
     df
-
+    
+with st.expander('Подготовка датасета'):
+  if df:
+    df
+  else:
+    st.write('Зыгрузите файл во вкладке "Данные для загрузки"')
 
