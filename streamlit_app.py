@@ -38,9 +38,12 @@ with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:
     k_means_start_button = st.button("Начать кластеризацию")
     if k_means_start_button:
-      k_means_cluster_quan = st.text_input("Введите количество кластеров")
+      try:
+        k_means_cluster_quan = int(st.text_input("Введите количество кластеров"))
+      except:
+        st.wrie("Количество должно быть числом")
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
-
+    
 
 
