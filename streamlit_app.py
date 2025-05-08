@@ -35,22 +35,10 @@ with st.expander('Подготовка датасета'):
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
 
 with st.expander('Кластеризация методом k-means++'):
-  if unploaded_file:
-    # k_means_start_button = st.button("Начать кластеризацию")
-    # if k_means_start_button:
-        # k_means_cluster_quan = st.text_input("Введите количество кластеров")
-        # if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
-        #   st.write("Количество должно быть числом")
-   
+  if unploaded_file:   
       t = st.text_input("Enter some text 👇")
       if t:
         st.write("Количество должно быть числом", t)
-
-# if t != "":
-#     text_input_container.empty()
-#     st.info(t)
-        
-          
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
     
