@@ -5,7 +5,7 @@ st.title('🖥Кластеризация данных на основе табл
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
-df = pd.read_csv(https://github.com/dataprofessor/data/blob/master/penguins_cleaned.csv)
+df = pd.read_csv("https://github.com/dataprofessor/data/blob/master/penguins_cleaned.csv")
 df
 
 
