@@ -34,10 +34,7 @@ with st.expander('Подготовка датасета'):
 
 with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:
-      if col_numbers and col_index_numerical and col_index_categorical:
-        st.write('Зыгрузите')
-      else:
-        st.write('Выберите параметры подготовки датасета во вкладке "Подготовка датасета"')
+    st.write('lalala')
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
 
