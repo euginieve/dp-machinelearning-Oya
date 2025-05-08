@@ -9,7 +9,7 @@ with st.expander('Данные для загрузки'):
 
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
 
-  if df:
+  if unploaded_file:
     df = pd.read_excel(unploaded_file)
     df
     
