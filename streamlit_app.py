@@ -16,7 +16,7 @@ with st.expander('Данные для загрузки'):
 with st.expander('Подготовка датасета'):
   if unploaded_file:
     st.header("Введите параметры подготовки данных")
-    col_numbers = [i for i in range (df.shape[1]+1)]
+    col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
     col_index = st.selectbox("Выберите номер колонки, которую желаете сделать индексом", col_numbers)
     
   else:
