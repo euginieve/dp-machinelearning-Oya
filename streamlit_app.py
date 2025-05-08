@@ -40,6 +40,7 @@ with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:   
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
       if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
+        
         st.write("Количество должно быть числом")
         
 
@@ -55,6 +56,7 @@ with st.expander('Кластеризация методом k-means++'):
         except Exception as e:
           print(f"Ошибка при кластеризации: {e}")
           return None
+          
     k_means_plus_plus(df, k_means_cluster_quan)
     
   else:
