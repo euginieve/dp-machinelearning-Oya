@@ -7,14 +7,14 @@ st.info("Это веб-приложение для кластеризации в
 
 with st.expander('Данные для загрузки'):
 
-  df = st.file_uploader(label="Загрузите свой файл")
+  unploaded_file = st.file_uploader(label="Загрузите свой файл")
 
   if df:
-    df = pd.read_excel(df)
+    df = pd.read_excel(unploaded_file)
     df
     
 with st.expander('Подготовка датасета'):
-  if df:
+  if unploaded_file:
     df
   else:
     st.write('Зыгрузите файл во вкладке "Данные для загрузки"')
