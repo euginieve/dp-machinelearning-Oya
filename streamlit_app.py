@@ -44,10 +44,6 @@ with st.expander('Кластеризация методом k-means++'):
         
 
       def k_means_plus_plus(df, quan_of_clusters):
-    """
-    функция для проведения кластеризации методом k-means++, принимает на вход два параметра:
-    таблицу (дата-фрейм) и количество кластеров, на которые нужно разбить объекты в таблице.
-    """
         try:
           scaler = StandardScaler()
           scaled_df = scaler.fit_transform(df)
@@ -59,7 +55,7 @@ with st.expander('Кластеризация методом k-means++'):
         except Exception as e:
           print(f"Ошибка при кластеризации: {e}")
           return None
-    k_means_plus_plus(df, k_means_cluster_quan)
+    `k_means_plus_plus(df, k_means_cluster_quan)
     
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
