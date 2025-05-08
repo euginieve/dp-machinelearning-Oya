@@ -42,7 +42,12 @@ with st.expander('Кластеризация методом k-means++'):
         # if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
         #   st.write("Количество должно быть числом")
       text_input_container = st.empty()
-      t = text_input_container.text_input("Enter something")
+      t = st.text_input(
+        "Enter some text 👇",
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+        placeholder=st.session_state.placeholder,
+    )
       if t and not t.isdigit():
         st.write("Количество должно быть числом")
 
