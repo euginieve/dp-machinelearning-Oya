@@ -54,7 +54,7 @@ with st.expander('Кластеризация методом k-means++'):
           return df
                          
         except Exception as e:
-          st.write("Ошибка при кластеризации")
+          st.write(f"Ошибка при кластеризации {e}")
           return None
           
       k_means_plus_plus(df, k_means_cluster_quan)
