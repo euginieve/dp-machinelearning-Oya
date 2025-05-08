@@ -44,12 +44,12 @@ with st.expander('Кластеризация методом k-means++'):
       text_input_container = st.empty()
       t = st.text_input(
         "Enter some text 👇",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,
+        # label_visibility=st.session_state.visibility,
+        # disabled=st.session_state.disabled,
+        # placeholder=st.session_state.placeholder,
     )
-      if t and not t.isdigit():
-        st.write("Количество должно быть числом")
+      if t:
+        st.write("Количество должно быть числом", t)
 
 # if t != "":
 #     text_input_container.empty()
