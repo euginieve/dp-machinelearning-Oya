@@ -38,9 +38,17 @@ with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:
     k_means_start_button = st.button("Начать кластеризацию")
     if k_means_start_button:
-        k_means_cluster_quan = st.text_input("Введите количество кластеров")
-        if k_means_cluster_quan and !(k_means_cluster_quan.isdigit()):
-          st.write("Количество должно быть числом")
+        # k_means_cluster_quan = st.text_input("Введите количество кластеров")
+        # if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
+        #   st.write("Количество должно быть числом")
+      text_input_container = st.empty()
+      t = text_input_container.text_input("Enter something")
+      if t and not t.isdigit():
+        st.write("Количество должно быть числом")
+
+if t != "":
+    text_input_container.empty()
+    st.info(t)
         
           
   else:
