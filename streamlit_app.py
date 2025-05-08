@@ -46,9 +46,9 @@ with st.expander('Кластеризация методом k-means++'):
       if t and not t.isdigit():
         st.write("Количество должно быть числом")
 
-if t != "":
-    text_input_container.empty()
-    st.info(t)
+# if t != "":
+#     text_input_container.empty()
+#     st.info(t)
         
           
   else:
