@@ -57,7 +57,8 @@ with st.expander('Кластеризация методом k-means++'):
           st.write(f"Ошибка при кластеризации {e}")
           return None
       if k_means_cluster_quan and k_means_cluster_quan.isdigit(): 
-        k_means_plus_plus(df, int(k_means_cluster_quan))
+        df = k_means_plus_plus(df, int(k_means_cluster_quan))
+        df
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
     
