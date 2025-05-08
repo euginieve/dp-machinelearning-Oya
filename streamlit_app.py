@@ -8,7 +8,7 @@ st.info("Это веб-приложение для кластеризации в
 df = st.file_uploader(label="Загрузите свой файл")
 
 if df:
-  df = pd.read_csv(df)
+  df = pd.read_excel(df)
   df
 
 
