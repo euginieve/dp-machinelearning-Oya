@@ -39,6 +39,24 @@ with st.expander('Кластеризация методом k-means++'):
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
       if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
         st.write("Количество должно быть числом")
+
+      def k_means_plus_plus(df, quan_of_clusters):
+    """
+    функция для проведения кластеризации методом k-means++, принимает на вход два параметра:
+    таблицу (дата-фрейм) и количество кластеров, на которые нужно разбить объекты в таблице.
+    """
+    try:
+        scaler = StandardScaler()
+        scaled_df = scaler.fit_transform(df)
+        model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
+        cluster_labels = model.fit_predict(scaled_df)
+        df["Номер кластера"] = cluster_labels
+        return df
+                       
+    except Exception as e:
+        print(f"Ошибка при кластеризации: {e}")
+        return None
+    df
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
     
