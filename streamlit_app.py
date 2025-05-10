@@ -18,10 +18,12 @@ with st.expander('Данные для загрузки'):
     if col_index_change:
       if col_index_change == "В датасете нет колонки для индекса":
         df = pd.read_excel(unploaded_file)
+        df
       else:
         df = pd.read_excel(unploaded_file, index_col = 0)
+        df
 
-      df
+      
     # df = pd.read_excel(unploaded_file)
     # # df
     # col_titles = df.columns.values.tolist()
