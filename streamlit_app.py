@@ -12,18 +12,28 @@ with st.expander('Данные для загрузки'):
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
 
   if unploaded_file:
-    df = pd.read_excel(unploaded_file)
+    col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
+    col_index_change = st.selectbox("Выберите номер колонки, которую желаете сделать индексом", ["В датасете нет колонки для индекса",
+                                                                                         "Индексом датасета является первый столбец"])
+    if col_index_change:
+      if col_index_change == "В датасете нет колонки для индекса":
+        df = pd.read_excel(unploaded_file)
+      else:
+        df = pd.read_excel(unploaded_file, index_col = 0)
+
+      df
+    # df = pd.read_excel(unploaded_file)
+    # # df
+    # col_titles = df.columns.values.tolist()
+    # df.set_index(col_titles[1])
+    # # col_titles
     # df
-    col_titles = df.columns.values.tolist()
-    df.set_index(col_titles[1])
-    # col_titles
-    df
     
 with st.expander('Подготовка датасета'):
   if unploaded_file:
     st.header("Введите параметры подготовки данных")
-    col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
-    col_index = st.selectbox("Выберите номер колонки, которую желаете сделать индексом", col_numbers)
+    # col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
+    # col_index = st.selectbox("Выберите номер колонки, которую желаете сделать индексом", col_numbers)
     # if col_index != "В датасете нет колонки для индекса":
     #   col_titles = df.columns.values.tolist()
     #   df.set_index[]
