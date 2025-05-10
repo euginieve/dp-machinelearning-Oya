@@ -15,7 +15,9 @@ with st.expander('Данные для загрузки'):
     df = pd.read_excel(unploaded_file)
     # df
     col_titles = df.columns.values.tolist()
-    col_titles
+    df.set_index[col_titles[0]]
+    # col_titles
+    df
     
 with st.expander('Подготовка датасета'):
   if unploaded_file:
