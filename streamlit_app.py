@@ -66,10 +66,10 @@ with st.expander('Кластеризация методом k-means++'):
               model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
               model.fit(scaled_df)
               ssd.append(model.inertia_)
-          
           plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
           plt.title("График локтя")
-          return st.pyplot(plt)
+          st.pyplot(plt)
+          return None
     
         except Exception as e:
             st.write(f"Ошибка при использовании метода: {e}")
