@@ -51,9 +51,9 @@ with st.expander('Подготовка датасета'):
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
 
 with st.expander('Кластеризация методом k-means++'):
-  elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего проедставления о необходимом количестве кластеров?", ("Нет", "Да"))
+  elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"))
   if elbow_method_need == "Да":
-    clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (2,df.shape[0]+1)])
+    clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (2,df.shape[1]+1)])
     
     def elbow_method(df, max_clusters_quan):
       try:              
