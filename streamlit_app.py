@@ -51,26 +51,16 @@ with st.expander('Подготовка датасета'):
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
 
 with st.expander('Кластеризация методом k-means++'):
-  elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего проедставления о необходимом количестве кластеров?", ("Да", "Нет"))
+  elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего проедставления о необходимом количестве кластеров?", ("Нет", "Да"))
   if elbow_method_need == "Да":
-    clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (1,df.shape[1]+1)])
+    clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (2,df.shape[0]+1)])
     
     def elbow_method(df, max_clusters_quan):
-      try:
-          if max_clusters_quan > len(df):
-              print("Указанное максимальное количество кластеров превышает длину таблицы. Укажите меньшее количество.")
-              return None
-          if max_clusters_quan < 2:
-              print("Указанное максимальное число кластеров меньше двух и, следовательно, не имеет смысла. Уквжите число кластеров большее или равное двум.")
-              return None
-          if max_clusters_quan != int(max_clusters_quan):
-              print("Максимальное количество кластеров должно быть целым числом.")
-              return None
-              
+      try:              
           ssd = []
           scaler = StandardScaler()
           scaled_df = scaler.fit_transform(df)
-          for quan_of_clusters in range(2, max_clusters_quan+1):
+          for quan_of_clusters in range(1, max_clusters_quan+1):
               model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
               model.fit(scaled_df)
               ssd.append(model.inertia_)
