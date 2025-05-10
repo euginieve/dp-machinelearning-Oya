@@ -74,7 +74,7 @@ with st.expander('Кластеризация методом k-means++'):
         # Set x-axis to only display integers
         ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
-        return st.pyplot(plt)
+        return st.pyplot(plt, random_state=1)
         
       elbow_method(df,clusters_quan_elbow_method)    
   
