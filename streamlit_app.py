@@ -13,7 +13,8 @@ with st.expander('Данные для загрузки'):
 
   if unploaded_file:
     df = pd.read_excel(unploaded_file)
-    df
+    # df
+    df.columns.values.tolist()
     
 with st.expander('Подготовка датасета'):
   if unploaded_file:
