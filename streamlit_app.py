@@ -52,6 +52,7 @@ with st.expander('Подготовка датасета'):
 with st.expander('Кластеризация методом k-means++'):
   elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего проедставления о необходимом количестве кластеров?", ("Да", "Нет"))
   if elbow_method_need == "Да":
+    clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (1,df.shape[1]+1)])
     def elbow_method(df, max_clusters_quan):
     
       try:
@@ -59,7 +60,7 @@ with st.expander('Кластеризация методом k-means++'):
               print("Указанное максимальное количество кластеров превышает длину таблицы. Укажите меньшее количество.")
               return None
           if max_clusters_quan < 2:
-              print("Указанное максимальное число кластеров меньше двух и, следовательно, не имеет смысла. Уквжите число кластеров юольшее или равное двум.")
+              print("Указанное максимальное число кластеров меньше двух и, следовательно, не имеет смысла. Уквжите число кластеров большее или равное двум.")
               return None
           if max_clusters_quan != int(max_clusters_quan):
               print("Максимальное количество кластеров должно быть целым числом.")
@@ -76,10 +77,14 @@ with st.expander('Кластеризация методом k-means++'):
           plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
           plt.title("График локтя")
           return None
-      
+  
       except Exception as e:
           pst.write(f"Ошибка при использовании метода: {e}")
           return None
+        
+    elbow_method(df,clusters_quan_elbow_method)    
+
+  
       
   if unploaded_file:   
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
