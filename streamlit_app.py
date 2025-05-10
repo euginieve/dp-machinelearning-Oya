@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 
 st.title('💻 Кластеризация данных на основе таблиц в эксель-файлах')
 
