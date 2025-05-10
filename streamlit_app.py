@@ -79,7 +79,7 @@ with st.expander('Кластеризация методом k-means++'):
           return None
   
       except Exception as e:
-          pst.write(f"Ошибка при использовании метода: {e}")
+          st.write(f"Ошибка при использовании метода: {e}")
           return None
         
     elbow_method(df,clusters_quan_elbow_method)    
