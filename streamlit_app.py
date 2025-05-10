@@ -15,7 +15,7 @@ with st.expander('Данные для загрузки'):
     df = pd.read_excel(unploaded_file)
     # df
     col_titles = df.columns.values.tolist()
-    df.set_index[col_titles[0]]
+    df.set_index(col_titles[0])
     # col_titles
     df
     
