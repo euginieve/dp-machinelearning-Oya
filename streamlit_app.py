@@ -54,32 +54,32 @@ with st.expander('Кластеризация методом k-means++'):
   if elbow_method_need == "Да":
     def elbow_method(df, max_clusters_quan):
     
-    try:
-        if max_clusters_quan > len(df):
-            print("Указанное максимальное количество кластеров превышает длину таблицы. Укажите меньшее количество.")
-            return None
-        if max_clusters_quan < 2:
-            print("Указанное максимальное число кластеров меньше двух и, следовательно, не имеет смысла. Уквжите число кластеров юольшее или равное двум.")
-            return None
-        if max_clusters_quan != int(max_clusters_quan):
-            print("Максимальное количество кластеров должно быть целым числом.")
-            return None
-            
-        ssd = []
-        scaler = StandardScaler()
-        scaled_df = scaler.fit_transform(df)
-        for quan_of_clusters in range(2, max_clusters_quan+1):
-            model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
-            model.fit(scaled_df)
-            ssd.append(model.inertia_)
-        
-        plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
-        plt.title("График локтя")
-        return None
-    
-    except Exception as e:
-        pst.write(f"Ошибка при использовании метода: {e}")
-        return None
+      try:
+          if max_clusters_quan > len(df):
+              print("Указанное максимальное количество кластеров превышает длину таблицы. Укажите меньшее количество.")
+              return None
+          if max_clusters_quan < 2:
+              print("Указанное максимальное число кластеров меньше двух и, следовательно, не имеет смысла. Уквжите число кластеров юольшее или равное двум.")
+              return None
+          if max_clusters_quan != int(max_clusters_quan):
+              print("Максимальное количество кластеров должно быть целым числом.")
+              return None
+              
+          ssd = []
+          scaler = StandardScaler()
+          scaled_df = scaler.fit_transform(df)
+          for quan_of_clusters in range(2, max_clusters_quan+1):
+              model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
+              model.fit(scaled_df)
+              ssd.append(model.inertia_)
+          
+          plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
+          plt.title("График локтя")
+          return None
+      
+      except Exception as e:
+          pst.write(f"Ошибка при использовании метода: {e}")
+          return None
       
   if unploaded_file:   
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
