@@ -12,7 +12,7 @@ with st.expander('Данные для загрузки'):
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
 
   if unploaded_file:
-    df = pd.read_excel(unploaded_file, index_col=0)
+    df = pd.read_excel(unploaded_file)
     df
     
 with st.expander('Подготовка датасета'):
@@ -20,7 +20,9 @@ with st.expander('Подготовка датасета'):
     st.header("Введите параметры подготовки данных")
     col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
     col_index = st.selectbox("Выберите номер колонки, которую желаете сделать индексом", col_numbers)
-    # if col_index == "В датасете нет колонки для индекса":
+    # if col_index != "В датасете нет колонки для индекса":
+    #   col_titles = df.columns.values.tolist()
+    #   df.set_index[]
     #   col_index = 0
     col_index_numerical = st.selectbox("Выберите, вариант обработки пустых значений численных переменных", ("Удалять строки, содержащие пустые значения", 
                                                                            "Заменять пустые значения на среднее значение в колонке",
