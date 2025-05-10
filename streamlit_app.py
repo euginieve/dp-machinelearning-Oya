@@ -63,7 +63,7 @@ with st.expander('Кластеризация методом k-means++'):
         scaler = StandardScaler()
         scaled_df = scaler.fit_transform(df)
         for quan_of_clusters in range(2, max_clusters_quan+1):
-            model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
+            model = KMeans(n_clusters = quan_of_clusters, init = "k-means++", random_state=1)
             model.fit(scaled_df)
             ssd.append(model.inertia_)
         plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
@@ -76,7 +76,7 @@ with st.expander('Кластеризация методом k-means++'):
         
         return st.pyplot(plt)
         
-      elbow_method(df,clusters_quan_elbow_method, random_state=1)    
+      elbow_method(df,clusters_quan_elbow_method)    
   
     k_means_cluster_quan = st.text_input("Введите количество кластеров")
     if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
