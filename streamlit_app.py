@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 
 st.title('💻 Кластеризация данных на основе таблиц в эксель-файлах')
 
@@ -67,6 +68,12 @@ with st.expander('Кластеризация методом k-means++'):
             ssd.append(model.inertia_)
         plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
         plt.title("График локтя")
+        # Get the current axes
+        ax = plt.gca()
+
+        # Set x-axis to only display integers
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+        
         return st.pyplot(plt)
         
       elbow_method(df,clusters_quan_elbow_method)    
