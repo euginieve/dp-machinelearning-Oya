@@ -12,7 +12,7 @@ with st.expander('Данные для загрузки'):
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
 
   if unploaded_file:
-    col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
+    # col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
     col_index_change = st.selectbox("Выберите номер колонки, которую желаете сделать индексом", ["В датасете нет колонки для индекса",
                                                                                          "Индексом датасета является первый столбец"])
     if col_index_change:
