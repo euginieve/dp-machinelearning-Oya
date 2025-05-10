@@ -77,6 +77,7 @@ with st.expander('Кластеризация методом k-means++'):
           
           plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
           plt.title("График локтя")
+          st.pyplot(plt)
           return None
   
       except Exception as e:
