@@ -156,7 +156,7 @@ with st.expander('Кластеризация методом k-means++'):
             # Close the Pandas Excel writer and output the Excel file to the buffer
             writer.close()
         
-            st.download_button_k_means(
+            st.download_button(
                 label="Загрузить датафрейм в эксель-файл",
                 data=buffer,
                 file_name="dataframe_k_means.xlsx",
