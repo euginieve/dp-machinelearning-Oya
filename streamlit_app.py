@@ -154,7 +154,7 @@ with st.expander('Кластеризация методом k-means++'):
             st.download_button(
                 label="Загрузить датафрейм в эксель-файл",
                 data=buffer,
-                file_name="dataframe_k_means.xlsx",
+                file_name="dataframe_k_means_algorithm.xlsx",
                 mime="application/vnd.ms-excel"
             )
 
@@ -167,7 +167,45 @@ with st.expander('Кластеризация методом k-means++'):
     
 with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
-    st.write("Я здеся!")
+    if df.shape[0]>=3:
+      st.write("Я здеся!")
+      if df.shape[0]<=100:
+        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+      else:
+        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
+        
+      def hierarchy_clusterisation(df, quan_of_clusters):
+        scaler = MinMaxScaler()
+        scaled_data = scaler.fit_transform(df)
+        scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
+        model = AgglomerativeClustering(quan_of_clusters)
+        cluster_labels = model.fit_predict(scaled_df)
+        df["Номер кластера"] = cluster_labels
+        st.session_state["current_df"] = df
+        return df
+
+      if hierarchy_cluster_quan!="Не выбрано": 
+        df = hierarchy_clusterisation(df, hierarchy_cluster_quan)
+        st.session_state["current_df"]
+      # Create a Pandas Excel writer using XlsxWriter as the engine.
+        buffer = io.BytesIO()
+        
+        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            # Write each dataframe to a different worksheet.
+            st.session_state["current_df"].to_excel(writer, sheet_name='k_means')
+        
+            # Close the Pandas Excel writer and output the Excel file to the buffer
+            writer.close()
+        
+            st.download_button(
+                label="Загрузить датафрейм в эксель-файл",
+                data=buffer,
+                file_name="dataframe_hierarchy_algorithm.xlsx",
+                mime="application/vnd.ms-excel"
+            )
+      
+    else:
+      st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
   # if unploaded_file:
