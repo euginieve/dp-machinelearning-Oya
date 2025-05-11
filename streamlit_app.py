@@ -166,6 +166,7 @@ with st.expander('Кластеризация методом k-means++'):
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
     
 with st.expander('Иерархическая кластеризация'):    
+  st.write("Я здеся!")
   # if unploaded_file:
   #   if df.shape[0]>=3:
     
