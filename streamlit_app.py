@@ -62,22 +62,13 @@ with st.expander('Подготовка датасета'):
 # myplot = None
 
 
-
-
-
-
-
-
 with st.expander('Кластеризация методом k-means++'):
       
   if unploaded_file:
     if df.shape[0]>=3:
-      elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"))
-      if elbow_method_need=="Нет":
-        st.session_state["elbow_method_need_state"] = False
-      else:
-        st.session_state["elbow_method_need_state"] = True
-      if st.session_state["elbow_method_need_state"]:
+      elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
+      
+      if elbow_method_need=="Да":
         
         if df.shape[0]<=100:
           clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], key = "clusters_quan_elbow_method_key")
@@ -169,6 +160,25 @@ with st.expander('Иерархическая кластеризация'):
   if unploaded_file:
     if df.shape[0]>=3:
       st.write("Я здеся!")
+
+      def hierarchy_dendrogram(df, level=31):
+        scaler = MinMaxScaler()
+        scaled_data = scaler.fit_transform(df)
+        scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
+        linkage_matrix = hierarchy.linkage(scaled_df.values, method="ward")
+        plt.figure(figsize=(20,10), dpi=200)
+        plt.title(label="Дендрограмма", fontsize=30)
+        dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
+        st.pyplot()
+        return None
+
+      dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
+      
+      if dendrogram_need=="Да":
+        hierarchy_dendrogram(df)
+        
+   
+      
       if df.shape[0]<=100:
         hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, df.shape[0]+1)], key="clusters_quan_hierarchy")
         # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], )
