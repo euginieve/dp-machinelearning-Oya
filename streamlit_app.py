@@ -118,6 +118,8 @@ with st.expander('Кластеризация методом k-means++'):
           if elbow_method_button:
             elbow_method(df, clusters_quan_elbow_method)
 
+      st.write("Почему ничего не меняется???")
+
       if df.shape[0]<=100:
         k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
       else:
@@ -158,7 +160,7 @@ with st.expander('Кластеризация методом k-means++'):
                 mime="application/vnd.ms-excel"
             )
 
-    st.write("Почему ничего не меняется???")
+    
             
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
