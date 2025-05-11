@@ -123,9 +123,6 @@ with st.expander('Кластеризация методом k-means++'):
       else:
         k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
     
-      # k_means_cluster_quan = st.text_input("Введите количество кластеров")
-      # if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
-      #     st.write("Количество должно быть числом")
           
       def k_means_plus_plus(df, quan_of_clusters):
         try:
