@@ -177,7 +177,9 @@ with st.expander('Иерархическая кластеризация'):
         
         # Plot dendrogram on the provided axis
         dendrogram(linkage_matrix, truncate_mode="level", p=level-1, ax=ax)
-        return [y[1] for y in dendrogram['dcoord']]
+        st.write([y[1] for y in dendrogram['dcoord']])
+        
+        # return [y[1] for y in dendrogram['dcoord']]
         
         
         # Display the figure in Streamlit
@@ -188,7 +190,7 @@ with st.expander('Иерархическая кластеризация'):
         # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
         # fig, ax = plt.subplots()
         # st.pyplot(fig)
-        # return None
+        return None
 
       dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
       
