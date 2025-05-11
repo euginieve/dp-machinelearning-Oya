@@ -52,7 +52,8 @@ with st.expander('Подготовка датасета'):
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
 
-st.session_state["elbow_method_plot"] = None
+# st.session_state["elbow_method_plot"] = None
+myplot = None
 
 with st.expander('Кластеризация методом k-means++'):
       
@@ -92,7 +93,7 @@ with st.expander('Кластеризация методом k-means++'):
 
         # st.session_state["elbow_method_button_clicked"] 
         def click_button():
-          st.session_state["elbow_method_plot"] = elbow_method(df, clusters_quan_elbow_method)
+          myplot = elbow_method(df, clusters_quan_elbow_method)
         #   st.session_state["elbow_method_button_clicked"] = True
           # elbow_method(df, clusters_quan_elbow_method)
         
@@ -100,8 +101,9 @@ with st.expander('Кластеризация методом k-means++'):
           elbow_method_button = st.button("Построить график локтя", on_click=click_button)
 
         if elbow_method_button:
-          st.session_state["elbow_method_plot"]
-          
+          # elbow_method(df, clusters_quan_elbow_method)
+          # st.session_state["elbow_method_plot"]
+          myplot
           
         
         # if st.session_state["elbow_method_button_clicked"]:
