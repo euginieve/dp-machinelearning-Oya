@@ -117,21 +117,21 @@ with st.expander('Кластеризация методом k-means++'):
         df
 
       # Create a Pandas Excel writer using XlsxWriter as the engine.
-      buffer = io.BytesIO()
-      
-      with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-          # Write each dataframe to a different worksheet.
-          df.to_excel(writer, sheet_name='k_means')
-      
-          # Close the Pandas Excel writer and output the Excel file to the buffer
-          writer.close()
-      
-          st.download_button(
-              label="Download Excel worksheets",
-              data=buffer,
-              file_name="dataframe_k_means.xlsx",
-              mime="application/vnd.ms-excel"
-          )
+        buffer = io.BytesIO()
+        
+        with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+            # Write each dataframe to a different worksheet.
+            df.to_excel(writer, sheet_name='k_means')
+        
+            # Close the Pandas Excel writer and output the Excel file to the buffer
+            writer.close()
+        
+            st.download_button(
+                label="Download Excel worksheets",
+                data=buffer,
+                file_name="dataframe_k_means.xlsx",
+                mime="application/vnd.ms-excel"
+            )
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
