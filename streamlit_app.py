@@ -170,7 +170,7 @@ with st.expander('Иерархическая кластеризация'):
         plt.figure(figsize=(20,10), dpi=200)
         plt.title(label="Дендрограмма", fontsize=30)
         dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
-        st.pyplot(dendro)
+        st.pyplot()
         
         # plt.figure(figsize=(20,10), dpi=200)
         # plt.title(label="Дендрограмма", fontsize=30)
