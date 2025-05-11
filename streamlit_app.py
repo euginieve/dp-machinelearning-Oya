@@ -95,7 +95,7 @@ with st.expander('Кластеризация методом k-means++'):
           ax = plt.gca()
           # Set x-axis to only display integers
           ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-          st.session_state["elbow_plot"] = st.pyplot(plt)
+          # st.session_state["elbow_plot"] = st.pyplot(plt)
           return st.pyplot(plt)
 
 
@@ -113,9 +113,9 @@ with st.expander('Кластеризация методом k-means++'):
             # elbow_method(df, clusters_quan_elbow_method)
             # st.session_state["elbow_method_plot"]
             # myplot
-            # elbow_method(df, clusters_quan_elbow_method)
-            myplot = elbow_method(df, clusters_quan_elbow_method)
-            st.session_state["elbow_plot"]
+            elbow_method(df, clusters_quan_elbow_method)
+            # myplot = elbow_method(df, clusters_quan_elbow_method)
+            # st.session_state["elbow_plot"]
           
         
         # if st.session_state["elbow_method_button_clicked"]:
