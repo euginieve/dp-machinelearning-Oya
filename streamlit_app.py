@@ -12,7 +12,6 @@ from scipy.cluster.hierarchy import dendrogram
 from scipy.cluster import hierarchy
 import matplotlib.pyplot as plt
 
-st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title('💻 Кластеризация на основе файлов эксель')
 
