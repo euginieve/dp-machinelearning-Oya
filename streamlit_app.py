@@ -61,8 +61,8 @@ with st.expander('Кластеризация методом k-means++'):
         
         if df.shape[0]<=100:
           clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
-        else:
-          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,100)])
+        # else:
+        #   clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,100)])
     
         def elbow_method(df, max_clusters_quan):    
           # st.session_state.clicked = True
