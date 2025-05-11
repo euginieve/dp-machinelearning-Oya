@@ -170,9 +170,10 @@ with st.expander('Иерархическая кластеризация'):
     if df.shape[0]>=3:
       st.write("Я здеся!")
       if df.shape[0]<=100:
-        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, df.shape[0]+1)])
+        # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
       else:
-        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
+        # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
         
       def hierarchy_clusterisation(df, quan_of_clusters):
         scaler = MinMaxScaler()
