@@ -120,7 +120,7 @@ with st.expander('Кластеризация методом k-means++'):
         
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
             # Write each dataframe to a different worksheet.
-            dst.session_state["current_df"].to_excel(writer, sheet_name='k_means')
+            st.session_state["current_df"].to_excel(writer, sheet_name='k_means')
         
             # Close the Pandas Excel writer and output the Excel file to the buffer
             writer.close()
