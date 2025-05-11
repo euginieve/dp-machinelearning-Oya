@@ -5,3 +5,6 @@ scikit-learn
 openpyxl
 matplotlib
 xlsxwriter
+seaborn
+scipy
+scipy
