@@ -59,10 +59,10 @@ with st.expander('Кластеризация методом k-means++'):
       elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"))
       if elbow_method_need == "Да":
         
-        # if df.shape[0]<=100:
-          # clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
-        # else:
-        #   clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,100)])
+        if df.shape[0]<=100:
+          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
+        else:
+          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,100)])
     
         def elbow_method(df, max_clusters_quan):    
           # st.session_state.clicked = True
@@ -79,12 +79,12 @@ with st.expander('Кластеризация методом k-means++'):
           ax = plt.gca()
           # Set x-axis to only display integers
           ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-          # st.session_state["elbow_plot"] = st.pyplot(plt)
+          st.session_state["elbow_plot"] = st.pyplot(plt)
           return st.pyplot(plt)
 
         # st.session_state["elbow_method_button_clicked"] 
-        # def click_button():
-          # st.session_state["elbow_method_button_clicked"] = True
+        def click_button():
+          st.session_state["elbow_method_button_clicked"] = True
           # elbow_method(df, clusters_quan_elbow_method)
         
         
@@ -93,7 +93,7 @@ with st.expander('Кластеризация методом k-means++'):
         
         # if st.session_state["elbow_method_button_clicked"]:
         # if elbow_method_button:
-        elbow_method(df,3)
+        elbow_method(df,clusters_quan_elbow_method)
           # st.session_state["elbow_plot"]
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
