@@ -80,9 +80,9 @@ with st.expander('Кластеризация методом k-means++'):
       if st.session_state["elbow_method_need_state"]:
         
         if df.shape[0]<=100:
-          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], key = "clusters_quan_elbow_method_key")
         else:
-          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
+          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key = "clusters_quan_elbow_method_key")
     
         def elbow_method(df, max_clusters_quan):    
           # st.session_state.clicked = True
@@ -119,9 +119,9 @@ with st.expander('Кластеризация методом k-means++'):
             elbow_method(df, clusters_quan_elbow_method)
 
       if df.shape[0]<=100:
-        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], key="clusters_quan_k_plus_plus")
       else:
-        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
+        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_k_plus_plus")
     
           
       def k_means_plus_plus(df, quan_of_clusters):
@@ -170,10 +170,10 @@ with st.expander('Иерархическая кластеризация'):
     if df.shape[0]>=3:
       st.write("Я здеся!")
       if df.shape[0]<=100:
-        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, df.shape[0]+1)])
-        # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+        hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, df.shape[0]+1)], key="clusters_quan_hierarchy")
+        # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], )
       # else:
-        # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
+        # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_hierarchy")
         
       def hierarchy_clusterisation(df, quan_of_clusters):
         scaler = MinMaxScaler()
