@@ -79,7 +79,7 @@ with st.expander('Кластеризация методом k-means++'):
           ax = plt.gca()
           # Set x-axis to only display integers
           ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-          st.session_state["elbow_plot"] = st.pyplot(plt)
+          # st.session_state["elbow_plot"] = st.pyplot(plt)
           return st.pyplot(plt)
 
         # st.session_state["elbow_method_button_clicked"] 
