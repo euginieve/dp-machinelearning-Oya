@@ -58,28 +58,28 @@ with st.expander('Кластеризация методом k-means++'):
     if elbow_method_need == "Да":
       clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (2,df.shape[0]+1)])
 
-      elbow_method_button = st.button("Построить график локтя")
-      if elbow_method_button:
+      elbow_method_button = st.button("Построить график локтя", in_click=elbow_method(df, clusters_quan_elbow_method))
+      # if elbow_method_button:
       
-        def elbow_method(df, max_clusters_quan):     
-          ssd = []
-          scaler = StandardScaler()
-          scaled_df = scaler.fit_transform(df)
-          for quan_of_clusters in range(2, max_clusters_quan+1):
-              model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
-              model.fit(scaled_df)
-              ssd.append(model.inertia_)
-          plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
-          plt.title("График локтя")
-          # Get the current axes
-          ax = plt.gca()
-  
-          # Set x-axis to only display integers
-          ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+      def elbow_method(df, max_clusters_quan):     
+        ssd = []
+        scaler = StandardScaler()
+        scaled_df = scaler.fit_transform(df)
+        for quan_of_clusters in range(2, max_clusters_quan+1):
+            model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
+            model.fit(scaled_df)
+            ssd.append(model.inertia_)
+        plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
+        plt.title("График локтя")
+        # Get the current axes
+        ax = plt.gca()
+
+        # Set x-axis to only display integers
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+        
+        return st.pyplot(plt)
           
-          return st.pyplot(plt)
-          
-        elbow_method(df,clusters_quan_elbow_method)    
+        # elbow_method(df,clusters_quan_elbow_method)    
   
     k_means_cluster_quan = st.text_input("Введите количество кластеров")
     if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
