@@ -88,7 +88,7 @@ with st.expander('Кластеризация методом k-means++'):
           # elbow_method(df, clusters_quan_elbow_method)
         
         
-        elbow_method_button = st.button("Построить график локтя")
+        # elbow_method_button = st.button("Построить график локтя")
   
         
         # if st.session_state["elbow_method_button_clicked"]:
