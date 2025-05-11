@@ -167,6 +167,15 @@ with st.expander('Иерархическая кластеризация'):
         scaled_data = scaler.fit_transform(df)
         scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
         linkage_matrix = hierarchy.linkage(scaled_df.values, method="ward")
+        # Create a figure and axis for the plot
+        fig, ax = plt.subplots(figsize=(20, 10), dpi=200)
+        ax.set_title("Дендрограмма", fontsize=30)
+        
+        # Plot dendrogram on the provided axis
+        dendrogram(linkage_matrix, truncate_mode="level", p=level-1, ax=ax)
+        
+        # Display the figure in Streamlit
+        st.pyplot(fig)
         # plt.figure(figsize=(20,10), dpi=200)
         # plt.title(label="Дендрограмма", fontsize=30)
         # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
@@ -185,11 +194,11 @@ with st.expander('Иерархическая кластеризация'):
         # Display the figure in Streamlit
         # st.pyplot(fig)
         
-        plt.figure(figsize=(20,10), dpi=200)
-        plt.title(label="Дендрограмма", fontsize=30)
-        dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
-        fig, ax = plt.subplots()
-        st.pyplot(fig)
+        # plt.figure(figsize=(20,10), dpi=200)
+        # plt.title(label="Дендрограмма", fontsize=30)
+        # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
+        # fig, ax = plt.subplots()
+        # st.pyplot(fig)
         return None
 
       dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
