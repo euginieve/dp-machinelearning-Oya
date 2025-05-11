@@ -57,7 +57,7 @@ with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:
     if df.shape[0]>=3:
       elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"))
-      while elbow_method_need == "Да":
+      if elbow_method_need == "Да":
         
         # if df.shape[0]<=100:
           # clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
