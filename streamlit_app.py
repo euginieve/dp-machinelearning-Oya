@@ -138,8 +138,8 @@ with st.expander('Кластеризация методом k-means++'):
           st.write(f"Ошибка при кластеризации {e}")
           return None
           
-      if k_means_cluster_quan: 
-        df = k_means_plus_plus(df, int(k_means_cluster_quan))
+      if k_means_cluster_quan!="Не выбрано": 
+        df = k_means_plus_plus(df, k_means_cluster_quan)
         st.session_state["current_df"]
       # Create a Pandas Excel writer using XlsxWriter as the engine.
         buffer = io.BytesIO()
