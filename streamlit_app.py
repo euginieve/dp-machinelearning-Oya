@@ -100,10 +100,10 @@ with st.expander('Кластеризация методом k-means++'):
         if clusters_quan_elbow_method!="Не выбрано":
           elbow_method_button = st.button("Построить график локтя", on_click=click_button)
 
-        if elbow_method_button:
-          # elbow_method(df, clusters_quan_elbow_method)
-          # st.session_state["elbow_method_plot"]
-          myplot
+          if elbow_method_button:
+            # elbow_method(df, clusters_quan_elbow_method)
+            # st.session_state["elbow_method_plot"]
+            myplot
           
         
         # if st.session_state["elbow_method_button_clicked"]:
