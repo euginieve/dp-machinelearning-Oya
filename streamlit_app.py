@@ -79,7 +79,7 @@ with st.expander('Кластеризация методом k-means++'):
           ax = plt.gca()
           # Set x-axis to only display integers
           ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-          
+          st.session_state["elbow_plot"] = st.pyplot(plt)
           return st.pyplot(plt)
   
         def click_button():
@@ -94,7 +94,8 @@ with st.expander('Кластеризация методом k-means++'):
   
         
         if elbow_method_button:
-          elbow_method(df,clusters_quan_elbow_method)    
+          elbow_method(df,clusters_quan_elbow_method)
+          st.session_state["elbow_plot"]
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
       if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
@@ -113,6 +114,7 @@ with st.expander('Кластеризация методом k-means++'):
         except Exception as e:
           st.write(f"Ошибка при кластеризации {e}")
           return None
+          
       if k_means_cluster_quan and k_means_cluster_quan.isdigit(): 
         df = k_means_plus_plus(df, int(k_means_cluster_quan))
         st.session_state["current_df"]
