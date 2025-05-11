@@ -92,7 +92,7 @@ with st.expander('Кластеризация методом k-means++'):
           return st.pyplot(plt)
 
         # st.session_state["elbow_method_button_clicked"] 
-        def click_button():
+        # def click_button():
           # myplot = elbow_method(df, clusters_quan_elbow_method)
         #   st.session_state["elbow_method_button_clicked"] = True
           # elbow_method(df, clusters_quan_elbow_method)
