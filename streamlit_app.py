@@ -171,17 +171,15 @@ with st.expander('Иерархическая кластеризация'):
         # plt.title(label="Дендрограмма", fontsize=30)
         # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
         # st.pyplot()
-        fig, ax = plt.subplots()
+        
         plt.figure(figsize=(20,10), dpi=200)
         plt.title(label="Дендрограмма", fontsize=30)
         dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
+        fig, ax = plt.subplots()
         st.pyplot(fig)
         return None
 
       dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
-
-
-
       
       if dendrogram_need=="Да":
         if df.shape[0]<=100:
