@@ -175,7 +175,7 @@ with st.expander('Иерархическая кластеризация'):
       dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
       
       if dendrogram_need=="Да":
-        hierarchy_dendrogram(df)
+        hierarchy_dendrogram(df, 3)
         
    
       
