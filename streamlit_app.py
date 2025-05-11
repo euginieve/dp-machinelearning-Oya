@@ -177,7 +177,7 @@ with st.expander('Иерархическая кластеризация'):
         
         # Plot dendrogram on the provided axis
         dendrogram(linkage_matrix, truncate_mode="level", p=level-1, ax=ax)
-        return max([y[1] for y in dendrogram['dcoord']])
+        return [y[1] for y in dendrogram['dcoord']]
         
         
         # Display the figure in Streamlit
