@@ -95,7 +95,7 @@ with st.expander('Кластеризация методом k-means++'):
           ax = plt.gca()
           # Set x-axis to only display integers
           ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-          # st.session_state["elbow_plot"] = st.pyplot(plt)
+          st.session_state["elbow_plot"] = st.pyplot(plt)
           return st.pyplot(plt)
 
 
@@ -113,7 +113,9 @@ with st.expander('Кластеризация методом k-means++'):
             # elbow_method(df, clusters_quan_elbow_method)
             # st.session_state["elbow_method_plot"]
             # myplot
-            elbow_method(df, clusters_quan_elbow_method)
+            # elbow_method(df, clusters_quan_elbow_method)
+            myplot = elbow_method(df, clusters_quan_elbow_method)
+            st.session_state["elbow_plot"]
           
         
         # if st.session_state["elbow_method_button_clicked"]:
@@ -154,7 +156,7 @@ with st.expander('Кластеризация методом k-means++'):
             # Close the Pandas Excel writer and output the Excel file to the buffer
             writer.close()
         
-            st.download_button(
+            st.download_button_k_means(
                 label="Загрузить датафрейм в эксель-файл",
                 data=buffer,
                 file_name="dataframe_k_means.xlsx",
