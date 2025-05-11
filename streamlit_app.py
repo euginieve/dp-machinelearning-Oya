@@ -60,9 +60,9 @@ with st.expander('Кластеризация методом k-means++'):
       if elbow_method_need == "Да":
         
         if df.shape[0]<=100:
-          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
+          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
         else:
-          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,100)])
+          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
     
         def elbow_method(df, max_clusters_quan):    
           # st.session_state.clicked = True
@@ -83,8 +83,8 @@ with st.expander('Кластеризация методом k-means++'):
           return st.pyplot(plt)
 
         # st.session_state["elbow_method_button_clicked"] 
-        def click_button():
-          st.session_state["elbow_method_button_clicked"] = True
+        # def click_button():
+        #   st.session_state["elbow_method_button_clicked"] = True
           # elbow_method(df, clusters_quan_elbow_method)
         
         
@@ -93,8 +93,9 @@ with st.expander('Кластеризация методом k-means++'):
         
         # if st.session_state["elbow_method_button_clicked"]:
         # if elbow_method_button:
-        st.session_state["elbow_method_plot"] = elbow_method(df,clusters_quan_elbow_method)
-        st.session_state["elbow_method_plot"]
+        if clusters_quan_elbow_method.isdigit():
+          elbow_method(df,clusters_quan_elbow_method)
+        # st.session_state["elbow_method_plot"]
           # st.session_state["elbow_plot"]
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
