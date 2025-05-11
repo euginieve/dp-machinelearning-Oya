@@ -110,20 +110,7 @@ with st.expander('Кластеризация методом k-means++'):
           elbow_method_button = st.button("Построить график локтя")
 
           if elbow_method_button:
-            # elbow_method(df, clusters_quan_elbow_method)
-            # st.session_state["elbow_method_plot"]
-            # myplot
             elbow_method(df, clusters_quan_elbow_method)
-            # myplot = elbow_method(df, clusters_quan_elbow_method)
-            # st.session_state["elbow_plot"]
-          
-        
-        # if st.session_state["elbow_method_button_clicked"]:
-        # if elbow_method_button:
-        # if str(clusters_quan_elbow_method).isdigit():
-        #   elbow_method(df,clusters_quan_elbow_method)
-        # st.session_state["elbow_method_plot"]
-          # st.session_state["elbow_plot"]
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
       if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
