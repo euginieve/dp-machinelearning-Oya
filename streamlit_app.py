@@ -107,13 +107,14 @@ with st.expander('Кластеризация методом k-means++'):
           model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
           cluster_labels = model.fit_predict(scaled_df)
           df["Номер кластера"] = cluster_labels
+          st.session_state["current_df"] = df
           return df
                          
         except Exception as e:
           st.write(f"Ошибка при кластеризации {e}")
           return None
       if k_means_cluster_quan and k_means_cluster_quan.isdigit(): 
-        df = k_means_plus_plus(df, int(k_means_cluster_quan), key="current_df")
+        df = k_means_plus_plus(df, int(k_means_cluster_quan))
         st.session_state["current_df"]
       # Create a Pandas Excel writer using XlsxWriter as the engine.
         buffer = io.BytesIO()
