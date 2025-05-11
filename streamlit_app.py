@@ -5,6 +5,12 @@ from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import io
+from sklearn.preprocessing import MinMaxScaler
+import seaborn as sns
+from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram
+from scipy.cluster import hierarchy
+import matplotlib.pyplot as plt
 
 st.title('💻 Кластеризация данных на основе таблиц в эксель-файлах')
 
