@@ -70,11 +70,13 @@ with st.expander('Кластеризация методом k-means++'):
           scaler = StandardScaler()
           scaled_df = scaler.fit_transform(df)
           for quan_of_clusters in range(2, max_clusters_quan+1):
-              model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
+              model = KMeans(n_clusters=quan_of_clusters, init="k-means++")
               model.fit(scaled_df)
               ssd.append(model.inertia_)
           plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
           plt.title("График локтя")
+          plt.xlabel("Количество кластеров")
+          plt.ylabel("SSD")
           # Get the current axes
           ax = plt.gca()
           # Set x-axis to only display integers
