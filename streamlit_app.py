@@ -12,7 +12,7 @@ from scipy.cluster.hierarchy import dendrogram
 from scipy.cluster import hierarchy
 import matplotlib.pyplot as plt
 
-st.title('💻 ляляляляляля')
+st.title('💻 Кластеризация на основе файлов эксель')
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
