@@ -4,6 +4,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
+import io
 
 st.title('💻 Кластеризация данных на основе таблиц в эксель-файлах')
 
@@ -116,9 +117,11 @@ with st.expander('Кластеризация методом k-means++'):
         df
 
       # Create a Pandas Excel writer using XlsxWriter as the engine.
+      buffer = io.BytesIO()
+      
       with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
           # Write each dataframe to a different worksheet.
-          df.to_excel(writer, sheet_name='k_means++')
+          df.to_excel(writer, sheet_name='k_means')
       
           # Close the Pandas Excel writer and output the Excel file to the buffer
           writer.save()
