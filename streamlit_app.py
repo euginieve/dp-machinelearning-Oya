@@ -83,7 +83,7 @@ with st.expander('Кластеризация методом k-means++'):
           return st.pyplot(plt)
   
         def click_button():
-          st.session_state.clicked = True
+          st.session_state["elbow_method_button_clicked"] = True
           # elbow_method(df, clusters_quan_elbow_method)
           
         elbow_method_button = st.button("Построить график локтя", on_click=click_button)
@@ -93,9 +93,9 @@ with st.expander('Кластеризация методом k-means++'):
           
   
         
-        if elbow_method_button:
+        if session_state["elbow_method_button_clicked"]:
           elbow_method(df,clusters_quan_elbow_method)
-          st.session_state["elbow_plot"]
+
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
       if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
