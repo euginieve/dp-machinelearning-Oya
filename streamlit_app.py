@@ -124,7 +124,7 @@ with st.expander('Кластеризация методом k-means++'):
           df.to_excel(writer, sheet_name='k_means')
       
           # Close the Pandas Excel writer and output the Excel file to the buffer
-          writer.save()
+          writer.close()
       
           st.download_button(
               label="Download Excel worksheets",
