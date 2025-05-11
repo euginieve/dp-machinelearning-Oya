@@ -172,11 +172,11 @@ with st.expander('Иерархическая кластеризация'):
         # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
         # st.pyplot()
 
-        fig, ax = plt.subplots(figsize=(20, 10), dpi=200)
-        ax.set_title("Дендрограмма", fontsize=30)
+        # fig, ax = plt.subplots(figsize=(20, 10), dpi=200)
+        # ax.set_title("Дендрограмма", fontsize=30)
         
         # Plot dendrogram on the provided axis
-        dendrogram(linkage_matrix, truncate_mode="level", p=level-1, ax=ax)
+        # dendrogram(linkage_matrix, truncate_mode="level", p=level-1, ax=ax)
         # st.write([y[1] for y in dendrogram('dcoord')])
         
         # return [y[1] for y in dendrogram['dcoord']]
@@ -185,11 +185,11 @@ with st.expander('Иерархическая кластеризация'):
         # Display the figure in Streamlit
         # st.pyplot(fig)
         
-        # plt.figure(figsize=(20,10), dpi=200)
-        # plt.title(label="Дендрограмма", fontsize=30)
-        # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
-        # fig, ax = plt.subplots()
-        # st.pyplot(fig)
+        plt.figure(figsize=(20,10), dpi=200)
+        plt.title(label="Дендрограмма", fontsize=30)
+        dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
+        fig, ax = plt.subplots()
+        st.pyplot(fig)
         return None
 
       dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
