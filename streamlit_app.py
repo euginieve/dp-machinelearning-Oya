@@ -71,6 +71,10 @@ with st.expander('Кластеризация методом k-means++'):
         plt.title("График локтя")
         # Get the current axes
         ax = plt.gca()
+        # Set x-axis to only display integers
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+        
+        return st.pyplot(plt)
 
       def click_button():
         st.session_state.clicked = True
@@ -80,10 +84,7 @@ with st.expander('Кластеризация методом k-means++'):
 
       
   
-        # Set x-axis to only display integers
-        ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
-        return st.pyplot(plt)
 
       
       # if elbow_method_button:
