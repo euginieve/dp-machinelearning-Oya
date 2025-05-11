@@ -118,10 +118,10 @@ with st.expander('Кластеризация методом k-means++'):
           if elbow_method_button:
             elbow_method(df, clusters_quan_elbow_method)
 
-        if df.shape[0]<=100:
-          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
-        else:
-          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
+      if df.shape[0]<=100:
+        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+      else:
+        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
     
       # k_means_cluster_quan = st.text_input("Введите количество кластеров")
       # if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
