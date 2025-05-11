@@ -92,8 +92,8 @@ with st.expander('Кластеризация методом k-means++'):
   
         
         # if st.session_state["elbow_method_button_clicked"]:
-        if elbow_method_button:
-          elbow_method(df,3)
+        # if elbow_method_button:
+        elbow_method(df,3)
           # st.session_state["elbow_plot"]
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
