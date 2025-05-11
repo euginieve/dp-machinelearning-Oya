@@ -114,7 +114,6 @@ with st.expander('Кластеризация методом k-means++'):
           return None
       if k_means_cluster_quan and k_means_cluster_quan.isdigit(): 
         df = k_means_plus_plus(df, int(k_means_cluster_quan))
-        df
 
       # Create a Pandas Excel writer using XlsxWriter as the engine.
         buffer = io.BytesIO()
@@ -132,6 +131,7 @@ with st.expander('Кластеризация методом k-means++'):
                 file_name="dataframe_k_means.xlsx",
                 mime="application/vnd.ms-excel"
             )
+            df
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
