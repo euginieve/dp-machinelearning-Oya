@@ -155,7 +155,7 @@ with st.expander('Кластеризация методом k-means++'):
             writer.close()
         
             st.download_button(
-                label="Download Excel worksheets",
+                label="Загрузить датафрейм в эксель-файл",
                 data=buffer,
                 file_name="dataframe_k_means.xlsx",
                 mime="application/vnd.ms-excel"
