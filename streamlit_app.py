@@ -58,10 +58,7 @@ with st.expander('Кластеризация методом k-means++'):
     if elbow_method_need == "Да":
       clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (2,df.shape[0]+1)])
 
-      elbow_method_button = st.button("Построить график локтя", on_click=elbow_method(df, clusters_quan_elbow_method))
-      # if elbow_method_button:
-      
-      def elbow_method(df, max_clusters_quan):    
+       def elbow_method(df, max_clusters_quan):    
         st.session_state.clicked = True
         ssd = []
         scaler = StandardScaler()
@@ -79,6 +76,11 @@ with st.expander('Кластеризация методом k-means++'):
         ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
         return st.pyplot(plt)
+
+      elbow_method_button = st.button("Построить график локтя", on_click=elbow_method(df, clusters_quan_elbow_method))
+      # if elbow_method_button:
+      
+     
           
         # elbow_method(df,clusters_quan_elbow_method)    
   
