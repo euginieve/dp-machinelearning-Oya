@@ -59,8 +59,8 @@ with st.expander('Кластеризация методом k-means++'):
       elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"))
       while elbow_method_need == "Да":
         
-        if df.shape[0]<=100:
-          clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
+        # if df.shape[0]<=100:
+          # clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,df.shape[0]+1)])
         # else:
         #   clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (3,100)])
     
@@ -93,7 +93,7 @@ with st.expander('Кластеризация методом k-means++'):
         
         # if st.session_state["elbow_method_button_clicked"]:
         if elbow_method_button:
-          elbow_method(df,clusters_quan_elbow_method)
+          elbow_method(df,3)
           # st.session_state["elbow_plot"]
     
       k_means_cluster_quan = st.text_input("Введите количество кластеров")
