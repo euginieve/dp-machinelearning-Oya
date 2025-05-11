@@ -93,7 +93,7 @@ with st.expander('Кластеризация методом k-means++'):
         
         # if st.session_state["elbow_method_button_clicked"]:
         # if elbow_method_button:
-        if clusters_quan_elbow_method.isdigit():
+        if str(clusters_quan_elbow_method.isdigit()):
           elbow_method(df,clusters_quan_elbow_method)
         # st.session_state["elbow_method_plot"]
           # st.session_state["elbow_plot"]
