@@ -160,7 +160,7 @@ with st.expander('Кластеризация методом k-means++'):
 with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
     if df.shape[0]>=3:
-      st.write("Я тута!")
+      st.write("Я здеся!")
 
       def hierarchy_dendrogram(df, level=31):
         scaler = MinMaxScaler()
