@@ -58,7 +58,7 @@ with st.expander('Кластеризация методом k-means++'):
     if elbow_method_need == "Да":
       clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",[i for i in range (2,df.shape[0]+1)])
 
-       def elbow_method(df, max_clusters_quan):    
+      def elbow_method(df, max_clusters_quan):    
         st.session_state.clicked = True
         ssd = []
         scaler = StandardScaler()
@@ -71,7 +71,7 @@ with st.expander('Кластеризация методом k-means++'):
         plt.title("График локтя")
         # Get the current axes
         ax = plt.gca()
-
+  
         # Set x-axis to only display integers
         ax.xaxis.set_major_locator(MaxNLocator(integer=True))
         
