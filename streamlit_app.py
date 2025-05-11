@@ -181,7 +181,7 @@ with st.expander('Иерархическая кластеризация'):
 
       
       if dendrogram_need=="Да":
-        hierarchy_dendrogram(df, dendrogram_level)
+        hierarchy_dendrogram(df, int(dendrogram_level))
         
    
       
