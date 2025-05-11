@@ -65,7 +65,7 @@ with st.expander('Кластеризация методом k-means++'):
       elbow_method_button = st.button("Построить график локтя", on_click=click_button)
 
       def elbow_method(df, max_clusters_quan):    
-        st.session_state.clicked = True
+        # st.session_state.clicked = True
         ssd = []
         scaler = StandardScaler()
         scaled_df = scaler.fit_transform(df)
