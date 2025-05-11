@@ -167,10 +167,15 @@ with st.expander('Иерархическая кластеризация'):
         scaled_data = scaler.fit_transform(df)
         scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
         linkage_matrix = hierarchy.linkage(scaled_df.values, method="ward")
-        plt.figure(figsize=(20,10), dpi=200)
-        plt.title(label="Дендрограмма", fontsize=30)
+        # plt.figure(figsize=(20,10), dpi=200)
+        # plt.title(label="Дендрограмма", fontsize=30)
+        # dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
+        # st.pyplot()
+        fig, ax = plt.subplots()
+        fig.figure(figsize=(20,10), dpi=200)
+        fig.title(label="Дендрограмма", fontsize=30)
         dendro = dendrogram(linkage_matrix, truncate_mode="level", p=level-1)
-        st.pyplot()
+        st.pyplot(fig)
         return None
 
       dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
