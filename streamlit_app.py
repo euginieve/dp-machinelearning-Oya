@@ -117,10 +117,15 @@ with st.expander('Кластеризация методом k-means++'):
 
           if elbow_method_button:
             elbow_method(df, clusters_quan_elbow_method)
+
+        if df.shape[0]<=100:
+          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+        else:
+          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)])
     
-      k_means_cluster_quan = st.text_input("Введите количество кластеров")
-      if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
-          st.write("Количество должно быть числом")
+      # k_means_cluster_quan = st.text_input("Введите количество кластеров")
+      # if k_means_cluster_quan and not k_means_cluster_quan.isdigit():
+      #     st.write("Количество должно быть числом")
           
       def k_means_plus_plus(df, quan_of_clusters):
         try:
@@ -161,6 +166,28 @@ with st.expander('Кластеризация методом k-means++'):
   else:
     st.write('Загрузите файл во вкладке "Данные для загрузки"')
     
+with st.expander('Иерархическая кластеризация'):    
+  if unploaded_file:
+    if df.shape[0]>=3:
     
+      def hierarchy_clusterisation(df, quan_of_clusters):
+        try:
+            scaler = MinMaxScaler()
+            scaled_data = scaler.fit_transform(df)
+            scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
+            model = AgglomerativeClustering(quan_of_clusters)
+            cluster_labels = model.fit_predict(scaled_df)
+            df["Номер кластера"] = cluster_labels
+            st.session_state["current_df"] = df
+            return df
+    else:
+      st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
+  else:
+    st.write('Загрузите файл во вкладке "Данные для загрузки"')
+
+  
+
+    
+
 
 
