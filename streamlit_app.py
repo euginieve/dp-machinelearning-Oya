@@ -309,7 +309,7 @@ with st.expander('Метод DBSCAN'):
             return closest_pair_recursive(points)
           
         shortest_dist = closest_pair(points.tolist())
-        # st.write(shortest_dist)
+   
 
         outlier_percent = []
         number_of_outliers = []
