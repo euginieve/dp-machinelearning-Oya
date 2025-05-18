@@ -341,20 +341,20 @@ with st.expander('Метод DBSCAN'):
       if min_samples_def_state == "Да":
         min_samples_max_quan = st.selectbox("Выберите максимальное значение min_samples", [i for i in range(1, len(points))])
         outlier_percent_min_samples = []
-        number_of_outliers_min_samples= []
+        # number_of_outliers_min_samples= []
         quan_of_clusters_min_samples_list = []
         
         for n in range(1, min_samples_max_quan+1):
             dbscan = DBSCAN(min_samples=n, eps=shortest_dist)
             dbscan.fit(scaled_df)
-            number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
+            # number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
             percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
             outlier_percent_min_samples.append(percent_outliers)
             quan_of_clusters_min_samples = len(np.unique(dbscan.labels_))
             quan_of_clusters_min_samples_list.append(quan_of_clusters_min_samples)
 
         fig, ax = plt.subplots()
-        sns.lineplot(x=range(1, min_samples_max_quan+1), y=number_of_outliers_min_samples, label='Количество выбросов')
+        # sns.lineplot(x=range(1, min_samples_max_quan+1), y=number_of_outliers_min_samples, label='Количество выбросов')
         # ax.set_title("Количество выбросов", fontsize=10)
         # st.pyplot(fig)
         
