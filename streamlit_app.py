@@ -315,8 +315,9 @@ with st.expander('Метод DBSCAN'):
         outlier_percent = []
         number_of_outliers = []
         quan_of_clusters_eps_list = []
+        
 
-        for eps in np.linspace(shortest_dist, longest_dist, len(points)):
+        for eps in range(int(shortest_dist), int(longest_dist)+1, int(shortest_dist)):
             dbscan = DBSCAN(eps=eps)
             dbscan.fit(df)
             number_of_outliers.append(np.sum(dbscan.labels_ == -1))
