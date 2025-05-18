@@ -334,7 +334,7 @@ with st.expander('Метод DBSCAN'):
         
         sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), int(shortest_dist)), y=outlier_percent_eps, label='Процент выбросов')
         # ax.set_title("Процент выбросов", fontsize=30)
-        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), int(shortest_dist)), y=quan_of_clusters_eps_list, label='Количество кластеров')
+        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), int(shortest_dist), y=quan_of_clusters_eps_list, label='Количество кластеров')
         plt.xlabel("Эпсилон")
         
         st.pyplot(fig)
