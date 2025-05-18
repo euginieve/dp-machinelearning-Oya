@@ -285,25 +285,7 @@ with st.expander('Метод DBSCAN'):
         hull = ConvexHull(points)
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
-        shortest_dist = cdist(points, points, metric='euclidean')
-        min_dist = 1000000
-        # for i in range(len(shortest_dist)):
-        #   for j in range(len(shortest_dist[0])):
-        #     if shortest_dist[i][j] > min_dist:
-        #       min_dist = shortest_dist[i][j]
-        for sub_arr in shortest_dist:
-          arr = sub_arr.tolist()
-          arr.remove(0.0)
-          min_dist = min(min_dist, min(arr))
-          # st.write(arr)
-          
-        # lalala = min([min(sub_arr) for sub_arr in shortest_dist])
-        st.write(min_dist)
-              
-            
-                         
-        # st.write(shortest_dist)
-      
+   
         def euclidean_distance(p1: List[float], p2: List[float]) -> float:
           return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
   
@@ -349,8 +331,8 @@ with st.expander('Метод DBSCAN'):
             if len(points) < 2:
                 return float('inf')
             return closest_pair_recursive(points)
-  
-        st.write(closest_pair(points.tolist()))
+        shortest_dist = closest_pair(points.tolist())
+        st.write(shortest_dist)
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
