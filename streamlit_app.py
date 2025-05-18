@@ -318,7 +318,7 @@ with st.expander('Метод DBSCAN'):
         
 
         for eps in range(int(shortest_dist), int(longest_dist)+1, int(shortest_dist)):
-            dbscan = DBSCAN(eps=eps)
+            dbscan = DBSCAN(eps=eps, min_samples=int(math.sqrt(len(points)))
             dbscan.fit(df)
             number_of_outliers_eps.append(np.sum(dbscan.labels_ == -1))
             percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
@@ -346,7 +346,7 @@ with st.expander('Метод DBSCAN'):
         quan_of_clusters_min_samples_list = []
         
         for n in range(1, len(points)):
-            dbscan = DBSCAN(min_samples=n)
+            dbscan = DBSCAN(min_samples=n, eps=shortest_dist)
             dbscan.fit(df)
             number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
             percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
