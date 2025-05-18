@@ -33,10 +33,10 @@ with st.expander('Импорт данных'):
                                                                                          "Индексом датасета является первый столбец"])
     if col_index_change:
       if col_index_change == "В датасете нет колонки для индекса":
-        df = pd.read_excel(unploaded_file)
+        df = pd.read_csv(unploaded_file)
         df
       else:
-        df = pd.read_excel(unploaded_file, index_col = 0)
+        df = pd.read_csv(unploaded_file, index_col = 0)
         df
 
       
