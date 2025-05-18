@@ -252,7 +252,7 @@ with st.expander('Метод DBSCAN'):
   if unploaded_file:
     if df.shape[0]>=3:
       st.write("luala")
-      scaler = StandardScaler()
+      scaler = MinMaxScaler()
       scaled_df = scaler.fit_transform(df)
       points = scaled_df
       hull = ConvexHull(points)
@@ -339,31 +339,30 @@ with st.expander('Метод DBSCAN'):
 
       min_samples_def_state = st.selectbox("Требуется ли помощь в определении параметра min_samples?", ["Нет", "Да"])
       if min_samples_def_state == "Да":
-        min_samples_max_quan = st.selectbox("Выберите максимальное значение min_samples", [i for i in range(1, len(points))])
-        outlier_percent_min_samples = []
-        # number_of_outliers_min_samples= []
-        # quan_of_clusters_min_samples_list = []
-        
-        for n in range(1, min_samples_max_quan+1):
-            dbscan = DBSCAN(min_samples=n)
-            dbscan.fit(scaled_df)
-            # number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
-            percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(dbscan.labels_)
-            outlier_percent_min_samples.append(percent_outliers)
-            # quan_of_clusters_min_samples = len(np.unique(dbscan.labels_))
-            # quan_of_clusters_min_samples_list.append(quan_of_clusters_min_samples)
-
-        fig, ax = plt.subplots()
-        # sns.lineplot(x=range(1, min_samples_max_quan+1), y=number_of_outliers_min_samples, label='Количество выбросов')
-        # ax.set_title("Количество выбросов", fontsize=10)
-        # st.pyplot(fig)
-        
-        sns.lineplot(x=range(1, min_samples_max_quan+1), y=outlier_percent_min_samples, label='Процент выбросов')
-        # ax.set_title("Процент выбросов", fontsize=30)
-        # sns.lineplot(x=range(1, min_samples_max_quan+1), y=quan_of_clusters_min_samples_list, label='Количество кластеров')
-        plt.xlabel("Min_samples")
-        
-        st.pyplot(fig)
+        min_samples_max_quan = st.selectbox("Выберите максимальное значение min_samples", ["Не выбрано"]+[i for i in range(1, len(points))])
+        if min_samples_max_quan != "Не выбрано":
+          outlier_percent_min_samples = []
+          
+          for n in range(1, min_samples_max_quan+1):
+              dbscan = DBSCAN(min_samples=n)
+              dbscan.fit(scaled_df)
+              # number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
+              percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(dbscan.labels_)
+              outlier_percent_min_samples.append(percent_outliers)
+              # quan_of_clusters_min_samples = len(np.unique(dbscan.labels_))
+              # quan_of_clusters_min_samples_list.append(quan_of_clusters_min_samples)
+  
+          fig, ax = plt.subplots()
+          # sns.lineplot(x=range(1, min_samples_max_quan+1), y=number_of_outliers_min_samples, label='Количество выбросов')
+          # ax.set_title("Количество выбросов", fontsize=10)
+          # st.pyplot(fig)
+          
+          sns.lineplot(x=range(1, min_samples_max_quan+1), y=outlier_percent_min_samples, label='Процент выбросов')
+          # ax.set_title("Процент выбросов", fontsize=30)
+          # sns.lineplot(x=range(1, min_samples_max_quan+1), y=quan_of_clusters_min_samples_list, label='Количество кластеров')
+          plt.xlabel("Min_samples")
+          
+          st.pyplot(fig)
         
       eps_to_use = st.number_input("Выберите параметр эпсилон", min_value=float(shortest_dist), max_value=float(longest_dist))
       min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1)])
