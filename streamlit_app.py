@@ -306,72 +306,8 @@ with st.expander('Метод DBSCAN'):
             return closest_pair_recursive(points)
           
       shortest_dist = closest_pair(points.tolist())
-
-      epsilon_def_state = st.selectbox("Требуется ли помощь в определении параметра эпсилон?", ["Нет", "Да"])
-      
-      if epsilon_def_state == "Да":
-
-        outlier_percent_eps = []
-        number_of_outliers_eps = []
-        quan_of_clusters_eps_list = []
-        
-        for eps in np.linspace(shortest_dist, longest_dist, len(points)):
-            dbscan = DBSCAN(eps=eps, min_samples=int(math.sqrt(len(points))))
-            dbscan.fit(scaled_df)
-            number_of_outliers_eps.append(np.sum(dbscan.labels_ == -1))
-            percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
-            outlier_percent_eps.append(percent_outliers)
-            quan_of_clusters_eps = len(np.unique(dbscan.labels_))
-            quan_of_clusters_eps_list.append(quan_of_clusters_eps)
-          
-        fig, ax = plt.subplots()
-        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=number_of_outliers_eps, label='Количество выбросов')
-        # ax.set_title("Количество выбросов", fontsize=10)
-        # st.pyplot(fig)
-        
-        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=outlier_percent_eps, label='Процент выбросов')
-        # ax.set_title("Процент выбросов", fontsize=30)
-        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=quan_of_clusters_eps_list, label='Количество кластеров')
-        plt.xlabel("Эпсилон")
-        
-        st.pyplot(fig)
-        st.write("hey")
-
-      min_samples_def_state = st.selectbox("Требуется ли помощь в определении параметра min_samples?", ["Нет", "Да"])
-      if min_samples_def_state == "Да":
-        min_samples_max_quan = st.selectbox("Выберите максимальное значение min_samples", ["Не выбрано"]+[i for i in range(1, len(points))])
-        if min_samples_max_quan != "Не выбрано":
-          outlier_percent_min_samples = []
-          
-          for n in range(1, min_samples_max_quan+1):
-              dbscan = DBSCAN(min_samples=n, eps=shortest_dist)
-              dbscan.fit(scaled_df)
-              percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(dbscan.labels_)
-              outlier_percent_min_samples.append(percent_outliers)
-  
-          fig, ax = plt.subplots()
-          # sns.lineplot(x=range(1, min_samples_max_quan+1), y=number_of_outliers_min_samples, label='Количество выбросов')
-          # ax.set_title("Количество выбросов", fontsize=10)
-          # st.pyplot(fig)
-          
-          sns.lineplot(x=range(1, min_samples_max_quan+1), y=outlier_percent_min_samples, label='Процент выбросов')
-          # ax.set_title("Процент выбросов", fontsize=30)
-          # sns.lineplot(x=range(1, min_samples_max_quan+1), y=quan_of_clusters_min_samples_list, label='Количество кластеров')
-          plt.xlabel("Min_samples")
-          
-          st.pyplot(fig)
-        
       eps_to_use = st.number_input("Выберите параметр эпсилон", min_value=float(shortest_dist), max_value=float(longest_dist))
       min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1)])
-
-      
-          
-        
-          
-
-        
-
-
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
