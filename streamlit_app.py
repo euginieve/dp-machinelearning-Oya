@@ -311,14 +311,11 @@ with st.expander('Метод DBSCAN'):
       
       if epsilon_def_state == "Да":
 
-   
-
         outlier_percent_eps = []
         number_of_outliers_eps = []
         quan_of_clusters_eps_list = []
         
-
-        for eps in np.linspace(longest_dist, longest_dist, len(points)):
+        for eps in np.linspace(shortest_dist, longest_dist, len(points)):
             dbscan = DBSCAN(eps=eps, min_samples=int(math.sqrt(len(points))))
             dbscan.fit(scaled_df)
             number_of_outliers_eps.append(np.sum(dbscan.labels_ == -1))
@@ -328,13 +325,13 @@ with st.expander('Метод DBSCAN'):
             quan_of_clusters_eps_list.append(quan_of_clusters_eps)
           
         fig, ax = plt.subplots()
-        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), y=number_of_outliers_eps, label='Количество выбросов')
+        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=number_of_outliers_eps, label='Количество выбросов')
         # ax.set_title("Количество выбросов", fontsize=10)
         # st.pyplot(fig)
         
-        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), y=outlier_percent_eps, label='Процент выбросов')
+        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=outlier_percent_eps, label='Процент выбросов')
         # ax.set_title("Процент выбросов", fontsize=30)
-        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), y=quan_of_clusters_eps_list, label='Количество кластеров')
+        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=quan_of_clusters_eps_list, label='Количество кластеров')
         plt.xlabel("Эпсилон")
         
         st.pyplot(fig)
