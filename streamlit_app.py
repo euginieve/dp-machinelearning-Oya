@@ -254,59 +254,59 @@ with st.expander('Метод DBSCAN'):
       st.write("luala")
       scaler = MinMaxScaler()
       scaled_df = scaler.fit_transform(df)
-      points = scaled_df
-      hull = ConvexHull(points)
-      hullpoints = points[hull.vertices,:]
-      longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
+      # points = scaled_df
+      # hull = ConvexHull(points)
+      # hullpoints = points[hull.vertices,:]
+      # longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
    
-      def euclidean_distance(p1: List[float], p2: List[float]) -> float:
-          return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
+      # def euclidean_distance(p1: List[float], p2: List[float]) -> float:
+      #     return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
   
-      def closest_pair_recursive(points: List[List[float]], depth: int = 0) -> float:
-            n = len(points)
-            if n <= 3:
-                # Brute force for small number of points
-                return min(
-                    euclidean_distance(points[i], points[j])
-                    for i in range(n)
-                    for j in range(i + 1, n)
-                )
+      # def closest_pair_recursive(points: List[List[float]], depth: int = 0) -> float:
+      #       n = len(points)
+      #       if n <= 3:
+      #           # Brute force for small number of points
+      #           return min(
+      #               euclidean_distance(points[i], points[j])
+      #               for i in range(n)
+      #               for j in range(i + 1, n)
+      #           )
         
-            # Select axis based on depth (cycle through dimensions)
-            k = len(points[0])  # Dimension
-            axis = depth % k
+      #       # Select axis based on depth (cycle through dimensions)
+      #       k = len(points[0])  # Dimension
+      #       axis = depth % k
         
-            # Sort points along current axis and split
-            points.sort(key=lambda x: x[axis])
-            mid = n // 2
-            left = points[:mid]
-            right = points[mid:]
+      #       # Sort points along current axis and split
+      #       points.sort(key=lambda x: x[axis])
+      #       mid = n // 2
+      #       left = points[:mid]
+      #       right = points[mid:]
         
-            # Recurse on both halves
-            d_left = closest_pair_recursive(left, depth + 1)
-            d_right = closest_pair_recursive(right, depth + 1)
-            d = min(d_left, d_right)
+      #       # Recurse on both halves
+      #       d_left = closest_pair_recursive(left, depth + 1)
+      #       d_right = closest_pair_recursive(right, depth + 1)
+      #       d = min(d_left, d_right)
         
-            # Build strip near the splitting plane
-            mid_value = points[mid][axis]
-            strip = [p for p in points if abs(p[axis] - mid_value) < d]
+      #       # Build strip near the splitting plane
+      #       mid_value = points[mid][axis]
+      #       strip = [p for p in points if abs(p[axis] - mid_value) < d]
         
-            # Compare points in the strip across the splitting line
-            min_d_strip = d
-            for i in range(len(strip)):
-                for j in range(i + 1, len(strip)):
-                    if euclidean_distance(strip[i], strip[j]) < min_d_strip:
-                        min_d_strip = euclidean_distance(strip[i], strip[j])
+      #       # Compare points in the strip across the splitting line
+      #       min_d_strip = d
+      #       for i in range(len(strip)):
+      #           for j in range(i + 1, len(strip)):
+      #               if euclidean_distance(strip[i], strip[j]) < min_d_strip:
+      #                   min_d_strip = euclidean_distance(strip[i], strip[j])
         
-            return min(d, min_d_strip)
+      #       return min(d, min_d_strip)
         
-      def closest_pair(points: List[List[float]]) -> float:
-            if len(points) < 2:
-                return float('inf')
-            return closest_pair_recursive(points)
+      # def closest_pair(points: List[List[float]]) -> float:
+      #       if len(points) < 2:
+      #           return float('inf')
+      #       return closest_pair_recursive(points)
           
-      shortest_dist = closest_pair(points.tolist())
-      eps_to_use = st.number_input("Выберите параметр эпсилон", min_value=float(shortest_dist), max_value=float(longest_dist))
+      # shortest_dist = closest_pair(points.tolist())
+      eps_to_use = st.number_input("Выберите параметр эпсилон", value=float)
       min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1)])
     
     else:
