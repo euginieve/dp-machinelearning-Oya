@@ -254,7 +254,7 @@ with st.expander('Метод DBSCAN'):
       st.write("lululu")
       scaler = StandardScaler()
       scaled_df = scaler.fit_transform(df)
-      points = scaled_df.values
+      points = scaled_df
       hull = ConvexHull(points)
       hullpoints = points[hull.vertices,:]
       longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
