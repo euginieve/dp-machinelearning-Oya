@@ -286,7 +286,15 @@ with st.expander('Метод DBSCAN'):
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
         shortest_dist = cdist(points, points, metric='euclidean')
-        st.write(shortest_dist)
+        min_dist = 0:
+        for i in range(len(shortest_dist)):
+          for j in range(len(shortest_dist[0]):
+            if shortest_dist[i][j] > min_dist:
+              min_dist = shortest_dist[i][j]
+              
+            
+                         
+        st.write(min_dist)
       
         def euclidean_distance(p1: List[float], p2: List[float]) -> float:
           return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
