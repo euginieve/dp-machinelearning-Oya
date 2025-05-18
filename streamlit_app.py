@@ -344,13 +344,10 @@ with st.expander('Метод DBSCAN'):
           outlier_percent_min_samples = []
           
           for n in range(1, min_samples_max_quan+1):
-              dbscan = DBSCAN(min_samples=n, eps=0.0001)
+              dbscan = DBSCAN(min_samples=n, eps=shortest_dist)
               dbscan.fit(scaled_df)
-              # number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
               percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(dbscan.labels_)
               outlier_percent_min_samples.append(percent_outliers)
-              # quan_of_clusters_min_samples = len(np.unique(dbscan.labels_))
-              # quan_of_clusters_min_samples_list.append(quan_of_clusters_min_samples)
   
           fig, ax = plt.subplots()
           # sns.lineplot(x=range(1, min_samples_max_quan+1), y=number_of_outliers_min_samples, label='Количество выбросов')
