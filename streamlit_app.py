@@ -345,7 +345,7 @@ with st.expander('Метод DBSCAN'):
           
           for n in range(1, min_samples_max_quan+1):
               dbscan = DBSCAN(min_samples=n)
-              dbscan.fit(scaled_df)
+              dbscan.fit(df)
               # number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
               percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(dbscan.labels_)
               outlier_percent_min_samples.append(percent_outliers)
