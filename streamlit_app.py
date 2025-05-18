@@ -294,7 +294,7 @@ with st.expander('Метод DBSCAN'):
               
             
                          
-        st.write(min_dist)
+        st.write(shortest_dist)
       
         def euclidean_distance(p1: List[float], p2: List[float]) -> float:
           return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
