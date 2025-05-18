@@ -306,7 +306,7 @@ with st.expander('Метод DBSCAN'):
       #       return closest_pair_recursive(points)
           
       # shortest_dist = closest_pair(points.tolist())
-      eps_to_use = st.number_input("Выберите параметр эпсилон", value=float)
+      eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
       min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1)])
     
     else:
