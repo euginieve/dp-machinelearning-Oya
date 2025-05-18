@@ -364,7 +364,7 @@ with st.expander('Метод DBSCAN'):
         
         st.pyplot(fig)
         
-      eps_to_use = st.number_input("Выберите параметр эпсилон", min_value=shortest_dist, max_value=longest_dist, step=float)
+      eps_to_use = st.number_input("Выберите параметр эпсилон", value=float, min_value=int(shortest_dist), max_value=int(longest_dist)+1)
 
       
           
