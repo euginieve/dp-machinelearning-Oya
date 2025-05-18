@@ -251,7 +251,7 @@ with st.expander('Иерархическая кластеризация'):
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
     if df.shape[0]>=3:
-      st.write("lululu")
+      st.write("luala")
       scaler = StandardScaler()
       scaled_df = scaler.fit_transform(df)
       points = scaled_df
