@@ -11,6 +11,7 @@ from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram
 from scipy.cluster import hierarchy
 import matplotlib.pyplot as plt
+from sklearn.cluster import DBSCAN
 
 
 st.title('💻 Кластеризация на основе файлов эксель')
@@ -270,6 +271,14 @@ with st.expander('Метод DBSCAN'):
   if unploaded_file:
     if df.shape[0]>=3:
       st.write("Я тута!")
+      
+      # dbscan = DBSCAN()
+
+      epsilon_def_state = st.selectbox("Требуется ли помощь в определении параметра эпсилон?", ["Нет", "Да"])
+      if epsilon_def_state == "Да":
+        
+        
+      
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
