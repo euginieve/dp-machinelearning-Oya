@@ -15,6 +15,7 @@ from sklearn.cluster import DBSCAN
 import numpy as np
 from scipy.spatial import ConvexHull
 from scipy.spatial.distance import cdist
+import math
 
 
 st.title('💻 Кластеризация на основе файлов эксель')
@@ -283,19 +284,70 @@ with st.expander('Метод DBSCAN'):
         hull = ConvexHull(points)
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
-        # longest_dist = np.unravel_index(hdist.argmax(), hdist.shape).max()
-        st.write(longest_dist)
-        longest_dist_test = cdist(points, points, metric='euclidean').max()
-        st.write(longest_dist_test)
-        # def calculate_distances(points):
-        #   distances = []
-        #   for i in range(len(points)):
-        #       for j in range(i + 1, len(points)):  # Avoid redundant calculations
-        #           distance = np.linalg.norm(points[i] - points[j])
-        #           distances.append(distance)
-        #   return max(distances)
 
-        # st.write(calculate_distances(points))
+        def distance(p1, p2):
+          return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+
+# Function to find the minimum distance in the strip
+        def stripClosest(strip, d):
+            min_dist = d
+        
+            # Sort points in the strip by their y-coordinate
+            strip.sort(key=lambda point: point[1])
+        
+            # Compare each point in the strip
+            for i in range(len(strip)):
+                for j in range(i + 1, len(strip)):
+                    if (strip[j][1] - strip[i][1]) < min_dist:
+                        min_dist = min(min_dist, distance(strip[i], strip[j]))
+                    else:
+                        break
+        
+            return min_dist
+        
+        # Divide and conquer function to find the minimum distance
+        def minDistUtil(points, left, right):
+            
+            # Base case brute force for 2 or fewer points
+            if right - left <= 2:
+                min_dist = float('inf')
+                for i in range(left, right):
+                    for j in range(i + 1, right):
+                        min_dist = min(min_dist, distance(points[i], points[j]))
+                return min_dist
+        
+            # Find the midpoint
+            mid = (left + right) // 2
+            mid_x = points[mid][0]
+        
+            # Recursively find the minimum distances
+            # in the left and right halves
+            dl = minDistUtil(points, left, mid)
+            dr = minDistUtil(points, mid, right)
+        
+            d = min(dl, dr)
+        
+            # Build the strip of points within distance d from the midl
+            strip = []
+            for i in range(left, right):
+                if abs(points[i][0] - mid_x) < d:
+                    strip.append(points[i])
+        
+            # Find the minimum distance in the strip
+            stripDist = stripClosest(strip, d)
+        
+            return min(d, stripDist)
+        
+        # Function to find the closest pair of points
+        def minDistance(points):
+            n = len(points)
+        
+            # Sort points by x-coordinate
+            points.sort(key=lambda point: point[0])
+        
+            return minDistUtil(points, 0, n)
+
+        st.write(minDistance(points))
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
