@@ -286,7 +286,7 @@ with st.expander('Метод DBSCAN'):
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
         shortest_dist = cdist(points, points, metric='euclidean')
-        min_dist = 0:
+        min_dist = 0
         for i in range(len(shortest_dist)):
           for j in range(len(shortest_dist[0]):
             if shortest_dist[i][j] > min_dist:
