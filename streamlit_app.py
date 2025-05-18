@@ -332,7 +332,7 @@ with st.expander('Метод DBSCAN'):
                 return float('inf')
             return closest_pair_recursive(points)
   
-        st.write(closest_pair(points))
+        st.write(closest_pair(points.tolist()))
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
