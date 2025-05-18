@@ -339,7 +339,7 @@ with st.expander('Метод DBSCAN'):
 
       min_samples_def_state = st.selectbox("Требуется ли помощь в определении параметра min_samples?", ["Нет", "Да"])
       if min_samples_def_state == "Да":
-        min_samples_max_quan = st.selectbox("Выберите максимальное значение min_samples", [i in range(1, len(points))])
+        min_samples_max_quan = st.selectbox("Выберите максимальное значение min_samples", [i for i in range(1, len(points))])
         outlier_percent_min_samples = []
         number_of_outliers_min_samples= []
         quan_of_clusters_min_samples_list = []
