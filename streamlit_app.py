@@ -307,7 +307,7 @@ with st.expander('Метод DBSCAN'):
           
       # shortest_dist = closest_pair(points.tolist())
       eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
-      min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1)])
+      min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(scaled_df)+1)])
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
