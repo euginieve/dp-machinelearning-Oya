@@ -285,7 +285,9 @@ with st.expander('Метод DBSCAN'):
         hull = ConvexHull(points)
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
-        
+        shortest_dist = cdist(points, points, metric='euclidean').min()
+        st.write(shortest_dist)
+      
         def euclidean_distance(p1: List[float], p2: List[float]) -> float:
           return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
   
