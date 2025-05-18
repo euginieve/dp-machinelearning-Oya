@@ -319,7 +319,7 @@ with st.expander('Метод DBSCAN'):
         
 
         for eps in np.linspace(longest_dist, longest_dist, len(points)):
-            dbscan = DBSCAN(eps=eps, min_samples=int(math.sqrt(len(points)))
+            dbscan = DBSCAN(eps=eps, min_samples=int(math.sqrt(len(points))))
             dbscan.fit(scaled_df)
             number_of_outliers_eps.append(np.sum(dbscan.labels_ == -1))
             percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
