@@ -292,8 +292,9 @@ with st.expander('Метод DBSCAN'):
         #     if shortest_dist[i][j] > min_dist:
         #       min_dist = shortest_dist[i][j]
         for sub_arr in shortest_dist:
-          arr = sub_arr.tolist().remove(min(sub_arr.tolist()))
-          min_dist = min(min_dist, min(arr))
+          arr = sub_arr.tolist().remove(0.0)
+          # min_dist = min(min_dist, min(arr))
+          st.write(arr)
           
         # lalala = min([min(sub_arr) for sub_arr in shortest_dist])
         st.write(min_dist)
