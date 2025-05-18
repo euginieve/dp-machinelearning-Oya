@@ -251,7 +251,7 @@ with st.expander('Иерархическая кластеризация'):
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
     if df.shape[0]>=3:
-      st.write("Я здуся!")
+      st.write("Я здеся!")
       
       # dbscan = DBSCAN()
 
