@@ -284,7 +284,7 @@ with st.expander('Метод DBSCAN'):
         hullpoints = points[hull.vertices,:]
         hdist = cdist(hullpoints, hullpoints, metric='euclidean').max()
         # longest_dist = np.unravel_index(hdist.argmax(), hdist.shape).max()
-        st.wrire(hdist)
+        st.write(hdist)
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
