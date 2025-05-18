@@ -12,6 +12,9 @@ from scipy.cluster.hierarchy import dendrogram
 from scipy.cluster import hierarchy
 import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
+import numpy as np
+from scipy.spatial import ConvexHull
+from scipy.spatial.distance import cdist
 
 
 st.title('💻 Кластеризация на основе файлов эксель')
@@ -276,9 +279,13 @@ with st.expander('Метод DBSCAN'):
 
       epsilon_def_state = st.selectbox("Требуется ли помощь в определении параметра эпсилон?", ["Нет", "Да"])
       if epsilon_def_state == "Да":
-        
-        
-      
+        points = df.values
+        hull = ConvexHull(points)
+        hullpoints = points[hull.vertices,:]
+        hdist = cdist(hullpoints, hullpoints, metric='euclidean')
+        longest_dist = np.unravel_index(hdist.argmax(), hdist.shape).max()
+        st.wrire(longest_dist)
+    
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
