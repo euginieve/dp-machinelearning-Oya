@@ -252,7 +252,7 @@ with st.expander('Метод DBSCAN'):
   if unploaded_file:
     if df.shape[0]>=3:
       st.write("lululu")
-      scaler = Min()
+      scaler = StandardScaler()
       scaled_df = scaler.fit_transform(df)
       
       # dbscan = DBSCAN()
