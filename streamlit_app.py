@@ -251,7 +251,7 @@ with st.expander('Иерархическая кластеризация'):
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
     if df.shape[0]>=3:
-      st.write("Я здеся!")
+      st.write("Я лалала!")
       
       # dbscan = DBSCAN()
 
@@ -326,11 +326,11 @@ with st.expander('Метод DBSCAN'):
           
         fig, ax = plt.subplots()
         sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=number_of_outliers)
-        ax.set_title("Количество выбросов", fontsize=30)
-        st.pyplot(fig)
+        # ax.set_title("Количество выбросов", fontsize=10)
+        # st.pyplot(fig)
         
         sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=outlier_percent)
-        ax.set_title("Процент выбросов", fontsize=30)
+        # ax.set_title("Процент выбросов", fontsize=30)
         st.pyplot(fig)
           
 
