@@ -337,6 +337,7 @@ with st.expander('Метод DBSCAN'):
         plt.xlabel("Эпсилон")
         
         st.pyplot(fig)
+        st.write("hey")
         
           
 
