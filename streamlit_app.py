@@ -282,9 +282,20 @@ with st.expander('Метод DBSCAN'):
         points = df.values
         hull = ConvexHull(points)
         hullpoints = points[hull.vertices,:]
-        hdist = cdist(hullpoints, hullpoints, metric='euclidean').max()
+        longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
         # longest_dist = np.unravel_index(hdist.argmax(), hdist.shape).max()
-        st.write(hdist)
+        st.write(longest_dist)
+        longest_dist_test = cdist(points, points, metric='euclidean').max()
+        st.write(longest_dist_test)
+        # def calculate_distances(points):
+        #   distances = []
+        #   for i in range(len(points)):
+        #       for j in range(i + 1, len(points)):  # Avoid redundant calculations
+        #           distance = np.linalg.norm(points[i] - points[j])
+        #           distances.append(distance)
+        #   return max(distances)
+
+        # st.write(calculate_distances(points))
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
