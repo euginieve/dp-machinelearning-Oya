@@ -316,13 +316,13 @@ with st.expander('Метод DBSCAN'):
         quan_of_clusters_eps_list = []
 
         for eps in np.linspace(shortest_dist, longest_dist, len(points)):
-          dbscan = DBSCAN(eps=eps)
-          dbscan.fit(df)
-          number_of_outliers.append(np.sum(dbscan.labels_ == -1))
-          percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
-          outlier_percent.append(percent_outliers)
-          quan_of_clusters_eps = len(np.unique(dbscan.labels_))
-          quan_of_clusters_eps_list.append(quan_of_clusters_eps)
+            dbscan = DBSCAN(eps=eps)
+            dbscan.fit(df)
+            number_of_outliers.append(np.sum(dbscan.labels_ == -1))
+            percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
+            outlier_percent.append(percent_outliers)
+            quan_of_clusters_eps = len(np.unique(dbscan.labels_))
+            quan_of_clusters_eps_list.append(quan_of_clusters_eps)
           
         fig, ax = plt.subplots()
         sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=number_of_outliers)
@@ -331,7 +331,9 @@ with st.expander('Метод DBSCAN'):
         
         sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=outlier_percent)
         # ax.set_title("Процент выбросов", fontsize=30)
+        sns.lineplot(x=np.linspace(shortest_dist, longest_dist, len(points)), y=quan_of_clusters_eps_list)
         st.pyplot(fig)
+        
           
 
         
