@@ -339,6 +339,8 @@ with st.expander('Метод DBSCAN'):
         st.pyplot(fig)
         st.write("hey")
 
+      min_samples_def_state = st.selectbox("Требуется ли помощь в определении параметра min_samples?", ["Нет", "Да"])
+      if min_samples_def_state == "Да":
         outlier_percent_min_samples = []
         number_of_outliers_min_samples= []
         quan_of_clusters_min_samples_list = []
