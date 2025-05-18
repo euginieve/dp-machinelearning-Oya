@@ -365,7 +365,7 @@ with st.expander('Метод DBSCAN'):
         st.pyplot(fig)
         
       eps_to_use = st.number_input("Выберите параметр эпсилон", min_value=float(shortest_dist), max_value=float(longest_dist))
-      min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1])
+      min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(points)+1)])
 
       
           
