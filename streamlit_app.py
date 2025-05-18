@@ -367,7 +367,7 @@ with st.expander('Метод DBSCAN'):
         
         st.pyplot(fig)
         
-      # eps_to_use = st.selectbox("Выберите число эпсил
+      eps_to_use = st.selectbox("Выберите число эпсилон", np.linspace(longest_dist, longest_dist, len(points)).tolist())
 
       
           
