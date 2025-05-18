@@ -284,71 +284,54 @@ with st.expander('Метод DBSCAN'):
         hull = ConvexHull(points)
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
+        
+      def euclidean_distance(p1: List[float], p2: List[float]) -> float:
+        return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
 
-        def distance(p1, p2):
-          return math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
+      def closest_pair_recursive(points: List[List[float]], depth: int = 0) -> float:
+          n = len(points)
+          if n <= 3:
+              # Brute force for small number of points
+              return min(
+                  euclidean_distance(points[i], points[j])
+                  for i in range(n)
+                  for j in range(i + 1, n)
+              )
+      
+          # Select axis based on depth (cycle through dimensions)
+          k = len(points[0])  # Dimension
+          axis = depth % k
+      
+          # Sort points along current axis and split
+          points.sort(key=lambda x: x[axis])
+          mid = n // 2
+          left = points[:mid]
+          right = points[mid:]
+      
+          # Recurse on both halves
+          d_left = closest_pair_recursive(left, depth + 1)
+          d_right = closest_pair_recursive(right, depth + 1)
+          d = min(d_left, d_right)
+      
+          # Build strip near the splitting plane
+          mid_value = points[mid][axis]
+          strip = [p for p in points if abs(p[axis] - mid_value) < d]
+      
+          # Compare points in the strip across the splitting line
+          min_d_strip = d
+          for i in range(len(strip)):
+              for j in range(i + 1, len(strip)):
+                  if euclidean_distance(strip[i], strip[j]) < min_d_strip:
+                      min_d_strip = euclidean_distance(strip[i], strip[j])
+      
+          return min(d, min_d_strip)
+      
+      def closest_pair(points: List[List[float]]) -> float:
+          if len(points) < 2:
+              return float('inf')
+          return closest_pair_recursive(points)
 
-# Function to find the minimum distance in the strip
-        def stripClosest(strip, d):
-            min_dist = d
-        
-            # Sort points in the strip by their y-coordinate
-            strip.sort(key=lambda point: point[1])
-        
-            # Compare each point in the strip
-            for i in range(len(strip)):
-                for j in range(i + 1, len(strip)):
-                    if (strip[j][1] - strip[i][1]) < min_dist:
-                        min_dist = min(min_dist, distance(strip[i], strip[j]))
-                    else:
-                        break
-        
-            return min_dist
-        
-        # Divide and conquer function to find the minimum distance
-        def minDistUtil(points, left, right):
-            
-            # Base case brute force for 2 or fewer points
-            if right - left <= 2:
-                min_dist = float('inf')
-                for i in range(left, right):
-                    for j in range(i + 1, right):
-                        min_dist = min(min_dist, distance(points[i], points[j]))
-                return min_dist
-        
-            # Find the midpoint
-            mid = (left + right) // 2
-            mid_x = points[mid][0]
-        
-            # Recursively find the minimum distances
-            # in the left and right halves
-            dl = minDistUtil(points, left, mid)
-            dr = minDistUtil(points, mid, right)
-        
-            d = min(dl, dr)
-        
-            # Build the strip of points within distance d from the midl
-            strip = []
-            for i in range(left, right):
-                if abs(points[i][0] - mid_x) < d:
-                    strip.append(points[i])
-        
-            # Find the minimum distance in the strip
-            stripDist = stripClosest(strip, d)
-        
-            return min(d, stripDist)
-        
-        # Function to find the closest pair of points
-        def minDistance(points):
-            n = len(points)
-        
-            # Sort points by x-coordinate
-            points.sort(key=lambda point: point[0])
-        
-            return minDistUtil(points, 0, n)
-
-        st.write(minDistance(points))
-    
+      st.write(closest_pair(points))
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
   else:
