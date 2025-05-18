@@ -254,20 +254,15 @@ with st.expander('Метод DBSCAN'):
       st.write("lululu")
       scaler = StandardScaler()
       scaled_df = scaler.fit_transform(df)
-      
-      # dbscan = DBSCAN()
-
-      epsilon_def_state = st.selectbox("Требуется ли помощь в определении параметра эпсилон?", ["Нет", "Да"])
-      if epsilon_def_state == "Да":
-        points = scaled_df.values
-        hull = ConvexHull(points)
-        hullpoints = points[hull.vertices,:]
-        longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
+      points = scaled_df.values
+      hull = ConvexHull(points)
+      hullpoints = points[hull.vertices,:]
+      longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
    
-        def euclidean_distance(p1: List[float], p2: List[float]) -> float:
+      def euclidean_distance(p1: List[float], p2: List[float]) -> float:
           return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
   
-        def closest_pair_recursive(points: List[List[float]], depth: int = 0) -> float:
+      def closest_pair_recursive(points: List[List[float]], depth: int = 0) -> float:
             n = len(points)
             if n <= 3:
                 # Brute force for small number of points
@@ -305,12 +300,17 @@ with st.expander('Метод DBSCAN'):
         
             return min(d, min_d_strip)
         
-        def closest_pair(points: List[List[float]]) -> float:
+      def closest_pair(points: List[List[float]]) -> float:
             if len(points) < 2:
                 return float('inf')
             return closest_pair_recursive(points)
           
-        shortest_dist = closest_pair(points.tolist())
+      shortest_dist = closest_pair(points.tolist())
+
+      epsilon_def_state = st.selectbox("Требуется ли помощь в определении параметра эпсилон?", ["Нет", "Да"])
+      
+      if epsilon_def_state == "Да":
+
    
 
         outlier_percent_eps = []
