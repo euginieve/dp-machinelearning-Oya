@@ -347,7 +347,7 @@ with st.expander('Метод DBSCAN'):
         
             return minDistUtil(points, 0, n)
 
-        st.write(minDistance(points))
+        st.write("lalalala")
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
