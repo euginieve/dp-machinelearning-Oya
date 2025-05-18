@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
 import io
 from sklearn.preprocessing import MinMaxScaler
-
 import seaborn as sns
 from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram
@@ -253,12 +252,14 @@ with st.expander('Метод DBSCAN'):
   if unploaded_file:
     if df.shape[0]>=3:
       st.write("lululu")
+      scaler = Min()
+      scaled_df = scaler.fit_transform(df)
       
       # dbscan = DBSCAN()
 
       epsilon_def_state = st.selectbox("Требуется ли помощь в определении параметра эпсилон?", ["Нет", "Да"])
       if epsilon_def_state == "Да":
-        points = df.values
+        points = scaled_df.values
         hull = ConvexHull(points)
         hullpoints = points[hull.vertices,:]
         longest_dist = cdist(hullpoints, hullpoints, metric='euclidean').max()
@@ -317,9 +318,9 @@ with st.expander('Метод DBSCAN'):
         quan_of_clusters_eps_list = []
         
 
-        for eps in range(int(shortest_dist), int(longest_dist)+1, int(shortest_dist)):
+        for eps in np.linspace(longest_dist, longest_dist, len(points)):
             dbscan = DBSCAN(eps=eps, min_samples=int(math.sqrt(len(points)))
-            dbscan.fit(df)
+            dbscan.fit(scaled_df)
             number_of_outliers_eps.append(np.sum(dbscan.labels_ == -1))
             percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
             outlier_percent_eps.append(percent_outliers)
@@ -327,13 +328,13 @@ with st.expander('Метод DBSCAN'):
             quan_of_clusters_eps_list.append(quan_of_clusters_eps)
           
         fig, ax = plt.subplots()
-        sns.lineplot(x=range(int(shortest_dist), int(longest_dist)+1, int(shortest_dist)), y=number_of_outliers_eps, label='Количество выбросов')
+        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), y=number_of_outliers_eps, label='Количество выбросов')
         # ax.set_title("Количество выбросов", fontsize=10)
         # st.pyplot(fig)
         
-        sns.lineplot(x=range(int(shortest_dist), int(longest_dist)+1, int(shortest_dist)), y=outlier_percent_eps, label='Процент выбросов')
+        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), int(shortest_dist)), y=outlier_percent_eps, label='Процент выбросов')
         # ax.set_title("Процент выбросов", fontsize=30)
-        sns.lineplot(x=range(int(shortest_dist), int(longest_dist)+1, int(shortest_dist)), y=quan_of_clusters_eps_list, label='Количество кластеров')
+        sns.lineplot(x=np.linspace(longest_dist, longest_dist, len(points)), int(shortest_dist)), y=quan_of_clusters_eps_list, label='Количество кластеров')
         plt.xlabel("Эпсилон")
         
         st.pyplot(fig)
@@ -347,7 +348,7 @@ with st.expander('Метод DBSCAN'):
         
         for n in range(1, len(points)):
             dbscan = DBSCAN(min_samples=n, eps=shortest_dist)
-            dbscan.fit(df)
+            dbscan.fit(scaled_df)
             number_of_outliers_min_samples.append(np.sum(dbscan.labels_ == -1))
             percent_outliers = 100*np.sum(dbscan.labels_ == -1) / len(points)
             outlier_percent_min_samples.append(percent_outliers)
@@ -362,9 +363,13 @@ with st.expander('Метод DBSCAN'):
         sns.lineplot(x=range(1, len(points)), y=outlier_percent_min_samples, label='Процент выбросов')
         # ax.set_title("Процент выбросов", fontsize=30)
         sns.lineplot(x=range(1, len(points)), y=quan_of_clusters_min_samples_list, label='Количество кластеров')
-        plt.xlabel("Эпсилон")
+        plt.xlabel("Min_samples")
         
         st.pyplot(fig)
+        
+      # eps_to_use = st.selectbox("Выберите число эпсил
+
+      
           
         
           
