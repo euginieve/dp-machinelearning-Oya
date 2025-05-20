@@ -30,8 +30,21 @@ with st.expander('Импорт данных', expanded=True):
   if unploaded_file:
     unploaded_file_df = pd.read_excel(unploaded_file)
     unploaded_file_df
+
+  if "button" not in st.session_state:
+    st.session_state.button = False
+
+# write a function for toggle functionality
+  def toggle():
+      if st.session_state.button:
+          st.session_state.button = False
+      else:
+          st.session_state.button = True
   
+  # create the button
+ st.button("Перейти к подготовке датасета", on_click=st.session_state.button)
     
+      
 with st.expander('Подготовка датасета', expanded=True):
   
   if unploaded_file:
