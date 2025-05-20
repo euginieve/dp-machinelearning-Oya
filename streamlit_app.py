@@ -98,7 +98,8 @@ with st.expander('Подготовка датасета', expanded=st.session_st
         df = scaler.fit_transform(df)
 
         df_state = True
-        df
+        # df
+        st.write("Предобработка завершена")
 
   else:
     st.write('Загрузите файл во вкладке "Импорт данных"')
