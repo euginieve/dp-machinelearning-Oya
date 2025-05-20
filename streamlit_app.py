@@ -115,7 +115,7 @@ with st.expander('Импорт данных', expanded=True):
           # df = df_final
           ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
           ohetransform = ohe.fit_transform(df[columns_to_encode])
-          df = pd.concat([df, ohetransform], axis=1)
+          df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
 
         
       
