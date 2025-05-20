@@ -49,8 +49,6 @@ with st.expander('Импорт данных', expanded=True):
 with st.expander('Подготовка датасета', expanded=st.session_state.button):
   
   if unploaded_file:
-    if "preparation" not in st.session_state:
-    st.session_state.preparation = False
     
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
