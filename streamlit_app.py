@@ -35,6 +35,8 @@ with st.expander('Импорт данных'):
 with st.expander('Подготовка датасета'):
   
   if unploaded_file:
+    df = False
+    
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
 
@@ -93,7 +95,7 @@ with st.expander('Подготовка датасета'):
 
 with st.expander('Кластеризация методом k-means++'):  
   if unploaded_file:
-    if st.session_state.preparation_state:
+    if df:
       if df.shape[0]>=3:
         k_means_df = df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
@@ -174,7 +176,7 @@ with st.expander('Кластеризация методом k-means++'):
     
 with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
-    if st.session_state.preparation_state:
+    if df:
       if df.shape[0]>=3:
         hierarchichal_df = df
   
@@ -245,7 +247,7 @@ with st.expander('Иерархическая кластеризация'):
 
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
-    if st.session_state.preparation_state:
+    if df:
       if df.shape[0]>=3:
         dbscan_df = df
         st.write("luala")
