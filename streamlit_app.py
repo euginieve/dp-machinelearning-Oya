@@ -36,7 +36,7 @@ with st.expander('Подготовка датасета'):
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
 
-    null_transform = st.selectbox("Выберите вариант обработки пустых значений переменных", ("Удалять строки, содержащие пустые значения", "Заменять пустые значения на моду в колонке"))
+    null_transform = st.selectbox("Выберите вариант обработки пустых значений переменных", ("Удалять строки, содержащие пустые значения", "Заменять пустые значения на среднее для численных и моду для категориальных переменных в колонке"))
 
     categorial_to_numerical = st.selectbox("Выберите вариант преобразования категориальных переменных в численные", ("OrdinalEncoder", "OneHotEncoder"))
 
@@ -54,7 +54,14 @@ with st.expander('Подготовка датасета'):
         df = df.dropna()
       else: 
         for col in df.columns:
-            df[col].fillna(df[col].mode()[0], inplace=True)
+          for el in df[col]:
+            if not pd.notna(el):
+              if str(el).replace(".", "", 1).isdigit():
+                df[col].fillna(df[col].mean()[0], inplace=True)
+                break
+              else:
+                df[col].fillna(df[col].mode()[0], inplace=True)
+                break
 
       if categorial_to_numerical == "OrdinalEncoder":
         df = OrdinalEncoder().fit_transform(df)
