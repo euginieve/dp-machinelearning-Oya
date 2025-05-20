@@ -234,7 +234,7 @@ with st.expander('Иерархическая кластеризация'):
         dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
         
         if dendrogram_need=="Да":
-          if hierarchichal_hierarchichal_df.shape[0]<=100:
+          if hierarchichal_df.shape[0]<=100:
             dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,hierarchichal_df.shape[0]+1)])
           else:
             dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,100)])
