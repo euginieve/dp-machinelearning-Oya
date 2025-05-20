@@ -67,9 +67,9 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
-    preparation_state_button = st.button("Провести предобработку", on_click=df_state_button_click)
+    preparation_state_button = st.button("Провести предобработку")
     if preparation_state_button:
-      
+      df = pd.read_excel(unploaded_file)
       if col_index_change == "В датасете нет колонки для индекса":
         df = pd.read_excel(unploaded_file)
       else:
