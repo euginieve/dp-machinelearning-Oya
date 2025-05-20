@@ -50,7 +50,6 @@ with st.expander('Подготовка датасета', expanded=st.session_st
   
   if unploaded_file:
    
-    
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
 
@@ -86,10 +85,10 @@ with st.expander('Подготовка датасета', expanded=st.session_st
           df = df_filled
 
 
-      # if categorial_to_numerical == "OrdinalEncoder":
-      #   df = OrdinalEncoder().fit_transform(df)
-      # else:
-      #   df = OneHotEncoder().fit_transform(df)
+      if categorial_to_numerical == "OrdinalEncoder":
+        df = OrdinalEncoder().fit_transform(df)
+      else:
+        df = OneHotEncoder().fit_transform(df)
       
       # if scaler_method != "Не производить нормализацию":
       #   if scaler_method == "Стандартизация (StandartScaler)":
