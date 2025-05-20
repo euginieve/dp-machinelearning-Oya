@@ -50,10 +50,10 @@ with st.expander('Подготовка датасета', expanded=st.session_st
   if df_state in st.session_state:
     st.session_state.df_state = False
 
-    def df_state_button_click():
-      if st.session_state.button:
-          df = pd.read_excel(unploaded_file)
-          st.session_state.button = False
+  def df_state_button_click():
+    if st.session_state.button:
+        df = pd.read_excel(unploaded_file)
+        st.session_state.button = False
       # else:
       #     st.session_state.button = True
   
