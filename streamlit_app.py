@@ -129,7 +129,7 @@ with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        k_means_df = df
+        k_means_df = st.session_state.prepared_df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
         
         if elbow_method_need=="Да":
@@ -209,7 +209,7 @@ with st.expander('Иерархическая кластеризация'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        hierarchichal_df = df
+        hierarchichal_df = st.session_state.prepared_df
   
         def hierarchy_dendrogram(hierarchichal_df, level=31):
           linkage_matrix = hierarchy.linkage(hierarchichal_df.values, method="ward")
