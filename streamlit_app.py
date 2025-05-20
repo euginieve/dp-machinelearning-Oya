@@ -62,9 +62,9 @@ with st.expander('Подготовка датасета'):
       if scaler_method != "Не производить нормализацию":
         if scaler_method == "Стандартизация (StandartScaler)":
           scaler = StandardScaler()
-        else if scaler_method == "Масштабирование с помощью MinMaxScaler":
+        elif scaler_method == "Масштабирование с помощью MinMaxScaler":
           scaler = MinMaxScaler()
-        else if scaler_method == "Масштабирование с помощью RobustScaler"
+        elif scaler_method == "Масштабирование с помощью RobustScaler"
           scaler = RobustScaler()
         df = scaler.fit_transform(df)
 
