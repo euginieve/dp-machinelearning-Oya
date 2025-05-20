@@ -95,6 +95,8 @@ with st.expander('Подготовка датасета', expanded=st.session_st
           scaler = RobustScaler()
         df = scaler.fit_transform(df)
 
+        df
+
   else:
     st.write('Загрузите файл во вкладке "Импорт данных"')
 
