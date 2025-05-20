@@ -45,7 +45,7 @@ with st.expander('Импорт данных', expanded=True):
   st.button("Перейти к подготовке датасета", on_click=st.session_state.button)
     
       
-with st.expander('Подготовка датасета', expanded=True):
+with st.expander('Подготовка датасета', expanded=st.session_state.button):
   
   if unploaded_file:
     df = False
