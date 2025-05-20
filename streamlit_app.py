@@ -266,7 +266,7 @@ with st.expander('Иерархическая кластеризация'):
           
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
               # Write each dataframe to a different worksheet.
-              st.session_state["current_hierarchichal_df"].to_excel(writer, sheet_name='k_means')
+              st.session_state["current_hierarchichal_df"].to_excel(writer, sheet_name='hierarchy')
           
               # Close the Pandas Excel writer and output the Excel file to the buffer
               writer.close()
@@ -309,8 +309,24 @@ with st.expander('Метод DBSCAN'):
           
         dbscan_button = st.button("Применить кластеризацию с заданными параметрами", on_click=dbscan_button_on_click)
 
-        if st.session_state.dbscan_button_clicked:
-          dbscan_clusterisation()
+         if st.session_state.dbscan_button_clicked: 
+          dbscan_df = dbscan_clusterisation()
+          st.session_state["current_dbscan_df"]
+          buffer = io.BytesIO()
+          
+          with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
+              # Write each dataframe to a different worksheet.
+              st.session_state["current_dbscan_df"].to_excel(writer, sheet_name='dbscan')
+          
+              # Close the Pandas Excel writer and output the Excel file to the buffer
+              writer.close()
+          
+              st.download_button(
+                  label="Загрузить датафрейм в эксель-файл",
+                  data=buffer,
+                  file_name="dataframe_hierarchy_algorithm.xlsx",
+                  mime="application/vnd.ms-excel"
+              )
 
       
       else:
