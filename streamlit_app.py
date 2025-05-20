@@ -322,18 +322,19 @@ with st.expander('Метод DBSCAN'):
           
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
               # Write each dataframe to a different worksheet.
-              st.session_state["current_dbscan_df"].to_excel(writer, sheet_name='dbscan')
-          
-              # Close the Pandas Excel writer and output the Excel file to the buffer
-              writer.close()
-          
-              st.download_button(
-                  label="Загрузить датафрейм в эксель-файл",
-                  data=buffer,
-                  file_name="dataframe_hierarchy_algorithm.xlsx",
-                  mime="application/vnd.ms-excel",
-                  key="dbscan_download"
-              )
+            if "current_dbscan_df" in st.session_state:
+                st.session_state["current_dbscan_df"].to_excel(writer, sheet_name='dbscan')
+            
+                # Close the Pandas Excel writer and output the Excel file to the buffer
+                writer.close()
+            
+                st.download_button(
+                    label="Загрузить датафрейм в эксель-файл",
+                    data=buffer,
+                    file_name="dataframe_hierarchy_algorithm.xlsx",
+                    mime="application/vnd.ms-excel",
+                    key="dbscan_download"
+                )
 
       
       else:
