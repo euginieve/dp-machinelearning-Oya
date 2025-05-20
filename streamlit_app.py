@@ -43,7 +43,7 @@ with st.expander('Импорт данных', expanded=True):
           st.session_state.button = True
   
   # create the button
-  st.button("Перейти к подготовке датасета", on_click=toggle)
+  # st.button("Перейти к подготовке датасета", on_click=toggle)
     
       
 
