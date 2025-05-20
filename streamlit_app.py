@@ -32,12 +32,12 @@ with st.expander('Импорт данных', expanded=True):
     unploaded_file_df = pd.read_excel(unploaded_file)
     unploaded_file_df
 
-  if "prepared_df" not in st.session_state:
-    st.session_state.prepared_df = unploaded_file_df
+  # if "prepared_df" not in st.session_state:
+  #   st.session_state.prepared_df = unploaded_file_df
 
 # write a function for toggle functionality
-  def toggle():
-      st.session_state.prepared_df = df
+  # def toggle():
+  #     st.session_state.prepared_df = df
   
   # create the button
   # st.button("Перейти к подготовке датасета", on_click=toggle)
@@ -64,8 +64,20 @@ with st.expander('Импорт данных', expanded=True):
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
-    preparation_state_button = st.button("Провести предобработку")
-    if preparation_state_button:
+    if 'preparation_state_button_clicked' not in st.session_state:
+      st.session_state.preparation_state_button_clicked = False
+
+    def preparation_state_button_on_click():
+        st.session_state.preparation_state_button_clicked = True
+
+# st.button('Click me', on_click=click_button)
+
+    
+    preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
+
+
+    
+    if st.session_state.preparation_state_button_clicked:
       df = pd.read_excel(unploaded_file)
       if col_index_change == "В датасете нет колонки для индекса":
         df = pd.read_excel(unploaded_file)
@@ -118,7 +130,7 @@ with st.expander('Импорт данных', expanded=True):
           df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
           df_state = True
-          toggle()
+          # toggle()
           df
           
 
@@ -129,7 +141,7 @@ with st.expander('Кластеризация методом k-means++'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        k_means_df = st.session_state.prepared_df
+        k_means_df = df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
         
         if elbow_method_need=="Да":
@@ -209,7 +221,7 @@ with st.expander('Иерархическая кластеризация'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        hierarchichal_df = st.session_state.prepared_df
+        hierarchichal_df = df
   
         def hierarchy_dendrogram(hierarchichal_df, level=31):
           linkage_matrix = hierarchy.linkage(hierarchichal_df.values, method="ward")
