@@ -32,15 +32,12 @@ with st.expander('Импорт данных', expanded=True):
     unploaded_file_df = pd.read_excel(unploaded_file)
     unploaded_file_df
 
-  if "button" not in st.session_state:
-    st.session_state.button = False
+  if "prepared_df" not in st.session_state:
+    st.session_state.prepared_df = unploaded_file_df
 
 # write a function for toggle functionality
   def toggle():
-      if st.session_state.button:
-          st.session_state.button = False
-      else:
-          st.session_state.button = True
+      st.session_state.prepared_df = df
   
   # create the button
   # st.button("Перейти к подготовке датасета", on_click=toggle)
@@ -121,9 +118,9 @@ with st.expander('Импорт данных', expanded=True):
           df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
           df_state = True
-          # st.session_state.button = True
+          toggle()
           df
-          st.write("Предобработка завершена")
+          
 
   else:
     st.write('Загрузите файл во вкладке "Импорт данных"')
