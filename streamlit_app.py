@@ -43,7 +43,7 @@ with st.expander('Подготовка датасета'):
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
-    def st.session_state.preparation_state_button_on_click():
+    def preparation_state_button_on_click():
       st.write("yf;fkb ryjgre!")
     
       # if col_index_change == "В датасете нет колонки для индекса":
@@ -83,7 +83,7 @@ with st.expander('Подготовка датасета'):
       st.session_state.preparation_state = True
       # return None
     
-    preparation_state_button = st.button("Провести предобработку", on_click=st.session_state.preparation_state_button_on_click)
+    preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
     if st.session_state.preparation_state:
       df
 
