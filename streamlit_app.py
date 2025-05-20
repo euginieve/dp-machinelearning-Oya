@@ -68,7 +68,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
       else:
         df = pd.read_excel(unploaded_file, index_col = 0)
 
-      df.dropna(axis=1, how='all', inplace=True)
+        df.dropna(axis=1, how='all', inplace=True)
 
       # if null_transform == "Удалять строки, содержащие пустые значения":
       #   df = df.dropna()
