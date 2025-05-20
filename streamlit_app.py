@@ -20,7 +20,7 @@ import math
 from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
-st.title('💻 Кластеризация на основе файлов эксель')
+st.title('💻 Кластеризация на основе файлов эксель fff')
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
@@ -90,9 +90,9 @@ with st.expander('Подготовка датасета', expanded=st.session_st
             columns_to_encode.append(column)
 
         if categorial_to_numerical == "OrdinalEncoder":
-          encoder = OrdinalEncoder().fit_transform(df)
+          encoder = OrdinalEncoder()
         else:
-          encoder = OneHotEncoder().fit_transform(df)
+          encoder = OneHotEncoder()
 
         df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
       
