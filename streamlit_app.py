@@ -326,7 +326,8 @@ with st.expander('Метод DBSCAN'):
                   label="Загрузить датафрейм в эксель-файл",
                   data=buffer,
                   file_name="dataframe_hierarchy_algorithm.xlsx",
-                  mime="application/vnd.ms-excel"
+                  mime="application/vnd.ms-excel",
+                  key="dbscan_download"
               )
 
       
