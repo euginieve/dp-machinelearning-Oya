@@ -18,6 +18,7 @@ from scipy.spatial import ConvexHull
 from scipy.spatial.distance import cdist
 import math
 from typing import List, Tuple
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
 st.title('💻 Кластеризация на основе файлов эксель')
 
