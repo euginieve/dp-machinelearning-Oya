@@ -24,7 +24,7 @@ st.title('💻 Кластеризация на основе файлов экс�
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
-st.session_state.preparation_state = False
+preparation_state = False
 
 with st.expander('Импорт данных'):
 
@@ -80,11 +80,11 @@ with st.expander('Подготовка датасета'):
           scaler = RobustScaler()
         df = scaler.fit_transform(df)
 
-      st.session_state.preparation_state = True
+      preparation_state = True
       return None
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
-    if st.session_state.preparation_state:
+    if preparation_state:
       df
 
   else:
@@ -92,7 +92,7 @@ with st.expander('Подготовка датасета'):
 
 with st.expander('Кластеризация методом k-means++'):  
   if unploaded_file:
-    if st.session_state.preparation_state:
+    if preparation_state:
       if df.shape[0]>=3:
         k_means_df = df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
@@ -173,7 +173,7 @@ with st.expander('Кластеризация методом k-means++'):
     
 with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
-    if st.session_state.preparation_state:
+    if preparation_state:
       if df.shape[0]>=3:
         hierarchichal_df = df
   
@@ -244,7 +244,7 @@ with st.expander('Иерархическая кластеризация'):
 
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
-    if st.session_state.preparation_state:
+    if preparation_state:
       if df.shape[0]>=3:
         dbscan_df = df
         st.write("luala")
