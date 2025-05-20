@@ -319,6 +319,7 @@ with st.expander('Метод DBSCAN'):
           st.session_state["current_dbscan_df"]
           buffer = io.BytesIO()
           
+          
         with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
               # Write each dataframe to a different worksheet.
               st.session_state["current_dbscan_df"].to_excel(writer, sheet_name='dbscan')
