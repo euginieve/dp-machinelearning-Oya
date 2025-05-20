@@ -59,7 +59,7 @@ with st.expander('Подготовка датасета'):
       else:
         df = OneHotEncoder().fit_transform(df)
       
-      if scaler_method != "Не производить нормализацию"
+      if scaler_method != "Не производить нормализацию":
         if scaler_method == "Стандартизация (StandartScaler)":
           scaler = StandardScaler()
         else if scaler_method == "Масштабирование с помощью MinMaxScaler":
