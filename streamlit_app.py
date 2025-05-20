@@ -24,10 +24,8 @@ st.title('💻 Кластеризация на основе файлов экс�
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
-preparation_state = False
-
 with st.expander('Импорт данных'):
-
+  
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
   unploaded_file_df = pd.read_excel(unploaded_file)
   unploaded_file_df
@@ -45,8 +43,9 @@ with st.expander('Подготовка датасета'):
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
-    def preparation_state_button_on_click():
+    def st.session_state.preparation_state_button_on_click():
       st.write("yf;fkb ryjgre!")
+    
       # if col_index_change == "В датасете нет колонки для индекса":
       #   df = pd.read_excel(unploaded_file)
       # else:
@@ -81,11 +80,11 @@ with st.expander('Подготовка датасета'):
       # #     scaler = RobustScaler()
       # #   df = scaler.fit_transform(df)
 
-      # preparation_state = True
+      st.session_state.preparation_state = True
       # return None
     
-    preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
-    if preparation_state:
+    preparation_state_button = st.button("Провести предобработку", on_click=st.session_state.preparation_state_button_on_click)
+    if st.session_state.preparation_state:
       df
 
   else:
@@ -93,7 +92,7 @@ with st.expander('Подготовка датасета'):
 
 with st.expander('Кластеризация методом k-means++'):  
   if unploaded_file:
-    if preparation_state:
+    if st.session_state.preparation_state:
       if df.shape[0]>=3:
         k_means_df = df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
@@ -174,7 +173,7 @@ with st.expander('Кластеризация методом k-means++'):
     
 with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
-    if preparation_state:
+    if st.session_state.preparation_state:
       if df.shape[0]>=3:
         hierarchichal_df = df
   
@@ -245,7 +244,7 @@ with st.expander('Иерархическая кластеризация'):
 
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
-    if preparation_state:
+    if st.session_state.preparation_state:
       if df.shape[0]>=3:
         dbscan_df = df
         st.write("luala")
