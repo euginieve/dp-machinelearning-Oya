@@ -118,7 +118,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
             scaler = RobustScaler()
           df = scaler.fit_transform(df)
           scaled_data = scaler.fit_transform(df)
-          df = pd.DataFrame(scaled_data, columns=df.columns)
+          df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
           df_state = True
           # st.session_state.button = True
