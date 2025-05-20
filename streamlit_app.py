@@ -70,18 +70,18 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
         df.dropna(axis=1, how='all', inplace=True)
 
-      # if null_transform == "Удалять строки, содержащие пустые значения":
-      #   df = df.dropna()
-      # else: 
-      #   for col in df.columns:
-      #     for el in df[col]:
-      #       if not pd.notna(el):
-      #         if str(el).replace(".", "", 1).isdigit():
-      #           df[col].fillna(df[col].mean()[0], inplace=True)
-      #           break
-      #         else:
-      #           df[col].fillna(df[col].mode()[0], inplace=True)
-      #           break
+        if null_transform == "Удалять строки, содержащие пустые значения":
+          df = df.dropna()
+        else: 
+          for col in df.columns:
+            for el in df[col]:
+              if not pd.notna(el):
+                if str(el).replace(".", "", 1).isdigit():
+                  df[col].fillna(df[col].mean()[0], inplace=True)
+                  break
+                else:
+                  df[col].fillna(df[col].mode()[0], inplace=True)
+                  break
 
       # if categorial_to_numerical == "OrdinalEncoder":
       #   df = OrdinalEncoder().fit_transform(df)
