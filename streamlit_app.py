@@ -46,41 +46,42 @@ with st.expander('Подготовка датасета'):
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
     def preparation_state_button_on_click():
-      if col_index_change == "В датасете нет колонки для индекса":
-        df = pd.read_excel(unploaded_file)
-      else:
-        df = pd.read_excel(unploaded_file, index_col = 0)
-
-      # df.dropna(axis=1, how='all', inplace=True)
-
-      # if null_transform == "Удалять строки, содержащие пустые значения":
-      #   df = df.dropna()
-      # else: 
-      #   for col in df.columns:
-      #     for el in df[col]:
-      #       if not pd.notna(el):
-      #         if str(el).replace(".", "", 1).isdigit():
-      #           df[col].fillna(df[col].mean()[0], inplace=True)
-      #           break
-      #         else:
-      #           df[col].fillna(df[col].mode()[0], inplace=True)
-      #           break
-
-      # if categorial_to_numerical == "OrdinalEncoder":
-      #   df = OrdinalEncoder().fit_transform(df)
+      st.write("yf;fkb ryjgre!")
+      # if col_index_change == "В датасете нет колонки для индекса":
+      #   df = pd.read_excel(unploaded_file)
       # else:
-      #   df = OneHotEncoder().fit_transform(df)
-      
-      # if scaler_method != "Не производить нормализацию":
-      #   if scaler_method == "Стандартизация (StandartScaler)":
-      #     scaler = StandardScaler()
-      #   elif scaler_method == "Масштабирование с помощью MinMaxScaler":
-      #     scaler = MinMaxScaler()
-      #   elif scaler_method == "Масштабирование с помощью RobustScaler":
-      #     scaler = RobustScaler()
-      #   df = scaler.fit_transform(df)
+      #   df = pd.read_excel(unploaded_file, index_col = 0)
 
-      preparation_state = True
+      # # df.dropna(axis=1, how='all', inplace=True)
+
+      # # if null_transform == "Удалять строки, содержащие пустые значения":
+      # #   df = df.dropna()
+      # # else: 
+      # #   for col in df.columns:
+      # #     for el in df[col]:
+      # #       if not pd.notna(el):
+      # #         if str(el).replace(".", "", 1).isdigit():
+      # #           df[col].fillna(df[col].mean()[0], inplace=True)
+      # #           break
+      # #         else:
+      # #           df[col].fillna(df[col].mode()[0], inplace=True)
+      # #           break
+
+      # # if categorial_to_numerical == "OrdinalEncoder":
+      # #   df = OrdinalEncoder().fit_transform(df)
+      # # else:
+      # #   df = OneHotEncoder().fit_transform(df)
+      
+      # # if scaler_method != "Не производить нормализацию":
+      # #   if scaler_method == "Стандартизация (StandartScaler)":
+      # #     scaler = StandardScaler()
+      # #   elif scaler_method == "Масштабирование с помощью MinMaxScaler":
+      # #     scaler = MinMaxScaler()
+      # #   elif scaler_method == "Масштабирование с помощью RobustScaler":
+      # #     scaler = RobustScaler()
+      # #   df = scaler.fit_transform(df)
+
+      # preparation_state = True
       return None
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
