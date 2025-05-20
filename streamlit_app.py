@@ -20,7 +20,7 @@ import math
 from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
-st.title('💻 Кластеризация на основе файлов эксель')
+st.title('💻 Кластеризация на основе файлов экселььььь')
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
@@ -109,19 +109,19 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
         
       
-      # if scaler_method != "Не производить нормализацию":
-      #   if scaler_method == "Стандартизация (StandartScaler)":
-      #     scaler = StandardScaler()
-      #   elif scaler_method == "Масштабирование с помощью MinMaxScaler":
-      #     scaler = MinMaxScaler()
-      #   elif scaler_method == "Масштабирование с помощью RobustScaler":
-      #     scaler = RobustScaler()
-      #   df = scaler.fit_transform(df)
-
-        df_state = True
-        # st.session_state.button = True
-        df
-        st.write("Предобработка завершена")
+        if scaler_method != "Не производить нормализацию":
+          if scaler_method == "Стандартизация (StandartScaler)":
+            scaler = StandardScaler()
+          elif scaler_method == "Масштабирование с помощью MinMaxScaler":
+            scaler = MinMaxScaler()
+          elif scaler_method == "Масштабирование с помощью RobustScaler":
+            scaler = RobustScaler()
+          df = scaler.fit_transform(df)
+  
+          df_state = True
+          # st.session_state.button = True
+          df
+          st.write("Предобработка завершена")
 
   else:
     st.write('Загрузите файл во вкладке "Импорт данных"')
