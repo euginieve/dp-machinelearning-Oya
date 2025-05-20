@@ -46,7 +46,7 @@ with st.expander('Импорт данных', expanded=True):
   st.button("Перейти к подготовке датасета", on_click=toggle)
     
       
-with st.expander('Подготовка датасета', expanded=st.session_state.button):
+
   # if df_state in st.session_state:
   #   st.session_state.df_state = False
 
@@ -128,7 +128,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
   else:
     st.write('Загрузите файл во вкладке "Импорт данных"')
 
-with st.expander('Кластеризация методом k-means++', expanded=True):  
+with st.expander('Кластеризация методом k-means++'):  
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
@@ -186,7 +186,6 @@ with st.expander('Кластеризация методом k-means++', expanded
         if k_means_cluster_quan!="Не выбрано": 
           k_means_df = k_means_plus_plus(k_means_df, k_means_cluster_quan)
           st.session_state["current_k_means_df"]
-        # Create a Pandas Excel writer using XlsxWriter as the engine.
           buffer = io.BytesIO()
           
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
@@ -207,16 +206,15 @@ with st.expander('Кластеризация методом k-means++', expanded
     else:
       st.write("Проведите предобработку загруженных данных")
   else:
-    st.write('Загрузите файл во вкладке "Импорт данных" и проведите предобработку загруженных данных')
+    st.write('Загрузите файл во вкладке "Импорт данных" и проведите предобработку загруженных данных во вкладке "Подготовка датасета"')
     
-with st.expander('Иерархическая кластеризация', expanded=True):  
+with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
         hierarchichal_df = df
   
         def hierarchy_dendrogram(hierarchichal_df, level=31):
-          hierarchichal_df = pd.DataFrame(scaled_data, columns=hierarchichal_df.columns)
           linkage_matrix = hierarchy.linkage(hierarchichal_df.values, method="ward")
           fig, ax = plt.subplots(figsize=(20, 10), dpi=200)
           ax.set_title("Дендрограмма", fontsize=30)
@@ -246,7 +244,6 @@ with st.expander('Иерархическая кластеризация', expand
           hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_hierarchy")
           
         def hierarchy_clusterisation(hierarchichal_df, quan_of_clusters):
-          hierarchichal_df = pd.DataFrame(scaled_data, columns=hierarchichal_df.columns)
           model = AgglomerativeClustering(quan_of_clusters)
           cluster_labels = model.fit_predict(hierarchichal_df)
           hierarchichal_df["Номер кластера"] = cluster_labels
@@ -278,9 +275,9 @@ with st.expander('Иерархическая кластеризация', expand
     else:
       st.write("Проведите предобработку загруженных данных")
   else:
-    st.write('Загрузите файл во вкладке "Импорт данных" и проведите предобработку загруженных данных')
+    st.write('Загрузите файл во вкладке "Импорт данных" и проведите предобработку загруженных данных во вкладке "Подготовка датасета"')
 
-with st.expander('Метод DBSCAN', expanded=True):  
+with st.expander('Метод DBSCAN'):  
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
@@ -289,13 +286,20 @@ with st.expander('Метод DBSCAN', expanded=True):
   
         eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
         min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
+        def hierarchy_clusterisation(hierarchichal_df, quan_of_clusters):
+            model = AgglomerativeClustering(quan_of_clusters)
+            cluster_labels = model.fit_predict(hierarchichal_df)
+            hierarchichal_df["Номер кластера"] = cluster_labels
+            st.session_state["current_hierarchichal_df"] = hierarchichal_df
+            return hierarchichal_df
+        button = st.button("Применить кластеризацию с заданными параметрами")
       
       else:
         st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
     else:
       st.write("Проведите предобработку загруженных данных")
   else:
-    st.write('Загрузите файл во вкладке "Импорт данных" и проведите предобработку загруженных данных')
+    st.write('Загрузите файл во вкладке "Импорт данных" и проведите предобработку загруженных данных во вкладке "Подготовка датасета"')
 
   
 
