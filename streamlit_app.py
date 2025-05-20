@@ -104,6 +104,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
           encoder = OneHotEncoder(drop='first')
           encoded_data = encoder.fit_transform(df[columns_to_encode])
           encoded_columns = encoder.get_feature_names_out(columns_to_encode)
+          df_encoded = pd.DataFrame(encoded_data, columns=encoded_columns)
           df = pd.concat([df, df_encoded], axis=1)
 
         
