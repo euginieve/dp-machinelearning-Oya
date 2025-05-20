@@ -25,8 +25,8 @@ st.info("Это веб-приложение для кластеризации в
 
 with st.expander('Импорт данных'):
 
-  unploaded_file = pd.read_excel(st.file_uploader(label="Загрузите свой файл"))
-  unploaded_file
+  unploaded_file = st.file_uploader(label="Загрузите свой файл")
+  unploaded_file_df = pd.read_excel(unploaded_file)
   st.session_state.preparation_state = False
     
 with st.expander('Подготовка датасета'):
