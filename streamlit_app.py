@@ -64,7 +64,7 @@ with st.expander('Подготовка датасета'):
           scaler = StandardScaler()
         elif scaler_method == "Масштабирование с помощью MinMaxScaler":
           scaler = MinMaxScaler()
-        elif scaler_method == "Масштабирование с помощью RobustScaler"
+        elif scaler_method == "Масштабирование с помощью RobustScaler":
           scaler = RobustScaler()
         df = scaler.fit_transform(df)
 
