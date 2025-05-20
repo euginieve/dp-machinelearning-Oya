@@ -83,12 +83,18 @@ with st.expander('Подготовка датасета', expanded=st.session_st
                       if not mode_value.empty:
                           df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
-
+          
+      columns_to_encode = []    
+      for column in df.columns:
+        if not pd.api.types.is_numeric_dtype(df[column]):
+          columns_to_encode.append(column)
 
       if categorial_to_numerical == "OrdinalEncoder":
-        df = OrdinalEncoder().fit_transform(df)
+        encoder = OrdinalEncoder().fit_transform(df)
       else:
-        df = OneHotEncoder().fit_transform(df)
+        encoder = OneHotEncoder().fit_transform(df)
+
+      df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
       
       # if scaler_method != "Не производить нормализацию":
       #   if scaler_method == "Стандартизация (StandartScaler)":
