@@ -116,7 +116,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
             scaler = MinMaxScaler()
           elif scaler_method == "Масштабирование с помощью RobustScaler":
             scaler = RobustScaler()
-          df = scaler.fit_transform(df)
+          # df = scaler.fit_transform(df)
           scaled_data = scaler.fit_transform(df)
           df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
