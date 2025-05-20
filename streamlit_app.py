@@ -20,7 +20,7 @@ import math
 from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
-st.title('💻 Кластеризация на основе файлов эксель aaa')
+st.title('💻 Кластеризация на основе файлов эксель')
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
@@ -107,12 +107,15 @@ with st.expander('Импорт данных', expanded=True):
           encoder = OrdinalEncoder()
           df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
         else:
-          encoder = OneHotEncoder(drop='first')
-          encoded_data = encoder.fit_transform(df[columns_to_encode])
-          encoded_columns = encoder.get_feature_names_out(columns_to_encode)
-          df_encoded = pd.DataFrame(encoded_data, columns=encoded_columns)
-          df_final = pd.concat([df, df_encoded], axis=1)
-          df = df_final
+          # encoder = OneHotEncoder(drop='first')
+          # encoded_data = encoder.fit_transform(df[columns_to_encode])
+          # encoded_columns = encoder.get_feature_names_out(columns_to_encode)
+          # df_encoded = pd.DataFrame(encoded_data, columns=encoded_columns)
+          # df_final = pd.concat([df, df_encoded], axis=1)
+          # df = df_final
+          ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
+          ohetransform = ohe.fit_transform(df[columns_to_encode])
+          df = pd.concat([df, ohetransform], axis=1).drop(columns=[columns_to_encode]) 
 
         
       
