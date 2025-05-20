@@ -181,7 +181,7 @@ with st.expander('Иерархическая кластеризация'):
           else:
             dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,100)])
 
-          hierarchy_dendrogram_button_on_click():
+          def hierarchy_dendrogram_button_on_click():
             hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
             
           if dendrogram_level!="Не выбрано":
