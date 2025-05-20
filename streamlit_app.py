@@ -77,24 +77,14 @@ with st.expander('Подготовка датасета', expanded=st.session_st
           for column in df_filled.columns:
               if df_filled[column].isnull().any():
                   if pd.api.types.is_numeric_dtype(df_filled[column]):
-                      # Заполняем средним значением для числовых столбцов
                       mean_value = df_filled[column].mean()
                       df_filled[column].fillna(mean_value, inplace=True)
                   else:
-                      # Заполняем модой для категориальных столбцов
                       mode_value = df_filled[column].mode()
                       if not mode_value.empty:
                           df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
-                # for col in df.columns:
-                #   for el in df[col]:
-                #     if not pd.notna(el):
-                #       if str(el).replace(".", "", 1).isdigit():
-                #         df[col].fillna(df[col].mean()[0], inplace=True)
-                #         break
-                #       else:
-                #         df[col].fillna(df[col].mode()[0], inplace=True)
-                #         break
+
 
       # if categorial_to_numerical == "OrdinalEncoder":
       #   df = OrdinalEncoder().fit_transform(df)
