@@ -81,11 +81,11 @@ with st.expander('Подготовка датасета'):
       # #     scaler = RobustScaler()
       # #   df = scaler.fit_transform(df)
 
-      st.session_state.preparation_state = True
+      # st.session_state.preparation_state = True
       # return None
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
-    if st.session_state.preparation_state:
+    if preparation_state_button:
       st.write("yf;fkb ryjgre!")
 
   else:
