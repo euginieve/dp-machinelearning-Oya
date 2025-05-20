@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import RobustScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 from matplotlib.ticker import MaxNLocator
@@ -18,6 +19,9 @@ from scipy.spatial.distance import cdist
 import math
 from typing import List, Tuple
 
+session_state.preparation_state = False
+
+
 
 st.title('💻 Кластеризация на основе файлов эксель')
 
@@ -26,41 +30,55 @@ st.info("Это веб-приложение для кластеризации в
 with st.expander('Импорт данных'):
 
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
-
-  if unploaded_file:
-    # col_numbers = ["В датасете нет колонки для индекса"] + [i for i in range (1,df.shape[1]+1)]
-    col_index_change = st.selectbox("Выберите вариант индексирования", ["В датасете нет колонки для индекса",
-                                                                                         "Индексом датасета является первый столбец"])
-    if col_index_change:
-      if col_index_change == "В датасете нет колонки для индекса":
-        df = pd.read_csv(unploaded_file)
-        df
-      else:
-        df = pd.read_csv(unploaded_file, index_col = 0)
-        df
-
-      
-    # df = pd.read_excel(unploaded_file)
-    # # df
-    # col_titles = df.columns.values.tolist()
-    # df.set_index(col_titles[1])
-    # # col_titles
-    # df
     
 with st.expander('Подготовка датасета'):
+  
   if unploaded_file:
     st.header("Введите параметры подготовки данных")
+    col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
+
+    null_transform = st.selectbox("Выберите вариант обработки пустых значений переменных", ("Удалять строки, содержащие пустые значения", "Заменять пустые значения на моду в колонке"))
+
+    categorial_to_numerical = st.selectbox("Выберите вариант преобразования категориальных переменных в численные", ("OrdinalEncoder", "OneHotEncoder"))
+
+    scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
+
+    def preparation_state_button_on_click():
+      if col_index_change == "В датасете нет колонки для индекса":
+        df = pd.read_excel(unploaded_file)
+      else:
+        df = pd.read_excel(unploaded_file, index_col = 0)
+
+      df.dropna(axis=1, how='all', inplace=True)
+
+      if null_transform == "Удалять строки, содержащие пустые значения":
+        df = df.dropna()
+      else: 
+        for col in df.columns:
+            df[col].fillna(df[col].mode()[0], inplace=True)
+
+      if categorial_to_numerical == "OrdinalEncoder":
+        df = OrdinalEncoder().fit_transform(df)
+      else:
+        df = OneHotEncoder().fit_transform(df)
+      
+      if scaler_method != "Не производить нормализацию"
+        if scaler_method == "Стандартизация (StandartScaler)":
+          scaler = StandardScaler()
+        else if scaler_method == "Масштабирование с помощью MinMaxScaler":
+          scaler = MinMaxScaler()
+        else if scaler_method == "Масштабирование с помощью RobustScaler"
+          scaler = RobustScaler()
+        df = scaler.fit_transform(df)
+
+      session_state.preparation_state = True
+      return df
+    
+    
+    preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
 
     
-    null_transform = st.selectbox("Выберите вариант обработки пустых значений переменных", ("Удалять строки, содержащие пустые значения", 
-                                                                           "Заменять пустые значения на моду в колонке"
-                                                                          ))
-
-    categorial_to_numerical = st.selectbox("Выберите вариант преобразования категориальных переменных в численные", ("Удалять строки, содержащие пустые значения", 
-                                                                           "Заменять пустые значения на среднее значение в колонке",
-                                                                           "Заменять пустые значения на моду в колонке"
-                                                                          ))
-    scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
+    
 
     
     if null_transform=="Удалять строки, содержащие пустые значения":
@@ -100,10 +118,10 @@ with st.expander('Кластеризация методом k-means++'):
           # st.session_state.clicked = True
           ssd = []
           scaler = StandardScaler()
-          scaled_df = scaler.fit_transform(df)
+          df = scaler.fit_transform(df)
           for quan_of_clusters in range(2, max_clusters_quan+1):
               model = KMeans(n_clusters=quan_of_clusters, init="k-means++")
-              model.fit(scaled_df)
+              model.fit(df)
               ssd.append(model.inertia_)
           plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
           plt.title("График локтя")
@@ -139,9 +157,9 @@ with st.expander('Кластеризация методом k-means++'):
       def k_means_plus_plus(df, quan_of_clusters):
         try:
           scaler = StandardScaler()
-          scaled_df = scaler.fit_transform(df)
+          df = scaler.fit_transform(df)
           model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
-          cluster_labels = model.fit_predict(scaled_df)
+          cluster_labels = model.fit_predict(df)
           df["Номер кластера"] = cluster_labels
           st.session_state["current_df"] = df
           return df
@@ -185,8 +203,8 @@ with st.expander('Иерархическая кластеризация'):
       def hierarchy_dendrogram(df, level=31):
         scaler = MinMaxScaler()
         scaled_data = scaler.fit_transform(df)
-        scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
-        linkage_matrix = hierarchy.linkage(scaled_df.values, method="ward")
+        df = pd.DataFrame(scaled_data, columns=df.columns)
+        linkage_matrix = hierarchy.linkage(df.values, method="ward")
         # Create a figure and axis for the plot
         fig, ax = plt.subplots(figsize=(20, 10), dpi=200)
         ax.set_title("Дендрограмма", fontsize=30)
@@ -217,9 +235,9 @@ with st.expander('Иерархическая кластеризация'):
       def hierarchy_clusterisation(df, quan_of_clusters):
         scaler = MinMaxScaler()
         scaled_data = scaler.fit_transform(df)
-        scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
+        df = pd.DataFrame(scaled_data, columns=df.columns)
         model = AgglomerativeClustering(quan_of_clusters)
-        cluster_labels = model.fit_predict(scaled_df)
+        cluster_labels = model.fit_predict(df)
         df["Номер кластера"] = cluster_labels
         st.session_state["current_df"] = df
         return df
@@ -254,10 +272,10 @@ with st.expander('Метод DBSCAN'):
     if df.shape[0]>=3:
       st.write("luala")
       scaler = MinMaxScaler()
-      scaled_df = scaler.fit_transform(df)
+      df = scaler.fit_transform(df)
 
       eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
-      min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(scaled_df)+1)])
+      min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
     
     else:
       st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
