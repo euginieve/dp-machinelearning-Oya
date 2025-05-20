@@ -105,7 +105,7 @@ with st.expander('Кластеризация методом k-means++'):
             ax.xaxis.set_major_locator(MaxNLocator(integer=True))
             return st.pyplot(plt)
 
-          elbow_method_button_on_click():
+          def elbow_method_button_on_click():
             elbow_method(k_means_df, clusters_quan_elbow_method)
           
           if clusters_quan_elbow_method!="Не выбрано":
