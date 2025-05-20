@@ -165,11 +165,17 @@ with st.expander('Кластеризация методом k-means++'):
             ax.xaxis.set_major_locator(MaxNLocator(integer=True))
             return st.pyplot(plt)
 
+          if 'elbow_method_button_clicked' not in st.session_state:
+              st.session_state.elbow_method_button_clicked = False
+
           def elbow_method_button_on_click():
-            elbow_method(k_means_df, clusters_quan_elbow_method)
+              st.session_state.elbow_method_button_clicked = True
           
           if clusters_quan_elbow_method!="Не выбрано":
             elbow_method_button = st.button("Построить график локтя", on_click=elbow_method_button_on_click())
+
+          if st.session_state.elbow_method_button_clicked:
+            elbow_method(k_means_df, clusters_quan_elbow_method)
   
             # if elbow_method_button:
             #   elbow_method(k_means_df, clusters_quan_elbow_method)
@@ -181,16 +187,12 @@ with st.expander('Кластеризация методом k-means++'):
       
             
         def k_means_plus_plus(k_means_df, quan_of_clusters):
-          try:
-            model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
-            cluster_labels = model.fit_predict(k_means_df)
-            k_means_df["Номер кластера"] = cluster_labels
-            st.session_state["current_k_means_df"] = k_means_df
-            return k_means_df
-                           
-          except Exception as e:
-            st.write(f"Ошибка при кластеризации {e}")
-            return None
+          model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
+          cluster_labels = model.fit_predict(k_means_df)
+          k_means_df["Номер кластера"] = cluster_labels
+          st.session_state["current_k_means_df"] = k_means_df
+          return k_means_df
+
             
         if k_means_cluster_quan!="Не выбрано": 
           k_means_df = k_means_plus_plus(k_means_df, k_means_cluster_quan)
@@ -295,13 +297,16 @@ with st.expander('Метод DBSCAN'):
   
         eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
         min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
-        def hierarchy_clusterisation(hierarchichal_df, quan_of_clusters):
-            model = AgglomerativeClustering(quan_of_clusters)
-            cluster_labels = model.fit_predict(hierarchichal_df)
-            hierarchichal_df["Номер кластера"] = cluster_labels
+        
+        def dbscan_clusterisation(dbscan_df, quan_of_clusters):
+            model = DBSCAN(eps=eps_to_use, min_samples=min_samples_to_use)
+            cluster_labels = model.fit_predict(dbscan_df)
+            dbscan_df["Номер кластера"] = cluster_labels
             st.session_state["current_hierarchichal_df"] = hierarchichal_df
-            return hierarchichal_df
+            return dbscan_df
+          
         button = st.button("Применить кластеризацию с заданными параметрами")
+
       
       else:
         st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
