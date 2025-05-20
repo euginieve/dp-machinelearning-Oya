@@ -51,34 +51,34 @@ with st.expander('Подготовка датасета'):
       else:
         df = pd.read_excel(unploaded_file, index_col = 0)
 
-      df.dropna(axis=1, how='all', inplace=True)
+      # df.dropna(axis=1, how='all', inplace=True)
 
-      if null_transform == "Удалять строки, содержащие пустые значения":
-        df = df.dropna()
-      else: 
-        for col in df.columns:
-          for el in df[col]:
-            if not pd.notna(el):
-              if str(el).replace(".", "", 1).isdigit():
-                df[col].fillna(df[col].mean()[0], inplace=True)
-                break
-              else:
-                df[col].fillna(df[col].mode()[0], inplace=True)
-                break
+      # if null_transform == "Удалять строки, содержащие пустые значения":
+      #   df = df.dropna()
+      # else: 
+      #   for col in df.columns:
+      #     for el in df[col]:
+      #       if not pd.notna(el):
+      #         if str(el).replace(".", "", 1).isdigit():
+      #           df[col].fillna(df[col].mean()[0], inplace=True)
+      #           break
+      #         else:
+      #           df[col].fillna(df[col].mode()[0], inplace=True)
+      #           break
 
-      if categorial_to_numerical == "OrdinalEncoder":
-        df = OrdinalEncoder().fit_transform(df)
-      else:
-        df = OneHotEncoder().fit_transform(df)
+      # if categorial_to_numerical == "OrdinalEncoder":
+      #   df = OrdinalEncoder().fit_transform(df)
+      # else:
+      #   df = OneHotEncoder().fit_transform(df)
       
-      if scaler_method != "Не производить нормализацию":
-        if scaler_method == "Стандартизация (StandartScaler)":
-          scaler = StandardScaler()
-        elif scaler_method == "Масштабирование с помощью MinMaxScaler":
-          scaler = MinMaxScaler()
-        elif scaler_method == "Масштабирование с помощью RobustScaler":
-          scaler = RobustScaler()
-        df = scaler.fit_transform(df)
+      # if scaler_method != "Не производить нормализацию":
+      #   if scaler_method == "Стандартизация (StandartScaler)":
+      #     scaler = StandardScaler()
+      #   elif scaler_method == "Масштабирование с помощью MinMaxScaler":
+      #     scaler = MinMaxScaler()
+      #   elif scaler_method == "Масштабирование с помощью RobustScaler":
+      #     scaler = RobustScaler()
+      #   df = scaler.fit_transform(df)
 
       preparation_state = True
       return None
