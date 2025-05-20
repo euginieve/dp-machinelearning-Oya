@@ -82,7 +82,7 @@ with st.expander('Подготовка датасета'):
       # #   df = scaler.fit_transform(df)
 
       # preparation_state = True
-      return None
+      # return None
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
     if preparation_state:
