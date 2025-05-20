@@ -116,16 +116,16 @@ with st.expander('Импорт данных', expanded=True):
 
         
       
-        if scaler_method != "Не производить нормализацию":
-          if scaler_method == "Стандартизация (StandartScaler)":
-            scaler = StandardScaler()
-          elif scaler_method == "Масштабирование с помощью MinMaxScaler":
-            scaler = MinMaxScaler()
-          elif scaler_method == "Масштабирование с помощью RobustScaler":
-            scaler = RobustScaler()
-          # df = scaler.fit_transform(df)
-          scaled_data = scaler.fit_transform(df)
-          df = pd.DataFrame(scaled_data, columns=list(df.columns))
+        # if scaler_method != "Не производить нормализацию":
+        #   if scaler_method == "Стандартизация (StandartScaler)":
+        #     scaler = StandardScaler()
+        #   elif scaler_method == "Масштабирование с помощью MinMaxScaler":
+        #     scaler = MinMaxScaler()
+        #   elif scaler_method == "Масштабирование с помощью RobustScaler":
+        #     scaler = RobustScaler()
+        #   # df = scaler.fit_transform(df)
+        #   scaled_data = scaler.fit_transform(df)
+        #   df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
           df_state = True
           # toggle()
