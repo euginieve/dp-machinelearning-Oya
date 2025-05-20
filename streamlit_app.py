@@ -69,9 +69,6 @@ with st.expander('Импорт данных', expanded=True):
 
     def preparation_state_button_on_click():
         st.session_state.preparation_state_button_clicked = True
-
-# st.button('Click me', on_click=click_button)
-
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
 
@@ -298,14 +295,22 @@ with st.expander('Метод DBSCAN'):
         eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
         min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
         
-        def dbscan_clusterisation(dbscan_df, quan_of_clusters):
+        def dbscan_clusterisation():
             model = DBSCAN(eps=eps_to_use, min_samples=min_samples_to_use)
             cluster_labels = model.fit_predict(dbscan_df)
             dbscan_df["Номер кластера"] = cluster_labels
-            st.session_state["current_hierarchichal_df"] = hierarchichal_df
             return dbscan_df
+
+        if 'dbscan_button_clicked' not in st.session_state:
+          st.session_state.dbscan_button_clicked = False
+    
+        def dbscan_button_on_click():
+            st.session_state.dbscan_button_clicked = True
           
-        button = st.button("Применить кластеризацию с заданными параметрами")
+        dbscan_button = st.button("Применить кластеризацию с заданными параметрами", on_click=dbscan_button_on_click)
+
+        if st.session_state.dbscan_button_clicked:
+          dbscan_clusterisation()
 
       
       else:
