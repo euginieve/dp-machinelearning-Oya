@@ -299,6 +299,7 @@ with st.expander('Метод DBSCAN'):
             model = DBSCAN(eps=eps_to_use, min_samples=min_samples_to_use)
             cluster_labels = model.fit_predict(dbscan_df)
             dbscan_df["Номер кластера"] = cluster_labels
+            st.session_state["current_dbscan_df"] = dbscan_df
             return dbscan_df
 
         if 'dbscan_button_clicked' not in st.session_state:
