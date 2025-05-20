@@ -26,7 +26,7 @@ st.info("Это веб-приложение для кластеризации в
 with st.expander('Импорт данных'):
 
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
-  session_state.preparation_state = False
+  st.session_state.preparation_state = False
     
 with st.expander('Подготовка датасета'):
   
@@ -68,7 +68,7 @@ with st.expander('Подготовка датасета'):
           scaler = RobustScaler()
         df = scaler.fit_transform(df)
 
-      session_state.preparation_state = True
+      st.session_state.preparation_state = True
       return df
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
@@ -79,7 +79,7 @@ with st.expander('Подготовка датасета'):
 with st.expander('Кластеризация методом k-means++'):
       
   if unploaded_file:
-    if session_state.preparation_state:
+    if st.session_state.preparation_state:
       if df.shape[0]>=3:
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
         
@@ -175,7 +175,7 @@ with st.expander('Кластеризация методом k-means++'):
     
 with st.expander('Иерархическая кластеризация'):  
   if unploaded_file:
-    if session_state.preparation_state:
+    if st.session_state.preparation_state:
       if df.shape[0]>=3:
         st.write("Я здеся!")
   
@@ -250,7 +250,7 @@ with st.expander('Иерархическая кластеризация'):
 
 with st.expander('Метод DBSCAN'):  
   if unploaded_file:
-    if session_state.preparation_state:
+    if st.session_state.preparation_state:
       if df.shape[0]>=3:
         st.write("luala")
         scaler = MinMaxScaler()
