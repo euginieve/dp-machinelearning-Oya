@@ -20,7 +20,7 @@ import math
 from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
-st.title('💻 Кластеризация на основе файлов эксель ffffff')
+st.title('💻 Кластеризация на основе файлов эксель')
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
@@ -47,6 +47,15 @@ with st.expander('Импорт данных', expanded=True):
     
       
 with st.expander('Подготовка датасета', expanded=st.session_state.button):
+  if df_state in st.session_state:
+    st.session_state.df_state = False
+
+    def df_state_button_click():
+      if st.session_state.button:
+          df = pd.read_excel(unploaded_file)
+          st.session_state.button = False
+      # else:
+      #     st.session_state.button = True
   
   if unploaded_file:
    
@@ -59,7 +68,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
-    preparation_state_button = st.button("Провести предобработку")
+    preparation_state_button = st.button("Провести предобработку", on_click=df_state_button_click)
     if preparation_state_button:
       
       if col_index_change == "В датасете нет колонки для индекса":
@@ -106,6 +115,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
       #   df = scaler.fit_transform(df)
 
         df_state = True
+        st.session_state.button = True
         df
         st.write("Предобработка завершена")
 
