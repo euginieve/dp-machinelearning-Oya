@@ -107,11 +107,12 @@ with st.expander('Импорт данных', expanded=True):
           encoder = OrdinalEncoder()
           df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
         else:
-          encoder = OneHotEncoder(drop='first')
+          encoder = OneHotEncoder()
           encoded_data = encoder.fit_transform(df[columns_to_encode])
           encoded_columns = encoder.get_feature_names_out(columns_to_encode)
           df_encoded = pd.DataFrame(encoded_data, columns=encoded_columns)
-          df = pd.concat([df, df_encoded], axis=1)
+          df_final = pd.concat([df, df_encoded], axis=1)
+          df = df_final
 
         
       
