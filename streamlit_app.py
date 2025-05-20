@@ -101,7 +101,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
           encoder = OrdinalEncoder()
           df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
         else:
-          encoder = OneHotEncoder(drop='first', sparse=False)
+          encoder = OneHotEncoder(drop='first')
           encoded_data = encoder.fit_transform(df[columns_to_encode])
           encoded_columns = encoder.get_feature_names_out(columns_to_encode)
           df = pd.concat([df, df_encoded], axis=1)
