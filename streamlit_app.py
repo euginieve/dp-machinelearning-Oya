@@ -27,7 +27,7 @@ st.info("Это веб-приложение для кластеризации в
 with st.expander('Импорт данных', expanded=True):
   
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
-  df = False
+  df_state = False
   if unploaded_file:
     unploaded_file_df = pd.read_excel(unploaded_file)
     unploaded_file_df
@@ -49,6 +49,7 @@ with st.expander('Импорт данных', expanded=True):
 with st.expander('Подготовка датасета', expanded=st.session_state.button):
   
   if unploaded_file:
+   
     
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
@@ -61,6 +62,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
     preparation_state_button = st.button("Провести предобработку")
     if preparation_state_button:
+      
       if col_index_change == "В датасете нет колонки для индекса":
         df = pd.read_excel(unploaded_file)
       else:
@@ -95,6 +97,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
           scaler = RobustScaler()
         df = scaler.fit_transform(df)
 
+        df_state = True
         df
 
   else:
@@ -102,7 +105,7 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
 with st.expander('Кластеризация методом k-means++', expanded=True):  
   if unploaded_file:
-    if df:
+    if df_state:
       if df.shape[0]>=3:
         k_means_df = df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
@@ -183,7 +186,7 @@ with st.expander('Кластеризация методом k-means++', expanded
     
 with st.expander('Иерархическая кластеризация', expanded=True):  
   if unploaded_file:
-    if df:
+    if df_state:
       if df.shape[0]>=3:
         hierarchichal_df = df
   
@@ -254,7 +257,7 @@ with st.expander('Иерархическая кластеризация', expand
 
 with st.expander('Метод DBSCAN', expanded=True):  
   if unploaded_file:
-    if df:
+    if df_state:
       if df.shape[0]>=3:
         dbscan_df = df
         st.write("luala")
