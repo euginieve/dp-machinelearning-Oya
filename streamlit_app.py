@@ -48,7 +48,8 @@ with st.expander('Импорт данных', expanded=True):
 with st.expander('Подготовка датасета', expanded=st.session_state.button):
   
   if unploaded_file:
-    df = False
+    if "preparation" not in st.session_state:
+    st.session_state.preparation = False
     
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
@@ -60,7 +61,12 @@ with st.expander('Подготовка датасета', expanded=st.session_st
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
     def preparation_state_button_on_click():
+      if st.session_state.preparation:
+        # df
+        return None
+      else:
       st.write("yf;fkb ryjgre!")
+      df = unploaded_file_df
     
       # if col_index_change == "В датасете нет колонки для индекса":
       #   df = pd.read_excel(unploaded_file)
@@ -96,8 +102,8 @@ with st.expander('Подготовка датасета', expanded=st.session_st
       # #     scaler = RobustScaler()
       # #   df = scaler.fit_transform(df)
 
-      # st.session_state.preparation_state = True
-      # return None
+      st.session_state.preparation = True
+      return None
     
     preparation_state_button = st.button("Провести предобработку", on_click=preparation_state_button_on_click)
     # if preparation_state_button:
