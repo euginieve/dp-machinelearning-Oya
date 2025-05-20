@@ -76,83 +76,70 @@ with st.expander('Подготовка датасета'):
   else:
     st.write('Загрузите файл во вкладке "Импорт данных"')
 
-with st.expander('Кластеризация методом k-means++'):
-      
+with st.expander('Кластеризация методом k-means++'):  
   if unploaded_file:
     if st.session_state.preparation_state:
       if df.shape[0]>=3:
+        k_means_df = df
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
         
         if elbow_method_need=="Да":
           
-          if df.shape[0]<=100:
+          if k_means_df.shape[0]<=100:
             clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], key = "clusters_quan_elbow_method_key")
           else:
             clusters_quan_elbow_method = st.selectbox("Укажите максимальное количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key = "clusters_quan_elbow_method_key")
       
-          def elbow_method(df, max_clusters_quan):    
-            # st.session_state.clicked = True
+          def elbow_method(k_means_df, max_clusters_quan):    
             ssd = []
-            scaler = StandardScaler()
-            df = scaler.fit_transform(df)
             for quan_of_clusters in range(2, max_clusters_quan+1):
                 model = KMeans(n_clusters=quan_of_clusters, init="k-means++")
-                model.fit(df)
+                model.fit(k_means_df)
                 ssd.append(model.inertia_)
             plt.plot(range(2, max_clusters_quan+1), ssd, "o--")
             plt.title("График локтя")
             plt.xlabel("Количество кластеров")
             plt.ylabel("SSD")
-            # Get the current axes
             ax = plt.gca()
-            # Set x-axis to only display integers
             ax.xaxis.set_major_locator(MaxNLocator(integer=True))
-            # st.session_state["elbow_plot"] = st.pyplot(plt)
             return st.pyplot(plt)
-  
-  
-  
-          # st.session_state["elbow_method_button_clicked"] 
-          # def click_button():
-            # myplot = elbow_method(df, clusters_quan_elbow_method)
-          #   st.session_state["elbow_method_button_clicked"] = True
-            # elbow_method(df, clusters_quan_elbow_method)
+
+          elbow_method_button_on_click():
+            elbow_method(k_means_df, clusters_quan_elbow_method)
           
           if clusters_quan_elbow_method!="Не выбрано":
-            elbow_method_button = st.button("Построить график локтя")
+            elbow_method_button = st.button("Построить график локтя", on_click=elbow_method_button_on_click())
   
-            if elbow_method_button:
-              elbow_method(df, clusters_quan_elbow_method)
+            # if elbow_method_button:
+            #   elbow_method(k_means_df, clusters_quan_elbow_method)
   
-        if df.shape[0]<=100:
-          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], key="clusters_quan_k_plus_plus")
+        if k_means_df.shape[0]<=100:
+          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,k_means_df.shape[0]+1)], key="clusters_quan_k_plus_plus")
         else:
           k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_k_plus_plus")
       
             
-        def k_means_plus_plus(df, quan_of_clusters):
+        def k_means_plus_plus(k_means_df, quan_of_clusters):
           try:
-            scaler = StandardScaler()
-            df = scaler.fit_transform(df)
             model = KMeans(n_clusters = quan_of_clusters, init = "k-means++")
-            cluster_labels = model.fit_predict(df)
-            df["Номер кластера"] = cluster_labels
-            st.session_state["current_df"] = df
-            return df
+            cluster_labels = model.fit_predict(k_means_df)
+            k_means_df["Номер кластера"] = cluster_labels
+            st.session_state["current_k_means_df"] = k_means_df
+            return k_means_df
                            
           except Exception as e:
             st.write(f"Ошибка при кластеризации {e}")
             return None
             
         if k_means_cluster_quan!="Не выбрано": 
-          df = k_means_plus_plus(df, k_means_cluster_quan)
-          st.session_state["current_df"]
+          k_means_df = k_means_plus_plus(k_means_df, k_means_cluster_quan)
+          st.session_state["current_k_means_df"]
         # Create a Pandas Excel writer using XlsxWriter as the engine.
           buffer = io.BytesIO()
           
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
               # Write each dataframe to a different worksheet.
-              st.session_state["current_df"].to_excel(writer, sheet_name='k_means')
+              st.session_state["current_k_means_df"].to_excel(writer, sheet_name='k_means')
           
               # Close the Pandas Excel writer and output the Excel file to the buffer
               writer.close()
@@ -162,10 +149,7 @@ with st.expander('Кластеризация методом k-means++'):
                   data=buffer,
                   file_name="dataframe_k_means_algorithm.xlsx",
                   mime="application/vnd.ms-excel"
-              )
-  
-      
-              
+              )     
       else:
         st.write("В датасете меньше трёх строк, кластеризация бессмысленна. Увеличьте количество строк или измените параметры подгтовки датасета, если в исходном датасете строк больше")
     else:
@@ -177,59 +161,55 @@ with st.expander('Иерархическая кластеризация'):
   if unploaded_file:
     if st.session_state.preparation_state:
       if df.shape[0]>=3:
-        st.write("Я здеся!")
+        hierarchichal_df = df
   
-        def hierarchy_dendrogram(df, level=31):
-          scaler = MinMaxScaler()
-          scaled_data = scaler.fit_transform(df)
-          df = pd.DataFrame(scaled_data, columns=df.columns)
-          linkage_matrix = hierarchy.linkage(df.values, method="ward")
-          # Create a figure and axis for the plot
+        def hierarchy_dendrogram(hierarchichal_df, level=31):
+          hierarchichal_df = pd.DataFrame(scaled_data, columns=hierarchichal_df.columns)
+          linkage_matrix = hierarchy.linkage(hierarchichal_df.values, method="ward")
           fig, ax = plt.subplots(figsize=(20, 10), dpi=200)
           ax.set_title("Дендрограмма", fontsize=30)
-          
           dendrogram(linkage_matrix, truncate_mode="level", p=level-1, ax=ax)
-          
           st.pyplot(fig)
-  
           return None
   
         dendrogram_need = st.selectbox("Требуется ли построить дендрограмму для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="dendrogram_need_box")
         
         if dendrogram_need=="Да":
-          if df.shape[0]<=100:
-            dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)])
+          if hierarchichal_hierarchichal_df.shape[0]<=100:
+            dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,hierarchichal_df.shape[0]+1)])
           else:
             dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,100)])
+
+          hierarchy_dendrogram_button_on_click():
+            hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
             
           if dendrogram_level!="Не выбрано":
-            hierarchy_dendrogram(df, int(dendrogram_level))
+            hierarchy_dendrogram_button = st.button("Построить дендрограмму", on_click=hierarchy_dendrogram_button_on_click())
+            # hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
              
-        if df.shape[0]<=100:
-          hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, df.shape[0]+1)], key="clusters_quan_hierarchy")
-          # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,df.shape[0]+1)], )
+        if hierarchichal_df.shape[0]<=100:
+          hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, hierarchichal_df.shape[0]+1)], key="clusters_quan_hierarchy")
+          # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,hierarchichal_df.shape[0]+1)], )
         else:
           hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_hierarchy")
           
-        def hierarchy_clusterisation(df, quan_of_clusters):
-          scaler = MinMaxScaler()
-          scaled_data = scaler.fit_transform(df)
-          df = pd.DataFrame(scaled_data, columns=df.columns)
+        def hierarchy_clusterisation(hierarchichal_df, quan_of_clusters):
+          hierarchichal_df = pd.DataFrame(scaled_data, columns=hierarchichal_df.columns)
           model = AgglomerativeClustering(quan_of_clusters)
-          cluster_labels = model.fit_predict(df)
-          df["Номер кластера"] = cluster_labels
-          st.session_state["current_df"] = df
-          return df
+          cluster_labels = model.fit_predict(hierarchichal_df)
+          hierarchichal_df["Номер кластера"] = cluster_labels
+          st.session_state["current_hierarchichal_df"] = hierarchichal_df
+          return hierarchichal_df
   
         if hierarchy_cluster_quan!="Не выбрано": 
-          df = hierarchy_clusterisation(df, hierarchy_cluster_quan)
-          st.session_state["current_df"]
+          hierarchichal_df = hierarchy_clusterisation(hierarchichal_df, hierarchy_cluster_quan)
+          st.session_state["current_hierarchichal_df"]
         # Create a Pandas Excel writer using XlsxWriter as the engine.
           buffer = io.BytesIO()
           
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
               # Write each dataframe to a different worksheet.
-              st.session_state["current_df"].to_excel(writer, sheet_name='k_means')
+              st.session_state["current_hierarchichal_df"].to_excel(writer, sheet_name='k_means')
           
               # Close the Pandas Excel writer and output the Excel file to the buffer
               writer.close()
@@ -252,9 +232,8 @@ with st.expander('Метод DBSCAN'):
   if unploaded_file:
     if st.session_state.preparation_state:
       if df.shape[0]>=3:
+        dbscan_df = df
         st.write("luala")
-        scaler = MinMaxScaler()
-        df = scaler.fit_transform(df)
   
         eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
         min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
