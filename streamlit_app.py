@@ -99,10 +99,14 @@ with st.expander('Подготовка датасета', expanded=st.session_st
 
         if categorial_to_numerical == "OrdinalEncoder":
           encoder = OrdinalEncoder()
+          df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
         else:
-          encoder = OneHotEncoder()
+          encoder = OneHotEncoder(drop='first', sparse=False)
+          encoded_data = encoder.fit_transform(df[columns_to_encode])
+          encoded_columns = encoder.get_feature_names_out(columns_to_encode)
+          df = pd.concat([df, df_encoded], axis=1)
 
-        df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
+        
       
       # if scaler_method != "Не производить нормализацию":
       #   if scaler_method == "Стандартизация (StandartScaler)":
