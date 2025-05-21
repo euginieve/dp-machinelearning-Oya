@@ -84,7 +84,7 @@ with st.expander('Импорт данных', expanded=True):
         df.dropna(axis=1, how='all', inplace=True)
 
         if null_transform == "Удалять строки, содержащие пустые значения":
-          df.dropna(inplace=True)
+          df.dropna(axis=0, how="any", inplace=True)
         else: 
           df_filled = df.copy()
           for column in df_filled.columns:
