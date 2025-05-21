@@ -98,31 +98,31 @@ with st.expander('Импорт данных', expanded=True):
                           df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
           
-        # columns_to_encode = []    
-        # for column in df.columns:
-        #   if not pd.api.types.is_numeric_dtype(df[column]):
-        #     columns_to_encode.append(column)
+        columns_to_encode = []    
+        for column in df.columns:
+          if not pd.api.types.is_numeric_dtype(df[column]):
+            columns_to_encode.append(column)
 
-        # if categorial_to_numerical == "OrdinalEncoder":
-        #   encoder = OrdinalEncoder()
-        #   df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
-        # else:
-          # ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
-          # ohetransform = ohe.fit_transform(df[columns_to_encode])
-          # df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
+        if categorial_to_numerical == "OrdinalEncoder":
+          encoder = OrdinalEncoder()
+          df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
+        else:
+          ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
+          ohetransform = ohe.fit_transform(df[columns_to_encode])
+          df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
 
         
       
-        # if scaler_method != "Не производить нормализацию":
-        #   if scaler_method == "Стандартизация (StandartScaler)":
-        #     scaler = StandardScaler()
-        #   elif scaler_method == "Масштабирование с помощью MinMaxScaler":
-        #     scaler = MinMaxScaler()
-        #   elif scaler_method == "Масштабирование с помощью RobustScaler":
-        #     scaler = RobustScaler()
-        #   # df = scaler.fit_transform(df)
-        #   scaled_data = scaler.fit_transform(df)
-        #   df = pd.DataFrame(scaled_data, columns=list(df.columns))
+        if scaler_method != "Не производить нормализацию":
+          if scaler_method == "Стандартизация (StandartScaler)":
+            scaler = StandardScaler()
+          elif scaler_method == "Масштабирование с помощью MinMaxScaler":
+            scaler = MinMaxScaler()
+          elif scaler_method == "Масштабирование с помощью RobustScaler":
+            scaler = RobustScaler()
+          # df = scaler.fit_transform(df)
+          scaled_data = scaler.fit_transform(df)
+          df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
         df_state = True
           # toggle()
