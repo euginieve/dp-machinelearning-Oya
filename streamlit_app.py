@@ -124,9 +124,9 @@ with st.expander('Импорт данных', expanded=True):
         #   scaled_data = scaler.fit_transform(df)
         #   df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
-          df_state = True
+        df_state = True
           # toggle()
-          df
+        df
           
 
   else:
