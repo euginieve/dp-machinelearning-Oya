@@ -83,20 +83,20 @@ with st.expander('Импорт данных', expanded=True):
 
         df.dropna(axis=1, how='all', inplace=True)
 
-        # if null_transform == "Удалять строки, содержащие пустые значения":
-        #   df.dropna(axis=0, how="any", inplace=True)
-        # else: 
-        #   df_filled = df.copy()
-        #   for column in df_filled.columns:
-        #       if df_filled[column].isnull().any():
-        #           if pd.api.types.is_numeric_dtype(df_filled[column]):
-        #               mean_value = df_filled[column].mean()
-        #               df_filled[column].fillna(mean_value, inplace=True)
-        #           else:
-        #               mode_value = df_filled[column].mode()
-        #               if not mode_value.empty:
-        #                   df_filled[column].fillna(mode_value[0], inplace=True)
-        #   df = df_filled
+        if null_transform == "Удалять строки, содержащие пустые значения":
+          df.dropna(axis=0, how="any", inplace=True)
+        else: 
+          df_filled = df.copy()
+          for column in df_filled.columns:
+              if df_filled[column].isnull().any():
+                  if pd.api.types.is_numeric_dtype(df_filled[column]):
+                      mean_value = df_filled[column].mean()
+                      df_filled[column].fillna(mean_value, inplace=True)
+                  else:
+                      mode_value = df_filled[column].mode()
+                      if not mode_value.empty:
+                          df_filled[column].fillna(mode_value[0], inplace=True)
+          df = df_filled
           
         # columns_to_encode = []    
         # for column in df.columns:
