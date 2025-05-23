@@ -275,7 +275,7 @@ with st.expander('Иерархическая кластеризация'):
   else:
     st.write('Загрузите файл и проведите предобработку загруженных данных во вкладке "Импорт и предобработка данных"')
 
-with st.expander('Метод DBSCAN'):  
+with st.expander('Кластеризация методом DBSCAN'):  
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
