@@ -183,7 +183,7 @@ with st.expander('Кластеризация методом k-means'):
         if k_means_df.shape[0]<=100:
           k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,k_means_df.shape[0]+1)], key="clusters_quan_k_plus_plus")
         else:
-          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_k_plus_plus")
+          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (2,100)], key="clusters_quan_k_plus_plus")
       
             
         def k_means_plus_plus(k_means_df, quan_of_clusters):
@@ -246,7 +246,6 @@ with st.expander('Иерархическая кластеризация'):
              
         if hierarchichal_df.shape[0]<=100:
           hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, hierarchichal_df.shape[0]+1)], key="clusters_quan_hierarchy")
-          # hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,hierarchichal_df.shape[0]+1)], )
         else:
           hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_hierarchy")
           
