@@ -245,9 +245,9 @@ with st.expander('Иерархическая кластеризация'):
             hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
              
         if hierarchichal_df.shape[0]<=100:
-          hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, hierarchichal_df.shape[0]+1)], key="clusters_quan_hierarchy")
+          hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(2, hierarchichal_df.shape[0]+1)], key="clusters_quan_hierarchy")
         else:
-          hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,100)], key="clusters_quan_hierarchy")
+          hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (2,100)], key="clusters_quan_hierarchy")
           
         def hierarchy_clusterisation(hierarchichal_df, quan_of_clusters):
           model = AgglomerativeClustering(quan_of_clusters)
@@ -264,7 +264,6 @@ with st.expander('Иерархическая кластеризация'):
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
               st.session_state["current_hierarchichal_df"].to_excel(writer, sheet_name='hierarchy')
           
-              # Close the Pandas Excel writer and output the Excel file to the buffer
               writer.close()
           
               st.download_button(
