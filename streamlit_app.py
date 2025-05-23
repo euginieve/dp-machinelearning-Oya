@@ -131,7 +131,6 @@ with st.expander('Импорт и предобработка данных'):
           df = pd.DataFrame(scaled_data, columns=list(df.columns))
   
         df_state = True
-          # toggle()
         df
           
 
