@@ -20,7 +20,7 @@ import math
 from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
-st.title('💻 Кластеризация на основе файлов эксель uuu')
+st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
 st.info("Это веб-приложение для кластеризации ваших данных, хранящихся в эксель-файлах")
 
@@ -282,7 +282,6 @@ with st.expander('Метод DBSCAN'):
     if df_state:
       if df.shape[0]>=3:
         dbscan_df = df
-        st.write("luala")
   
         eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
         min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
