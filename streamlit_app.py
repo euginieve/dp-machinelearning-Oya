@@ -21,7 +21,7 @@ from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 import category_encoders as ce
 
-st.title('💻 Кластеризация на основе данных из эксель-файлов лалалаааа')
+st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
 st.info('Веб-приложение для кластеризации данных, хранящихся в эксель-файлах')
 
@@ -180,10 +180,10 @@ with st.expander('Кластеризация методом k-means'):
             # elbow_method_button = st.button("Построить график локтя", on_click=elbow_method_button_on_click())
             elbow_method(k_means_df, clusters_quan_elbow_method)
   
-        if k_means_df.shape[0]<=100:
-          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,k_means_df.shape[0]+1)], key="clusters_quan_k_plus_plus")
-        else:
-          k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (2,100)], key="clusters_quan_k_plus_plus")
+        # if k_means_df.shape[0]<=100:
+        k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (2,k_means_df.shape[0]+1)], key="clusters_quan_k_plus_plus")
+        # else:
+          # k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (2,100)], key="clusters_quan_k_plus_plus")
       
             
         def k_means_plus_plus(k_means_df, quan_of_clusters):
