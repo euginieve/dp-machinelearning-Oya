@@ -19,7 +19,7 @@ from scipy.spatial.distance import cdist
 import math
 from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
-from sklearn import category_encoders as ce
+import category_encoders as ce
 
 st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
