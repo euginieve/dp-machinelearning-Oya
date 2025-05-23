@@ -143,7 +143,7 @@ with st.expander('Кластеризация методом k-means'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        k_means_df = df
+        k_means_df = df.copy()
         elbow_method_need = st.selectbox("Требуется ли построить график локтя для лучшего представления о необходимом количестве кластеров?", ("Нет", "Да"), key="elbow_method_need_box")
         
         if elbow_method_need=="Да":
@@ -220,7 +220,7 @@ with st.expander('Иерархическая кластеризация'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        hierarchichal_df = df
+        hierarchichal_df = df.copy()
   
         def hierarchy_dendrogram(hierarchichal_df, level=31):
           linkage_matrix = hierarchy.linkage(hierarchichal_df.values, method="ward")
@@ -285,7 +285,7 @@ with st.expander('Кластеризация методом DBSCAN'):
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
-        dbscan_df = df
+        dbscan_df = df.copy()
   
         eps_to_use = st.number_input("Выберите параметр эпсилон", value=0.01)
         min_samples_to_use = st.selectbox("Выберите параметр min_samples", [i for i in range(len(df)+1)])
