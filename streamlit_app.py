@@ -130,9 +130,6 @@ with st.expander('Импорт и предобработка данных'):
         df
           
 
-  else:
-    st.write('Загрузите файл во вкладке "Импорт данных"')
-
 with st.expander('Кластеризация методом k-means++'):  
   if unploaded_file:
     if df_state:
