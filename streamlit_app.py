@@ -18,7 +18,8 @@ from scipy.spatial import ConvexHull
 from scipy.spatial.distance import cdist
 import math
 from typing import List, Tuple
-from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, BinaryEncoder
+from sklearn import category_encoders as ce
 
 st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
@@ -47,7 +48,7 @@ with st.expander('Импорт и предобработка данных'):
                                                                                            "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных",
                                                                                            "Заменять пустые значения на моду в колонке для численных и категориальных переменных"))
 
-    categorial_to_numerical = st.selectbox("Выберите вариант преобразования категориальных переменных в численные", ("OrdinalEncoder", "OneHotEncoder"))
+    categorial_to_numerical = st.selectbox("Выберите вариант преобразования категориальных переменных в численные", ("OrdinalEncoder", "OneHotEncoder", "BinaryEncoder"))
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
@@ -112,10 +113,14 @@ with st.expander('Импорт и предобработка данных'):
         if categorial_to_numerical == "OrdinalEncoder":
           encoder = OrdinalEncoder()
           df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
-        else:
+        elif categorial_to_numerical == "OneHotEncoder":
           ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
           ohetransform = ohe.fit_transform(df[columns_to_encode])
           df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
+        else:
+          be = ce.BinaryEncoder(cols=columns_to_encode, return_df=True)
+          be_transform = be.fit_transform(df)
+          df = be_transform
 
         
       
@@ -171,9 +176,6 @@ with st.expander('Кластеризация методом k-means'):
           if clusters_quan_elbow_method!="Не выбрано":
             # elbow_method_button = st.button("Построить график локтя", on_click=elbow_method_button_on_click())
             elbow_method(k_means_df, clusters_quan_elbow_method)
-  
-            # if elbow_method_button:
-            #   elbow_method(k_means_df, clusters_quan_elbow_method)
   
         if k_means_df.shape[0]<=100:
           k_means_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range (3,k_means_df.shape[0]+1)], key="clusters_quan_k_plus_plus")
