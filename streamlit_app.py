@@ -67,7 +67,7 @@ with st.expander('Импорт и предобработка данных'):
     
     if st.session_state.preparation_state_button_clicked:
       if col_index_change == "В датасете нет колонки для индекса":
-        df = pd.read_excel(unploaded_file)
+        df = pd.read_excel(unploaded_file, index_col=None)
       else:
         df = pd.read_excel(unploaded_file, index_col = 0)
 
