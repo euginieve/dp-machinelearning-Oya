@@ -8,3 +8,4 @@ xlsxwriter
 seaborn
 scipy
 typing
+category_encoders
