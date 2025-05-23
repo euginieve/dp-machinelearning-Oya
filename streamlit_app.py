@@ -21,7 +21,7 @@ from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 import category_encoders as ce
 
-st.title('💻 Кластеризация на основе данных из эксель-файлов ff')
+st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
 st.info('Веб-приложение для кластеризации данных, хранящихся в эксель-файлах')
 
@@ -67,7 +67,7 @@ with st.expander('Импорт и предобработка данных'):
     
     if st.session_state.preparation_state_button_clicked:
       if col_index_change == "В датасете нет колонки для индекса":
-        df = pd.read_excel(unploaded_file, index_col=None)
+        df = unploaded_file_df.copy()
       else:
         df = pd.read_excel(unploaded_file, index_col = 0)
 
