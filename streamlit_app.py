@@ -115,7 +115,7 @@ with st.expander('Импорт и предобработка данных'):
         df
           
 
-with st.expander('Кластеризация методом k-means++'):  
+with st.expander('Кластеризация методом k-means'):  
   if unploaded_file:
     if df_state:
       if df.shape[0]>=3:
