@@ -42,7 +42,10 @@ with st.expander('Импорт и предобработка данных'):
     st.header("Введите параметры подготовки данных")
     col_index_change = st.selectbox("Выберите вариант индексирования", ("В датасете нет колонки для индекса", "Индексом датасета является первый столбец"))
 
-    null_transform = st.selectbox("Выберите вариант обработки пустых значений переменных", ("Удалять строки, содержащие пустые значения", "Заменять пустые значения на среднее для численных и моду для категориальных переменных в колонке"))
+    null_transform = st.selectbox("Выберите вариант обработки пустых значений переменных", ("Удалять строки, содержащие пустые значения", 
+                                                                                            "Заменять пустые значения на среднее в колонке для численных и моду в колонке для категориальных переменных",
+                                                                                           "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных",
+                                                                                           "Заменять пустые значения на моду в колонке для численных и категориальных переменных"))
 
     categorial_to_numerical = st.selectbox("Выберите вариант преобразования категориальных переменных в численные", ("OrdinalEncoder", "OneHotEncoder"))
 
@@ -69,7 +72,7 @@ with st.expander('Импорт и предобработка данных'):
 
         if null_transform == "Удалять строки, содержащие пустые значения":
           df.dropna(axis=0, how="any", inplace=True)
-        else: 
+        else if null_transform == "Заменять пустые значения на среднее в колонке для численных и моду в колонке для категориальных переменных": 
           df_filled = df.copy()
           for column in df_filled.columns:
               if df_filled[column].isnull().any():
@@ -80,6 +83,25 @@ with st.expander('Импорт и предобработка данных'):
                       mode_value = df_filled[column].mode()
                       if not mode_value.empty:
                           df_filled[column].fillna(mode_value[0], inplace=True)
+          df = df_filled
+        else if null_transform == "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных":
+          df_filled = df.copy()
+          for column in df_filled.columns:
+              if df_filled[column].isnull().any():
+                  if pd.api.types.is_numeric_dtype(df_filled[column]):
+                      median_value = df_filled[column].median()
+                      df_filled[column].fillna(median_value, inplace=True)
+                  else:
+                      mode_value = df_filled[column].mode()
+                      if not mode_value.empty:
+                          df_filled[column].fillna(mode_value[0], inplace=True)
+          df = df_filled
+        else:
+          df_filled = df.copy()
+          for column in df_filled.columns:
+             mode_value = df_filled[column].mode()
+             if not mode_value.empty:
+                df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
           
         columns_to_encode = []    
