@@ -69,7 +69,8 @@ with st.expander('Импорт и предобработка данных'):
         if col_index_change == "В датасете нет колонки для индекса":
           df = unploaded_file_df.copy()
         else:
-          df = pd.read_excel(unploaded_file, index_col = 0)
+          # df = pd.read_excel(unploaded_file, index_col = 0)
+          df = unploaded_file_df.copy()
 
         df.dropna(axis=1, how='all', inplace=True)
 
