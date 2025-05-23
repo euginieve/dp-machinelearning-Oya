@@ -237,9 +237,9 @@ with st.expander('Иерархическая кластеризация'):
         
         if dendrogram_need=="Да":
           if hierarchichal_df.shape[0]<=100:
-            dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,hierarchichal_df.shape[0]+1)])
+            dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (2,hierarchichal_df.shape[0]+1)])
           else:
-            dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (3,100)])
+            dendrogram_level = st.selectbox("Выберите уровень глубины дендрограммы",["Не выбрано"]+[i for i in range (2,100)])
             
           if dendrogram_level!="Не выбрано":
             hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
@@ -312,7 +312,6 @@ with st.expander('Кластеризация методом DBSCAN'):
           
           
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-                # Write each dataframe to a different worksheet.
               if "current_dbscan_df" in st.session_state:
                   st.session_state["current_dbscan_df"].to_excel(writer, sheet_name='dbscan')
               
