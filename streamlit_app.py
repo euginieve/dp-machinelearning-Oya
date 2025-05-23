@@ -36,8 +36,6 @@ with st.expander('Импорт и предобработка данных'):
   def df_state_button_click():
     if st.session_state.button:
         df = pd.read_excel(unploaded_file)
-      # else:
-      #     st.session_state.button = True
   
   if unploaded_file:
    
