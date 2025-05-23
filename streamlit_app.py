@@ -238,8 +238,7 @@ with st.expander('Иерархическая кластеризация'):
             hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
             
           if dendrogram_level!="Не выбрано":
-            hierarchy_dendrogram_button = st.button("Построить дендрограмму", on_click=hierarchy_dendrogram_button_on_click())
-            # hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
+            hierarchy_dendrogram(hierarchichal_df, int(dendrogram_level))
              
         if hierarchichal_df.shape[0]<=100:
           hierarchy_cluster_quan = st.selectbox("Укажите количество кластеров",["Не выбрано"]+[i for i in range(3, hierarchichal_df.shape[0]+1)], key="clusters_quan_hierarchy")
