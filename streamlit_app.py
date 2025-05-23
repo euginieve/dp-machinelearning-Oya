@@ -21,7 +21,7 @@ from typing import List, Tuple
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 import category_encoders as ce
 
-st.title('💻 Кластеризация на основе данных из эксель-файлов ff')
+st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
 st.info('Веб-приложение для кластеризации данных, хранящихся в эксель-файлах')
 
@@ -29,10 +29,7 @@ with st.expander('Импорт и предобработка данных'):
   st.write("Перед импортом убедитесь, пожалуйста, что Ваши данные представляют собой структурированную таблицу, а не просто набор данных. В противном случае это приведёт к неправильной работе программы.")
   
   unploaded_file = st.file_uploader(label="Загрузите свой файл")
-  if 'preparation_state_button_clicked' not in st.session_state:
-      st.session_state.preparation_state_button_clicked = False
-  else:
-      st.session_state.preparation_state_button_clicked = False
+
   df_state = False
   if unploaded_file:
     unploaded_file_df = pd.read_excel(unploaded_file)
@@ -58,7 +55,8 @@ with st.expander('Импорт и предобработка данных'):
 
     scaler_method = st.selectbox("Выберите вариант нормализации данных", ("Не производить нормализацию", "Стандартизация (StandartScaler)", "Масштабирование с помощью MinMaxScaler", "Масштабирование с помощью RobustScaler"))
 
-
+    if 'preparation_state_button_clicked' not in st.session_state:
+      st.session_state.preparation_state_button_clicked = False
 
     def preparation_state_button_on_click():
         st.session_state.preparation_state_button_clicked = True
