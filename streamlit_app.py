@@ -207,7 +207,7 @@ with st.expander('Кластеризация методом k-means'):
               writer.close()
           
               st.download_button(
-                  label="Загрузить датафрейм в эксель-файл",
+                  label="Загрузить итоговый датасет в эксель-файл",
                   data=buffer,
                   file_name="dataframe_k_means_algorithm.xlsx",
                   mime="application/vnd.ms-excel"
@@ -262,14 +262,13 @@ with st.expander('Иерархическая кластеризация'):
           buffer = io.BytesIO()
           
           with pd.ExcelWriter(buffer, engine='xlsxwriter') as writer:
-              # Write each dataframe to a different worksheet.
               st.session_state["current_hierarchichal_df"].to_excel(writer, sheet_name='hierarchy')
           
               # Close the Pandas Excel writer and output the Excel file to the buffer
               writer.close()
           
               st.download_button(
-                  label="Загрузить датафрейм в эксель-файл",
+                  label="Загрузить итоговый датасет в эксель-файл",
                   data=buffer,
                   file_name="dataframe_hierarchy_algorithm.xlsx",
                   mime="application/vnd.ms-excel"
@@ -321,7 +320,7 @@ with st.expander('Кластеризация методом DBSCAN'):
                   writer.close()
               
                   st.download_button(
-                      label="Загрузить датафрейм в эксель-файл",
+                      label="Загрузить итоговый датасет в эксель-файл",
                       data=buffer,
                       file_name="dataframe_hierarchy_algorithm.xlsx",
                       mime="application/vnd.ms-excel",
