@@ -72,7 +72,7 @@ with st.expander('Импорт и предобработка данных'):
 
         if null_transform == "Удалять строки, содержащие пустые значения":
           df.dropna(axis=0, how="any", inplace=True)
-        else if null_transform == "Заменять пустые значения на среднее в колонке для численных и моду в колонке для категориальных переменных": 
+        elif null_transform == "Заменять пустые значения на среднее в колонке для численных и моду в колонке для категориальных переменных": 
           df_filled = df.copy()
           for column in df_filled.columns:
               if df_filled[column].isnull().any():
@@ -84,7 +84,7 @@ with st.expander('Импорт и предобработка данных'):
                       if not mode_value.empty:
                           df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
-        else if null_transform == "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных":
+        elif null_transform == "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных":
           df_filled = df.copy()
           for column in df_filled.columns:
               if df_filled[column].isnull().any():
