@@ -1,25 +1,23 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import matplotlib.pyplot as plt
+import io
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import RobustScaler
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
-from matplotlib.ticker import MaxNLocator
-import io
 from sklearn.preprocessing import MinMaxScaler
-import seaborn as sns
+from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram
 from scipy.cluster import hierarchy
-import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
-import numpy as np
-from scipy.spatial import ConvexHull
-from scipy.spatial.distance import cdist
-import math
-from typing import List, Tuple
+from matplotlib.ticker import MaxNLocator
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 import category_encoders as ce
+from scipy.spatial.distance import cdist
+from typing import List, Tuple
 
 st.title('💻 Кластеризация на основе данных из эксель-файлов')
 
@@ -37,9 +35,7 @@ with st.expander('Импорт и предобработка данных'):
 
   def df_state_button_click():
     if st.session_state.button:
-        df = pd.read_excel(unploaded_file)
-
-  
+        df = pd.read_excel(unploaded_file)  
   
   if unploaded_file:
    
