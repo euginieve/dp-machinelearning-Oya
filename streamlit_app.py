@@ -5,14 +5,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.pyplot as plt
 import io
-from sklearn.preprocessing import StandardScaler
-from sklearn.preprocessing import RobustScaler
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.cluster import KMeans
-from sklearn.cluster import AgglomerativeClustering
+from sklearn.preprocessing import StandardScaler, RobustScaler, MinMaxScaler
+from sklearn.cluster import KMeans, AgglomerativeClustering, DBSCAN
 from scipy.cluster.hierarchy import dendrogram
 from scipy.cluster import hierarchy
-from sklearn.cluster import DBSCAN
 from matplotlib.ticker import MaxNLocator
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 import category_encoders as ce
