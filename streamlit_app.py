@@ -61,41 +61,41 @@ with st.expander('Импорт и предобработка данных'):
           df = pd.read_excel(unploaded_file, index_col = 0)
           # df = unploaded_file_df.copy()
 
-        # df.dropna(axis=1, how='all', inplace=True)
+        df.dropna(axis=1, how='all', inplace=True)
 
-        # if null_transform == "Удалять строки, содержащие пустые значения":
-        #   df.dropna(axis=0, how="any", inplace=True)
-        # elif null_transform == "Заменять пустые значения на среднее в колонке для численных и моду в колонке для категориальных переменных": 
-        #   df_filled = df.copy()
-        #   for column in df_filled.columns:
-        #       if df_filled[column].isnull().any():
-        #           if pd.api.types.is_numeric_dtype(df_filled[column]):
-        #               mean_value = df_filled[column].mean()
-        #               df_filled[column].fillna(mean_value, inplace=True)
-        #           else:
-        #               mode_value = df_filled[column].mode()
-        #               if not mode_value.empty:
-        #                   df_filled[column].fillna(mode_value[0], inplace=True)
-        #   df = df_filled
-        # elif null_transform == "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных":
-        #   df_filled = df.copy()
-        #   for column in df_filled.columns:
-        #       if df_filled[column].isnull().any():
-        #           if pd.api.types.is_numeric_dtype(df_filled[column]):
-        #               median_value = df_filled[column].median()
-        #               df_filled[column].fillna(median_value, inplace=True)
-        #           else:
-        #               mode_value = df_filled[column].mode()
-        #               if not mode_value.empty:
-        #                   df_filled[column].fillna(mode_value[0], inplace=True)
-        #   df = df_filled
-        # else:
-        #   df_filled = df.copy()
-        #   for column in df_filled.columns:
-        #      mode_value = df_filled[column].mode()
-        #      if not mode_value.empty:
-        #         df_filled[column].fillna(mode_value[0], inplace=True)
-        #   df = df_filled
+        if null_transform == "Удалять строки, содержащие пустые значения":
+          df.dropna(axis=0, how="any", inplace=True)
+        elif null_transform == "Заменять пустые значения на среднее в колонке для численных и моду в колонке для категориальных переменных": 
+          df_filled = df.copy()
+          for column in df_filled.columns:
+              if df_filled[column].isnull().any():
+                  if pd.api.types.is_numeric_dtype(df_filled[column]):
+                      mean_value = df_filled[column].mean()
+                      df_filled[column].fillna(mean_value, inplace=True)
+                  else:
+                      mode_value = df_filled[column].mode()
+                      if not mode_value.empty:
+                          df_filled[column].fillna(mode_value[0], inplace=True)
+          df = df_filled
+        elif null_transform == "Заменять пустые значения на медиану в колонке для численных и моду в колонке для категориальных переменных":
+          df_filled = df.copy()
+          for column in df_filled.columns:
+              if df_filled[column].isnull().any():
+                  if pd.api.types.is_numeric_dtype(df_filled[column]):
+                      median_value = df_filled[column].median()
+                      df_filled[column].fillna(median_value, inplace=True)
+                  else:
+                      mode_value = df_filled[column].mode()
+                      if not mode_value.empty:
+                          df_filled[column].fillna(mode_value[0], inplace=True)
+          df = df_filled
+        else:
+          df_filled = df.copy()
+          for column in df_filled.columns:
+             mode_value = df_filled[column].mode()
+             if not mode_value.empty:
+                df_filled[column].fillna(mode_value[0], inplace=True)
+          df = df_filled
           
         # columns_to_encode = []    
         # for column in df.columns:
