@@ -97,22 +97,22 @@ with st.expander('Импорт и предобработка данных'):
                 df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
           
-        # columns_to_encode = []    
-        # for column in df.columns:
-        #   if not pd.api.types.is_numeric_dtype(df[column]):
-        #     columns_to_encode.append(column)
+        columns_to_encode = []    
+        for column in df.columns:
+          if not pd.api.types.is_numeric_dtype(df[column]):
+            columns_to_encode.append(column)
 
-        # if categorial_to_numerical == "OrdinalEncoder":
-        #   encoder = OrdinalEncoder()
-        #   df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
-        # elif categorial_to_numerical == "OneHotEncoder":
-        #   ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
-        #   ohetransform = ohe.fit_transform(df[columns_to_encode])
-        #   df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
-        # else:
-        #   be = ce.BinaryEncoder(cols=columns_to_encode, return_df=True)
-        #   be_transform = be.fit_transform(df)
-        #   df = be_transform
+        if categorial_to_numerical == "OrdinalEncoder":
+          encoder = OrdinalEncoder()
+          df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
+        elif categorial_to_numerical == "OneHotEncoder":
+          ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
+          ohetransform = ohe.fit_transform(df[columns_to_encode])
+          df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
+        else:
+          be = ce.BinaryEncoder(cols=columns_to_encode, return_df=True)
+          be_transform = be.fit_transform(df)
+          df = be_transform
 
         
       
