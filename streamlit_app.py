@@ -125,8 +125,8 @@ with st.expander('Импорт и предобработка данных'):
             scaler = RobustScaler()
           # df = scaler.fit_transform(df)
           scaled_data = scaler.fit_transform(df)
-          # df = pd.DataFrame(scaled_data, columns=list(df.columns), index=df.index.to_list())
-          df = scaled_data
+          df = pd.DataFrame(scaled_data, columns=list(df.columns), index=df.index.to_list())
+          # df = scaled_data
         df_state = True
         df
           
