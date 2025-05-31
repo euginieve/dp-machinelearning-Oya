@@ -185,8 +185,8 @@ with st.expander('Импорт и предобработка данных'):
               scaled_data = scaler.fit_transform(df)
               df = pd.DataFrame(scaled_data, columns=list(df.columns), index=df.index.to_list())
               # df = scaled_data
-            df_state = True
-            df
+        df_state = True
+        df
           
 
 with st.expander('Кластеризация методом k-means'):  
