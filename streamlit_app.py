@@ -104,35 +104,35 @@ with st.expander('Импорт и предобработка данных'):
         # for column in df.columns:
         #   if not pd.api.types.is_numeric_dtype(df[column]):
         #     columns_to_encode.append(column)
-      numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
-      categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
-      
-      # 2. Обязательно приводим все категориальные признаки к строковому типу
-      df[categorical_cols] = df[categorical_cols].astype(str)
-      
-      # 3. Построим трансформеры
-      numeric_transformer = Pipeline(steps=[
-          ('imputer', SimpleImputer(strategy='median')),
-          ('scaler', StandardScaler())
-      ])
-      
-      categorical_transformer = Pipeline(steps=[
-          ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),  # если есть пропуски
-          ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False))
-      ])
-      
-      # 4. Объединяем всё в ColumnTransformer
-      preprocessor = ColumnTransformer(transformers=[
-          ('num', numeric_transformer, numeric_cols),
-          ('cat', categorical_transformer, categorical_cols)
-      ])
-      
-      # 5. Применяем трансформер к данным
-      df = preprocessor.fit_transform(df)
-      columns_to_encode = []    
-      for column in df.columns:
-          if not pd.api.types.is_numeric_dtype(df[column]):
-            columns_to_encode.append(column)
+        numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+        categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
+        
+        # 2. Обязательно приводим все категориальные признаки к строковому типу
+        df[categorical_cols] = df[categorical_cols].astype(str)
+        
+        # 3. Построим трансформеры
+        numeric_transformer = Pipeline(steps=[
+            ('imputer', SimpleImputer(strategy='median')),
+            ('scaler', StandardScaler())
+        ])
+        
+        categorical_transformer = Pipeline(steps=[
+            ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),  # если есть пропуски
+            ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False))
+        ])
+        
+        # 4. Объединяем всё в ColumnTransformer
+        preprocessor = ColumnTransformer(transformers=[
+            ('num', numeric_transformer, numeric_cols),
+            ('cat', categorical_transformer, categorical_cols)
+        ])
+        
+        # 5. Применяем трансформер к данным
+        df = preprocessor.fit_transform(df)
+        columns_to_encode = []    
+        for column in df.columns:
+            if not pd.api.types.is_numeric_dtype(df[column]):
+              columns_to_encode.append(column)
 
         if categorial_to_numerical == "OrdinalEncoder":
           encoder = OrdinalEncoder()
