@@ -99,52 +99,6 @@ with st.expander('Импорт и предобработка данных'):
              if not mode_value.empty:
                 df_filled[column].fillna(mode_value[0], inplace=True)
           df = df_filled
-          
-        # columns_to_encode = []    
-        # for column in df.columns:
-        #   if not pd.api.types.is_numeric_dtype(df[column]):
-        #     columns_to_encode.append(column)
-        # numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns.tolist()
-        # categorical_cols = df.select_dtypes(include=['object', 'category']).columns.tolist()
-        
-        # # 2. Обязательно приводим все категориальные признаки к строковому типу
-        # df[categorical_cols] = df[categorical_cols].astype(str)
-        
-        # # 3. Построим трансформеры
-        # numeric_transformer = Pipeline(steps=[
-        #     ('imputer', SimpleImputer(strategy='median')),
-        #     ('scaler', StandardScaler())
-        # ])
-        
-        # categorical_transformer = Pipeline(steps=[
-        #     ('imputer', SimpleImputer(strategy='constant', fill_value='missing')),  # если есть пропуски
-        #     ('encoder', OneHotEncoder(handle_unknown='ignore', sparse=False))
-        # ])
-        
-        # # 4. Объединяем всё в ColumnTransformer
-        # preprocessor = ColumnTransformer(transformers=[
-        #     ('num', numeric_transformer, numeric_cols),
-        #     ('cat', categorical_transformer, categorical_cols)
-        # ])
-        
-        # # 5. Применяем трансформер к данным
-        # df = preprocessor.fit_transform(df)
-        # columns_to_encode = []    
-        # for column in df.columns:
-        #     if not pd.api.types.is_numeric_dtype(df[column]):
-        #       columns_to_encode.append(column)
-
-        # if categorial_to_numerical == "OrdinalEncoder":
-        #   encoder = OrdinalEncoder()
-        #   df[columns_to_encode] = encoder.fit_transform(df[columns_to_encode])
-        # elif categorial_to_numerical == "OneHotEncoder":
-        #   ohe = OneHotEncoder(sparse_output=False).set_output(transform="pandas")
-        #   ohetransform = ohe.fit_transform(df[columns_to_encode])
-        #   df = pd.concat([df, ohetransform], axis=1).drop(columns=columns_to_encode)
-        # else:
-        #   be = ce.BinaryEncoder(cols=columns_to_encode, return_df=True)
-        #   be_transform = be.fit_transform(df)
-        #   df = be_transform
 
         def is_categorical(col):
         # Если тип object или category, и уникальных значений немного — вероятно, это категориальный признак
@@ -152,12 +106,9 @@ with st.expander('Импорт и предобработка данных'):
                   df[col].dtype == 'object' or df[col].dtype.name == 'category'
               ) and df[col].nunique() < 50
         
-        # Определяем признаки, которые следует закодировать
         columns_to_encode = [col for col in df.columns if is_categorical(col)]
         
-        # Если есть такие признаки — продолжаем
         if columns_to_encode:
-              # Приводим ТОЛЬКО категориальные признаки к строкам (чтобы не было смешанных типов)
               df[columns_to_encode] = df[columns_to_encode].astype(str)
           
               if categorial_to_numerical == "OrdinalEncoder":
@@ -379,10 +330,4 @@ with st.expander('Кластеризация методом DBSCAN'):
       st.write("Проведите предобработку загруженных данных")
   else:
     st.write('Загрузите файл и проведите предобработку загруженных данных во вкладке "Импорт и предобработка данных"')
-
-  
-
-    
-
-
 
